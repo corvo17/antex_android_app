@@ -14,6 +14,8 @@ public class ApiEndPoint {
 
     public static final String ENDPOINT_REQUEST = "/v1/request";
 
+    public static final String ENDPOINT_REQUEST_SYNCHRONISATION = "/sync";
+
     public static final String ENDPOINT_REQUEST_WORKSPACE_EMPLOYEE = "/workspaces/employee";
 
     public static final String ENDPOINT_REQUEST_WORKSPACE_RELATION = "/workspace/relations";

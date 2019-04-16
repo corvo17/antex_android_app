@@ -18,17 +18,17 @@ import uz.codic.ahmadtea.data.db.entities.Workspace;
 public class Synchronisation {
 
     List<Comment> comments;
-    List<Currencies> currencies;
-    List<Measurement> measurements;
-    List<Merchant> merchants;
-    List<Mmd> mmds;
+    List<ProductPrice> productPrices;
+    List<Stocks> workspaces_product_stocks;
+    List<Product> products;
     List<MmdType> mmdTypes;
     List<PaymentType> paymentTypes;
-    List<Price> prices;
-    List<Stocks> w_stocks;
     List<Workspace> workspaces;
-    List<Product> products;
-    List<ProductPrice> productPrices;
+    List<Merchant> merchants;
+    List<Mmd> mmds;
+    List<Price> prices;
+    List<Currencies> currencies;
+    List<Measurement> measurements;
 
     public Synchronisation() {
     }
@@ -97,12 +97,12 @@ public class Synchronisation {
         this.prices = prices;
     }
 
-    public List<Stocks> getW_stocks() {
-        return w_stocks;
+    public List<Stocks> getWorkspaces_product_stocks() {
+        return workspaces_product_stocks;
     }
 
-    public void setW_stocks(List<Stocks> w_stocks) {
-        this.w_stocks = w_stocks;
+    public void setWorkspaces_product_stocks(List<Stocks> workspaces_product_stocks) {
+        this.workspaces_product_stocks = workspaces_product_stocks;
     }
 
     public List<Workspace> getWorkspaces() {
@@ -140,7 +140,7 @@ public class Synchronisation {
                 ", mmdTypes=" + mmdTypes +
                 ", paymentTypes=" + paymentTypes +
                 ", prices=" + prices +
-                ", w_stocks=" + w_stocks +
+                ", w_stocks=" + workspaces_product_stocks +
                 ", workspaces=" + workspaces +
                 ", products=" + products +
                 ", productPrices=" + productPrices +

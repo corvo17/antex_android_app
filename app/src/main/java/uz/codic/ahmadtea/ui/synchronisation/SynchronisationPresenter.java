@@ -34,6 +34,7 @@ import uz.codic.ahmadtea.data.network.model.Payload;
 import uz.codic.ahmadtea.data.network.model.Send;
 import uz.codic.ahmadtea.data.network.model.SendResponse;
 import uz.codic.ahmadtea.data.network.model.Synchronisation;
+import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
 import uz.codic.ahmadtea.utils.Consts;
@@ -53,15 +54,17 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
         getDataManager().requestSynchronization(getDataManager().getToken())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<Synchronisation>() {
+                .subscribe(new SingleObserver<ApiObeject<Synchronisation>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(Synchronisation synchronisation) {
-                        nextStep(synchronisation);
+                    public void onSuccess(ApiObeject<Synchronisation> apiObeject) {
+                        if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
+                            nextStep(apiObeject.getPayload().get(0));
+                        }
                     }
 
                     @Override
@@ -69,6 +72,8 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
 
                     }
                 });
+
+        //nextStep(synchronisation);
     }
 
     private void nextStep(Synchronisation synchronisation) {
@@ -195,8 +200,8 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
         }
 
         //stocks
-        if (!synchronisation.getW_stocks().isEmpty()) {
-            for (Stocks stocks : synchronisation.getW_stocks()) {
+        if (!synchronisation.getWorkspaces_product_stocks().isEmpty()) {
+            for (Stocks stocks : synchronisation.getWorkspaces_product_stocks()) {
                 Stocks oldStocks = getDataManager().getStocks(stocks.getId());
                 if (oldStocks != null) {
                     stocks.setPid(oldStocks.getPid());
@@ -268,7 +273,7 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
                 && synchronisation.getMmdTypes().isEmpty()
                 && synchronisation.getPaymentTypes().isEmpty()
                 && synchronisation.getPrices().isEmpty()
-                && synchronisation.getW_stocks().isEmpty()
+                && synchronisation.getWorkspaces_product_stocks().isEmpty()
                 && synchronisation.getWorkspaces().isEmpty()
                 && synchronisation.getProducts().isEmpty()
                 && synchronisation.getProductPrices().isEmpty()) b = true;

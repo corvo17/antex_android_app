@@ -93,11 +93,8 @@ public interface ApiService {
     @POST(ApiEndPoint.ENDPOINT_LOCATION_INSERT)
     Call<LocationResponse> sendLocation(@Header("X-Authorization")String token, @Body List<EmployeeLocation> employeeLocations);
 
-    @Headers({
-            "Routing-Key:" + ApiEndPoint.ROUTING_KEY_SYNC
-    })
-    @POST(ApiEndPoint.ENDPOINT_REQUEST)
-    Single<Synchronisation> requestSynchronization(@Header("X-Authorization")String token);
+    @GET(ApiEndPoint.ENDPOINT_REQUEST_SYNCHRONISATION)
+    Single<ApiObeject<Synchronisation>> requestSynchronization(@Header("X-Authorization")String token);
 
     // new workspace relation
     @GET(ApiEndPoint.ENDPOINT_REQUEST_WORKSPACE_RELATION)

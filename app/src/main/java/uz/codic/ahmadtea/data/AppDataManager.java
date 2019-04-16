@@ -225,7 +225,7 @@ public class AppDataManager implements DataManager {
 
     // request Synchronisation
     @Override
-    public Single<Synchronisation> requestSynchronization(String token) {
+    public Single<ApiObeject<Synchronisation>> requestSynchronization(String token) {
         return apiService.requestSynchronization(token);
     }
 
