@@ -2,10 +2,10 @@ package uz.codic.ahmadtea.data.network.model.api_objects;
 
 import java.util.List;
 
-public class ApiObeject {
+public class ApiObeject<T> {
 
     Meta meta;
-    List<Payload> payload;
+    List<T> payload;
 
     public ApiObeject() {
     }
@@ -18,11 +18,11 @@ public class ApiObeject {
         this.meta = meta;
     }
 
-    public List<Payload> getPayload() {
+    public List<T> getPayload() {
         return payload;
     }
 
-    public void setPayload(List<Payload> payload) {
+    public void setPayload(List<T> payload) {
         this.payload = payload;
     }
 

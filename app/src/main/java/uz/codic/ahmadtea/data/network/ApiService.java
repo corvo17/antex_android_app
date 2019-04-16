@@ -36,6 +36,7 @@ import uz.codic.ahmadtea.data.network.model.Synchronisation;
 import uz.codic.ahmadtea.data.network.model.Token;
 import uz.codic.ahmadtea.data.network.model.WorkspaceRelations;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
+import uz.codic.ahmadtea.data.network.model.api_objects.Payload;
 
 public interface ApiService {
 
@@ -57,12 +58,8 @@ public interface ApiService {
     @POST(ApiEndPoint.ENDPOINT_REQUEST)
     Single<ObjectsForEmployee> requestWorkspace(@Header("X-Authorization")String token, @Body Message message);
 
-//    //List all merchants
-//    @Headers({
-//            "Routing-Key: list.all.shared.objects"
-//    })
     @GET(ApiEndPoint.ENDPOINT_GET_SHADER_OBJECT)
-    Single<ApiObeject> requestAllSharedObjects(@Header("X-Authorization")String token);
+    Single<ApiObeject<Payload>> requestAllSharedObjects(@Header("X-Authorization")String token);
 
 
     //Send Request
@@ -104,12 +101,9 @@ public interface ApiService {
     @POST(ApiEndPoint.ENDPOINT_REQUEST)
     Single<Synchronisation> requestSynchronization(@Header("X-Authorization")String token);
 
-    //get Workspace relations
-    @Headers({
-            "Routing-Key:" + ApiEndPoint.ENDPOINT_KEY_WORKSPACE_RELATIONS
-    })
-    @POST(ApiEndPoint.ENDPOINT_REQUEST)
-    Single<WorkspaceRelations> requestGetWorkspaceRelations(@Header("X-Authorization")String token);
+    // new workspace relation
+    @GET(ApiEndPoint.ENDPOINT_REQUEST_WORKSPACE_RELATION)
+    Single<ApiObeject<WorkspaceRelations>> getWorkspaceRelations(@Header("X-Authorization")String token);
 
     // Send Request before Synchronisation
     @Headers({

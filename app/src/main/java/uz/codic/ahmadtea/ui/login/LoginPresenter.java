@@ -22,6 +22,7 @@ import uz.codic.ahmadtea.data.network.model.SharedObject;
 import uz.codic.ahmadtea.data.network.model.Token;
 import uz.codic.ahmadtea.data.network.model.WorkspaceRelations;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
+import uz.codic.ahmadtea.data.network.model.api_objects.Payload;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.utils.CommonUtils;
 import uz.codic.ahmadtea.utils.Consts;
@@ -188,9 +189,9 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                     getDataManager().requestAllSharedObjects("Bearer " + token)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
-                            .subscribeWith(new DisposableSingleObserver<ApiObeject>() {
+                            .subscribeWith(new DisposableSingleObserver<ApiObeject<Payload>>() {
                                 @Override
-                                public void onSuccess(ApiObeject apiObeject) {
+                                public void onSuccess(ApiObeject<Payload> apiObeject) {
                                     Log.d("baxtiyor", "onSuccess: " + apiObeject.getMeta().getStatus());
                                     if (apiObeject.getMeta().getStatus() == 200){
                                         getDataManager().insertComments(apiObeject.getPayload().get(0).getComments());
@@ -224,30 +225,34 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
     @Override
     public void onRequestGetWorkspaceRelations(String token) {
-        getDisposable().add(
-                getDataManager().requestGetWorkspaceRelations("Bearer " + token)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableSingleObserver<WorkspaceRelations>() {
-                            @Override
-                            public void onSuccess(WorkspaceRelations workspaceRelations) {
 
-                                getDataManager().insertWorkspaceMmd(workspaceRelations.getWorkspaces_mmds());
-                                getDataManager().insertWorkspacePrice(workspaceRelations.getWorkspaces_prices());
-                                getDataManager().insertWorkspace(workspaceRelations.getAll_workspaces());
-                                getDataManager().insertWorkspaceMerchant(workspaceRelations.getWorkspaces_merchants());
-                                getDataManager().insertWorkspacePaymentType(workspaceRelations.getWorkspaces_payment_types());
+        getDisposable().add(
+                getDataManager().getWorkspaceRelations("Bearer " + token)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeWith(new DisposableSingleObserver<ApiObeject<WorkspaceRelations>>() {
+                        @Override
+                        public void onSuccess(ApiObeject<WorkspaceRelations> apiObeject) {
+                            if (apiObeject.getMeta().getStatus() == 200) {
+                                getDataManager().insertWorkspaceMmd(apiObeject.getPayload().get(0).getWorkspaces_mmds());
+                                getDataManager().insertWorkspacePrice(apiObeject.getPayload().get(0).getWorkspaces_prices());
+                                getDataManager().insertWorkspace(apiObeject.getPayload().get(0).getAll_workspaces());
+                                getDataManager().insertWorkspaceMerchant(apiObeject.getPayload().get(0).getWorkspaces_merchants());
+                                getDataManager().insertWorkspacePaymentType(apiObeject.getPayload().get(0).getWorkspaces_payment_types());
                                 getMvpView().hideLoading();
                                 getMvpView().dontStay();
                             }
+                        }
 
-                            @Override
-                            public void onError(Throwable e) {
-                                getMvpView().showMessage(e.getMessage());
-                                getMvpView().hideLoading();
-                                getMvpView().showMessage(e.getMessage());
-                            }
-                        })
+                        @Override
+                        public void onError(Throwable e) {
+                            e.printStackTrace();
+                            Log.d("baxtiyor", "onError: " + e.getMessage());
+                            getMvpView().showMessage(e.getMessage());
+                            getMvpView().hideLoading();
+                            getMvpView().showMessage(e.getMessage());
+                        }
+                    })
         );
     }
 

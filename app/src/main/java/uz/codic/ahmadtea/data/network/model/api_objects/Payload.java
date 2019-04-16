@@ -13,8 +13,10 @@ import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.data.db.entities.Product;
 import uz.codic.ahmadtea.data.db.entities.ProductPrice;
 import uz.codic.ahmadtea.data.db.entities.Stocks;
+import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
 
 public class Payload {
+
 
     List<Comment> comments;
     List<MmdType> mmd_types;
@@ -27,6 +29,7 @@ public class Payload {
     List<Product> products;
     List<Measurement> measurements;
     List<Currencies> currencies;
+    List<WorkspaceMmd> workspaces_mmds;
 
     public Payload() {
     }

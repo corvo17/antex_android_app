@@ -14,6 +14,8 @@ public class ApiEndPoint {
 
     public static final String ENDPOINT_REQUEST = "/v1/request";
 
+    public static final String ENDPOINT_REQUEST_WORKSPACE_RELATION = "/workspace/relations";
+
     public static final String ENDPOINT_SEND = "/v1/order/send";
 
     public static final String ENDPOINT_GET_SHADER_OBJECT = "/reference/mobile_app";

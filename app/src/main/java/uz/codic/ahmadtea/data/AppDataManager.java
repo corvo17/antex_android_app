@@ -60,6 +60,7 @@ import uz.codic.ahmadtea.data.network.model.Synchronisation;
 import uz.codic.ahmadtea.data.network.model.Token;
 import uz.codic.ahmadtea.data.network.model.WorkspaceRelations;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
+import uz.codic.ahmadtea.data.network.model.api_objects.Payload;
 import uz.codic.ahmadtea.data.prefs.AppPrefHelper;
 import uz.codic.ahmadtea.data.prefs.PrefHelper;
 import uz.codic.ahmadtea.di.ApplicationContext;
@@ -193,7 +194,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<ApiObeject> requestAllSharedObjects(String token) {
+    public Single<ApiObeject<Payload>> requestAllSharedObjects(String token) {
         return apiService.requestAllSharedObjects(token);
     }
 
@@ -240,9 +241,10 @@ public class AppDataManager implements DataManager {
     }
 
     // request Get Workspace relations
+    
     @Override
-    public Single<WorkspaceRelations> requestGetWorkspaceRelations(String token) {
-        return apiService.requestGetWorkspaceRelations(token);
+    public Single<ApiObeject<WorkspaceRelations>> getWorkspaceRelations(String token) {
+        return apiService.getWorkspaceRelations(token);
     }
 
     @Override
