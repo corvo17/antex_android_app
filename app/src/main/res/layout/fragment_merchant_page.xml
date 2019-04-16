@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.visit.zakaz.MerchantPageFragment">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="4dp"
+        app:cardCornerRadius="4dp"
+        app:cardBackgroundColor="@color/backgroundWhitesh"
+        android:layout_margin="24dp"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:id="@+id/lnr_visit"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
+                >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/visit_tick"/>
+
+                <TextView
+                    android:layout_weight="9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Визит"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/textMainColor"
+                    android:layout_marginLeft="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnr_order"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginTop="12dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/visit_order"/>
+
+                <TextView
+                    android:layout_weight="9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Дистанционный заказ"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/textMainColor"
+                    android:layout_marginLeft="16dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/lnr_information"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp">
+
+                <ImageView
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/visit_info"/>
+
+                <TextView
+                    android:layout_weight="9"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Информация"
+                    android:textSize="18sp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="16dp"
+                    android:textColor="@color/textMainColor"
+                    android:layout_marginLeft="16dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+
+</FrameLayout>

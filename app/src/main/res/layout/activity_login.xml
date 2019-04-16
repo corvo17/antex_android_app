@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.LoginActivity">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/login_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/btn_back1"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:padding="12dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?android:attr/selectableItemBackground"
+                android:src="@drawable/ic_arrow_back"
+                android:onClick="onBtnBackClick"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="6dp"
+                android:text="Login"
+                android:textColor="@color/textMainColor"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_regular"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.Toolbar>
+
+    <View
+        android:id="@+id/toolbar_shadow"
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:layout_marginTop="1dp"
+        android:background="@drawable/toolbar_drop_shadow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/login_toolbar" />
+
+
+    <LinearLayout
+        android:id="@+id/login_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_toolbar">
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:cardBackgroundColor="@color/backgroundWhitesh"-->
+            <!--app:cardElevation="6dp"-->
+            <!--&gt;-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:background="@drawable/bg_form"
+                >
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_user_avatar"
+                    android:layout_marginLeft="12dp" />
+
+                <EditText
+                    android:id="@+id/edtxt_username"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="7"
+                    android:background="@android:color/transparent"
+                    android:hint="Login"
+                    android:inputType="text"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:cardBackgroundColor="@color/backgroundWhitesh"-->
+            <!--app:cardElevation="6dp"-->
+            <!--&gt;-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_form"
+                android:padding="8dp">
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:padding="4dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="12dp"
+                    android:src="@drawable/ic_lock"
+                    android:layout_marginLeft="12dp" />
+
+                <EditText
+                    android:id="@+id/edtxt_password"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="6"
+                    android:background="@android:color/transparent"
+                    android:hint="password"
+                    android:inputType="textPassword"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/btn_eye"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="4dp"
+                    android:onClick="onBtnEyeClick"
+                    android:src="@drawable/ic_eye_hidden_design_black_interface_symbol" />
+            </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lnl_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="8dp"
+            android:background="@drawable/bg_form"
+            >
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:layout_marginStart="12dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_code_black_24dp"
+                android:layout_marginLeft="12dp" />
+
+            <EditText
+                android:id="@+id/edtxt_code"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_weight="7"
+                android:background="@android:color/transparent"
+                android:hint="Code"
+                android:inputType="number"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <!--</android.support.v7.widget.CardView>-->
+
+        <!--<android.support.v7.widget.CardView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:cardBackgroundColor="@color/backgroundWhitesh"-->
+            <!--app:cardElevation="6dp"-->
+            <!--&gt;-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="horizontal"-->
+                <!--android:padding="8dp">-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:padding="4dp"-->
+                    <!--android:src="@drawable/ic_server" />-->
+
+                <!--<EditText-->
+                    <!--android:id="@+id/edtxt_server"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginStart="8dp"-->
+                    <!--android:layout_marginLeft="4dp"-->
+                    <!--android:layout_weight="7"-->
+                    <!--android:background="@android:color/transparent"-->
+                    <!--android:hint="server"-->
+                    <!--android:lines="1"-->
+                    <!--android:imeOptions="actionDone"-->
+                    <!--android:textSize="16sp" />-->
+            <!--</LinearLayout>-->
+        <!--</android.support.v7.widget.CardView>-->
+
+        <RelativeLayout
+            android:id="@+id/btn_add"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_add"
+            android:onClick="onBtnAddClick">
+
+            <TextView
+                android:id="@+id/txt_add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add"
+                android:gravity="center"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:paddingBottom="4dp"
+                />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_centerInParent="true"
+                android:paddingBottom="4dp"
+                android:visibility="gone"
+                />
+
+        </RelativeLayout>
+        <!--<Button-->
+            <!--android:id="@+id/btn_add"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_marginTop="12dp"-->
+            <!--android:background="@drawable/bg_add"-->
+            <!--android:layout_marginLeft="3dp"-->
+            <!--android:onClick="onBtnAddClick"-->
+            <!--android:text="Add"-->
+            <!--android:textColor="@color/white" />-->
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

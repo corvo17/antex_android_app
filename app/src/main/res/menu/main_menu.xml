@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/app_bar_search"
+        android:title="Search"
+        android:visible="false"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/app_bar_filter"
+        android:title="Filter"
+        android:icon="@drawable/ic_filter_white"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/app_bar_map"
+        android:title="Map"
+        android:icon="@drawable/ic_map_white_24dp"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/app_bar_calendar"
+        android:title="Calendar"
+        android:icon="@drawable/ic_date_range_white_24dp"
+        android:visible="false"
+        app:showAsAction="always"/>
+
+
+
+</menu>

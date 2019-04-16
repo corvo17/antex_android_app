@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/rate_dialog_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/roboto_medium"
+        android:text="Comments"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/rate_dialog_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="Cancel"
+            android:textAllCaps="true"
+            android:textColor="#162947"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/rate_dialog_ready"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:fontFamily="@font/roboto_medium"
+            android:text="OK"
+            android:textAllCaps="true"
+            android:textColor="#162947"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

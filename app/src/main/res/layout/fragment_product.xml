@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.visit.zakaz.product.ProductFragment">
+
+    <LinearLayout
+        android:id="@+id/product_lnr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/scu_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="8dp"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="SCU: "
+                    android:textColor="@color/textMainColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/product_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/scu_name"
+                    android:layout_toRightOf="@+id/scu_name"
+                    android:text="0"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/summa_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toEndOf="@+id/product_quantity"
+                    android:layout_toRightOf="@+id/product_quantity"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="Сумма: "
+                    android:textColor="@color/textMainColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/product_total_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_toStartOf="@+id/k_vo_name"
+                    android:layout_toLeftOf="@+id/k_vo_name"
+                    android:layout_toEndOf="@+id/summa_name"
+                    android:layout_toRightOf="@+id/summa_name"
+                    android:text="0"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/k_vo_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@+id/product_total_quantity"
+                    android:layout_toLeftOf="@+id/product_total_quantity"
+                    android:fontFamily="@font/roboto_bold"
+                    android:text="К-во: "
+                    android:textColor="@color/textMainColor"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/product_total_quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="16dp"
+                    android:text="0"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="цена"
+                android:textColor="@color/textMainColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2.5"
+                android:gravity="center"
+                android:text="остаток"
+                android:textColor="@color/textMainColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="к-во кор"
+                android:textAlignment="center"
+                android:textColor="@color/textMainColor" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:text="к-во шт"
+                android:textAlignment="center"
+                android:textColor="@color/textMainColor" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/order_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        android:scrollbarSize="16dp"
+        android:scrollbarStyle="outsideOverlay"
+        tools:listitem="@layout/item_product_list"
+        app:layout_constraintTop_toBottomOf="@id/product_lnr"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="4dp"
+        android:background="@drawable/toolbar_drop_shadow"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/product_lnr" />
+
+    <android.support.v7.widget.AppCompatImageButton
+        android:id="@+id/id_product_go_top"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/round_grey_image"
+        android:src="@drawable/go_to_top"
+        app:layout_constraintBottom_toBottomOf="@+id/order_recycler_view"
+        app:layout_constraintEnd_toEndOf="@+id/order_recycler_view"
+        app:layout_constraintStart_toStartOf="@+id/order_recycler_view" />
+
+</android.support.constraint.ConstraintLayout>

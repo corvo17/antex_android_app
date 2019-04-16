@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#9FA8DA</color>
+
+
+    <color name="info_200">#9FA8DA</color>
+    <color name="info_500">#3F51B5</color>
+    <color name="info_700">#303F9F</color>
+
+    <color name="danger_200">#EF9A9A</color>
+    <color name="danger_500">#F44336</color>
+    <color name="danger_700">#D32F2F</color>
+
+    <color name="warning_200">#FFE082</color>
+    <color name="warning_500">#FFC107</color>
+    <color name="warning_700">#FFA000</color>
+
+    <color name="success_200">#A5D6A7</color>
+    <color name="success_500">#4CAF50</color>
+    <color name="success_700">#388E3C</color>
+
+
+    <color name="neutral_200">#EEEEEE</color>
+    <color name="neutral_500">#9E9E9E</color>
+    <color name="neutral_700">#616161</color>
+
+    <color name="colorTransparent">@android:color/transparent</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="colorDark">#0d0c0c</color>
+
+    <color name="blue">#3A5BBC</color>
+    <!--Additional-->
+    <color name="backgroundWhitesh">#FCFDFE</color>
+    <color name="backgroundBluesh">#aac0dd</color>
+    <color name="blueSky">#c8d2da</color>
+    <color name="darkBlueSky">#528AC7</color>
+    <color name="blueSkyLight">#e8f0ff</color>
+    <color name="blueSkyBackground">#d6dbe4</color>
+    <color name="textColor1">#8f9298</color>
+
+    <color name="background">#f6f9f8</color>
+    <color name="textMainColor">#333333</color>
+    <color name="textPlainColor">#686868</color>
+    <color name="textLightColor">#B3B3B3</color>
+
+    <color name="darkPink">#cf315a</color>
+    <color name="red">#FF0000</color>
+    <color name="dark">#0D0D0D</color>
+
+
+    <color name="nav_title_color" tools:ignore="MissingDefaultResource">#0000de</color>
+    <color name="body2">#9b9b9b</color>
+
+
+</resources>

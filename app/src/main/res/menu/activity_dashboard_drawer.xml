@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_synch"
+            android:title="Synchronization" />
+        <item
+            android:id="@+id/nav_daily_plan"
+            android:title="Daily plan" />
+        <item
+            android:id="@+id/nav_merchants"
+            android:title="Merchants" />
+
+        <item
+            android:id="@+id/nav_new_merchants"
+            android:title="New Merchants"
+            android:visible="false"/>
+
+        <item
+            android:id="@+id/nav_orders"
+            android:title="Report" />
+
+        <item
+            android:id="@+id/test"
+            android:title="test"
+            />
+    </group>
+
+
+</menu>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">AntEx</string>
+    <string name="start_button">Start</string>
+    <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="google_maps_api_key">AIzaSyA_cGbDUzjE0FIghOmYqPRxZnkU-FhfyNY</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_merchants_map">Map</string>
+    <string name="permission_rationale">Please allow the permission</string>
+    <string name="permission_denied_explanation">Please allow the permission</string>
+    <string name="settings">settings</string>
+    <string name="search_hint">Search product</string>
+</resources>

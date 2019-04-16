@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="match_parent"
+android:layout_height="match_parent"
+xmlns:tools="http://schemas.android.com/tools"
+android:name="com.google.android.gms.maps.SupportMapFragment"
+tools:context=".ui.map.MerchantsMapActivity"
+xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+
+
+<fragment
+    android:id="@+id/map"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    />
+
+<LinearLayout
+    android:id="@+id/id_select_merchant_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:orientation="horizontal"
+    android:visibility="gone"
+    android:background="@color/colorPrimary"
+    >
+
+    <TextView
+        android:id="@+id/id_select_merchant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Select Merchant"
+        android:layout_weight="2"
+        />
+
+    <Button
+        android:id="@+id/id_select_merchant_zakas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="4"
+        android:text="Zakas" />
+
+</LinearLayout>
+
+    <android.support.v7.widget.AppCompatImageView
+        android:id="@+id/id_im_up_down"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone"
+        android:background="@color/white" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/id_recycler_view_merchants_map"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:layout_below="@+id/id_im_up_down"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>

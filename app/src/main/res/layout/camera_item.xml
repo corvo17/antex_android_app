@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="140dp"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.design.card.MaterialCardView
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#8F8080"
+        app:cardCornerRadius="10dp"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.joooonho.SelectableRoundedImageView
+                android:id="@+id/StoredImages"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/start_icon2"
+                android:scaleType="fitXY"
+                android:background="#C05050"
+                />
+            <TextView
+                android:id="@+id/titleImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:background="#AD000000"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:text="Hello World"
+                android:textColor="@android:color/white"
+                android:textAlignment="center"
+                />
+        </RelativeLayout>
+    </android.support.design.card.MaterialCardView>
+
+
+</RelativeLayout>
