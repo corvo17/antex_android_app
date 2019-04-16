@@ -32,8 +32,8 @@ public class ProductPresenter<V extends ProductMvpView> extends BasePresenter<V>
     }
 
     @Override
-    public void reqeustProductList(int priceId, int warehouseId) {
-        getDataManager().getProductsWithValue(priceId, warehouseId)
+    public void reqeustProductList(int priceId, String workspace_id) {
+        getDataManager().getProductsWithValue(priceId, workspace_id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<ProductAndProductPrice>>() {

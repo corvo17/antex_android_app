@@ -307,8 +307,8 @@ public interface DaoAccess {
 //    Single<List<String>> getAttachedWorkspaces(String id);
 
 
-    @Query("SELECT Product.*, ProductPrice.value as pp_value, Stocks.total_count as s_total_count FROM Product INNER JOIN productprice ON Product.id = ProductPrice.product_id INNER JOIN stocks  on Stocks.product_id = Product.id AND Stocks.workspace_id=:warehouseId  where ProductPrice.price_id = :priceId order by Product.default_serial_id")
-    Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, int warehouseId);
+    @Query("SELECT Product.*, ProductPrice.value as pp_value, Stocks.total_count as s_total_count FROM Product INNER JOIN productprice ON Product.id = ProductPrice.product_id INNER JOIN stocks  on Stocks.product_id = Product.id AND Stocks.workspace_id=:workspace_id  where ProductPrice.price_id = :priceId order by Product.default_serial_id")
+    Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, String workspace_id);
 
     @Query("select * from product")
     Single<List<Product>> getAllProducts();

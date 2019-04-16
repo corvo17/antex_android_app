@@ -199,12 +199,12 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
                 if (listener.getCompleteObject().getProductList() == null || (listener.getCompleteApi().getOrderObject().getId_price() != oldPriceId)) {
                     listener.getCompleteApi().getOrderObject().setTotal_cost(null);
                     listener.getCompleteApi().getOrderBasketList().clear();
-                    presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId_warehouse());
+                    presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId());
                 } else {
                     adapter.updateList(listener.getCompleteObject().getProductList());
                 }
             } else {
-                presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId_warehouse());
+                presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId());
             }
 
             oldPriceId = listener.getCompleteApi().getOrderObject().getId_price();

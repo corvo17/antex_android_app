@@ -368,8 +368,8 @@ public class AppDataManager implements DataManager {
 
 
     @Override
-    public Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, int warehouseId) {
-        return dbHelper.daoAccess().getProductsWithValue(priceId, warehouseId);
+    public Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, String workspace_id) {
+        return dbHelper.daoAccess().getProductsWithValue(priceId, workspace_id);
     }
 
     @Override
