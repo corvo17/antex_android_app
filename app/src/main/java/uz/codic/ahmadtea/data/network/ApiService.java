@@ -17,6 +17,7 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
+import uz.codic.ahmadtea.data.db.entities.MyWorkspace;
 import uz.codic.ahmadtea.data.db.entities.NewMerchant;
 import uz.codic.ahmadtea.data.network.model.BeforeSyncObject;
 import uz.codic.ahmadtea.data.network.model.CentralObject;
@@ -51,12 +52,9 @@ public interface ApiService {
     @GET(ApiEndPoint.ENDPOINT_EMPLOYEE_INFO)
     Single<Employee> requestEmployeInfo(@Header("X-Authorization")String token);
 
-    //List information attached to employee
-    @Headers({
-            "Routing-Key: workspaces.list.attached.to.employee"
-    })
-    @POST(ApiEndPoint.ENDPOINT_REQUEST)
-    Single<ObjectsForEmployee> requestWorkspace(@Header("X-Authorization")String token, @Body Message message);
+    //List Emloyee_workspace to employee
+    @GET(ApiEndPoint.ENDPOINT_REQUEST_WORKSPACE_EMPLOYEE)
+    Single<ApiObeject<MyWorkspace>> requestWorkspace(@Header("X-Authorization")String token);
 
     @GET(ApiEndPoint.ENDPOINT_GET_SHADER_OBJECT)
     Single<ApiObeject<Payload>> requestAllSharedObjects(@Header("X-Authorization")String token);

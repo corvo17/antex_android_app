@@ -184,8 +184,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<ObjectsForEmployee> requestWorkspace(String token, Message message) {
-        return apiService.requestWorkspace(token, message);
+    public Single<ApiObeject<MyWorkspace>> requestWorkspace(String token) {
+        return apiService.requestWorkspace(token);
     }
 
     @Override
@@ -241,7 +241,7 @@ public class AppDataManager implements DataManager {
     }
 
     // request Get Workspace relations
-    
+
     @Override
     public Single<ApiObeject<WorkspaceRelations>> getWorkspaceRelations(String token) {
         return apiService.getWorkspaceRelations(token);

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import io.reactivex.SingleObserver;
@@ -11,6 +12,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import uz.codic.ahmadtea.data.db.entities.MyWorkspace;
 import uz.codic.ahmadtea.data.db.entities.User;
 import uz.codic.ahmadtea.data.network.model.ApiOrder;
 import uz.codic.ahmadtea.data.network.model.CentralObject;
@@ -47,7 +49,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         getDataManager().
                 isUserAlreadyLoggedIn(login.getLogin()).
                 //Run on background thread
-                subscribeOn(Schedulers.io())
+                        subscribeOn(Schedulers.io())
                 //Notify on main thread
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<Integer>() {
@@ -144,32 +146,36 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
     @Override
     public void onRequestWorkspace(String id, final String token) {
-        Message messageSyncObject = new Message();
-        Map<Object, Object> map = new HashMap<>();
-        map.put("id_employee", id);
-        messageSyncObject.setParams(map);
 
         getDisposable().add(
-                getDataManager().requestWorkspace("Bearer " + token, messageSyncObject)
+                getDataManager().requestWorkspace("Bearer " + token)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribeWith(new DisposableSingleObserver<ObjectsForEmployee>() {
-                                           @Override
-                                           public void onSuccess(ObjectsForEmployee objectsForEmployee) {
-                                               //insert MyWorkspace to db with DataManeger
-                                               getDataManager().insertMyWorkspaces(objectsForEmployee.getMy_workspaces());
-                                               requestSharedObjectsList(token);
-                                           }
+                        .subscribeWith(new DisposableSingleObserver<ApiObeject<MyWorkspace>>() {
+                            @Override
+                            public void onSuccess(ApiObeject<MyWorkspace> apiObeject) {
+                                if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
+                                    getDataManager().insertMyWorkspaces(apiObeject.getPayload());
+                                    requestSharedObjectsList(token);
+                                }
+                            }
 
-                                           @Override
-                                           public void onError(Throwable e) {
-                                               getMvpView().showMessage(e.getMessage());
-                                               getMvpView().hideLoading();
-                                               Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
-                                           }
-                                       }
-                        )
+                            @Override
+                            public void onError(Throwable e) {
+                                getMvpView().showMessage(e.getMessage());
+                                getMvpView().hideLoading();
+                                Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
+                            }
+                        })
         );
+
+//        getDataManager().insertMyWorkspaces(apiObeject.getPayload());
+//        requestSharedObjectsList(token);
+//
+//        getMvpView().showMessage(e.getMessage());
+//        getMvpView().hideLoading();
+//        Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
+
 
     }
 
@@ -180,11 +186,11 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         Log.d("TokenTag", "requestSharedObjectsList: " + getDataManager().getToken());
 
         //Check db if shared objects already there
-        if(getDataManager().isMerchantListFull() > 0){
+        if (getDataManager().isMerchantListFull() > 0) {
             getMvpView().showMessage("Already got shared objects");
             getMvpView().hideLoading();
             getMvpView().dontStay();
-        }else {
+        } else {
             getDisposable().add(
                     getDataManager().requestAllSharedObjects("Bearer " + token)
                             .subscribeOn(Schedulers.io())
@@ -193,7 +199,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                 @Override
                                 public void onSuccess(ApiObeject<Payload> apiObeject) {
                                     Log.d("baxtiyor", "onSuccess: " + apiObeject.getMeta().getStatus());
-                                    if (apiObeject.getMeta().getStatus() == 200){
+                                    if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
                                         getDataManager().insertComments(apiObeject.getPayload().get(0).getComments());
                                         getDataManager().insertMmdtype(apiObeject.getPayload().get(0).getMmd_types());
                                         getDataManager().insertPaymentType(apiObeject.getPayload().get(0).getPayment_types());
@@ -228,48 +234,48 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
         getDisposable().add(
                 getDataManager().getWorkspaceRelations("Bearer " + token)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribeWith(new DisposableSingleObserver<ApiObeject<WorkspaceRelations>>() {
-                        @Override
-                        public void onSuccess(ApiObeject<WorkspaceRelations> apiObeject) {
-                            if (apiObeject.getMeta().getStatus() == 200) {
-                                getDataManager().insertWorkspaceMmd(apiObeject.getPayload().get(0).getWorkspaces_mmds());
-                                getDataManager().insertWorkspacePrice(apiObeject.getPayload().get(0).getWorkspaces_prices());
-                                getDataManager().insertWorkspace(apiObeject.getPayload().get(0).getAll_workspaces());
-                                getDataManager().insertWorkspaceMerchant(apiObeject.getPayload().get(0).getWorkspaces_merchants());
-                                getDataManager().insertWorkspacePaymentType(apiObeject.getPayload().get(0).getWorkspaces_payment_types());
-                                getMvpView().hideLoading();
-                                getMvpView().dontStay();
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<ApiObeject<WorkspaceRelations>>() {
+                            @Override
+                            public void onSuccess(ApiObeject<WorkspaceRelations> apiObeject) {
+                                if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
+                                    getDataManager().insertWorkspaceMmd(apiObeject.getPayload().get(0).getWorkspaces_mmds());
+                                    getDataManager().insertWorkspacePrice(apiObeject.getPayload().get(0).getWorkspaces_prices());
+                                    getDataManager().insertWorkspace(apiObeject.getPayload().get(0).getAll_workspaces());
+                                    getDataManager().insertWorkspaceMerchant(apiObeject.getPayload().get(0).getWorkspaces_merchants());
+                                    getDataManager().insertWorkspacePaymentType(apiObeject.getPayload().get(0).getWorkspaces_payment_types());
+                                    getMvpView().hideLoading();
+                                    getMvpView().dontStay();
+                                }
                             }
-                        }
 
-                        @Override
-                        public void onError(Throwable e) {
-                            e.printStackTrace();
-                            Log.d("baxtiyor", "onError: " + e.getMessage());
-                            getMvpView().showMessage(e.getMessage());
-                            getMvpView().hideLoading();
-                            getMvpView().showMessage(e.getMessage());
-                        }
-                    })
+                            @Override
+                            public void onError(Throwable e) {
+                                e.printStackTrace();
+                                Log.d("baxtiyor", "onError: " + e.getMessage());
+                                getMvpView().showMessage(e.getMessage());
+                                getMvpView().hideLoading();
+                                getMvpView().showMessage(e.getMessage());
+                            }
+                        })
         );
     }
 
     @Override
     public void checkUser() {
         getDisposable().add(getDataManager().getAllUsers()
-        .observeOn(AndroidSchedulers.mainThread())
-        .observeOn(Schedulers.io())
-        .subscribe(users->{
-            if(users==null||users.size()<=0){
-                //not found any user from database
-                getMvpView().onStay();// ☺
-            }else{
-                //if found a user
-                getMvpView().dontStay(); // :-D ☺
-            }
-        }));
+                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(Schedulers.io())
+                .subscribe(users -> {
+                    if (users == null || users.size() <= 0) {
+                        //not found any user from database
+                        getMvpView().onStay();// ☺
+                    } else {
+                        //if found a user
+                        getMvpView().dontStay(); // :-D ☺
+                    }
+                }));
     }
 
     @Override
