@@ -22,7 +22,18 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    
+    <TextView
+        android:id="@+id/info_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginLeft="24dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/roboto_medium"
+        android:textColor="@color/textMainColor"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        />
 
 
     <Button
