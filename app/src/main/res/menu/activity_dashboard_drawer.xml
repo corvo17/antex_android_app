@@ -30,6 +30,10 @@
             android:id="@+id/test"
             android:title="test"
             />
+
+        <item
+            android:id="@+id/sittings"
+            android:title="Sittings"/>
     </group>
 
 

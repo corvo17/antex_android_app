@@ -55,6 +55,7 @@ import uz.codic.ahmadtea.ui.mainpage.leftusers.LeftUsersAdapter;
 import uz.codic.ahmadtea.ui.merchants.MerchantsFragment;
 import uz.codic.ahmadtea.ui.new_merchants.NewMerchantsFragment;
 import uz.codic.ahmadtea.ui.orders.OrderFragment;
+import uz.codic.ahmadtea.ui.sittings.VersionInfoActivity;
 import uz.codic.ahmadtea.ui.synchronisation.SynchronisationFragment;
 import uz.codic.ahmadtea.utils.Consts;
 
@@ -304,6 +305,11 @@ public class MainActivity extends BaseActivity
             fragmentClass = OrderFragment.class;
         } if (id == R.id.test){
             getTestData();
+            return true;
+        }
+
+        if (id == R.id.sittings){
+            startActivity(new Intent(MainActivity.this, VersionInfoActivity.class));
             return true;
         }
 
