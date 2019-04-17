@@ -10,7 +10,7 @@ public class ApiEndPoint {
 
     public static final String ENDPOINT_LOGIN = "/auth/login";
 
-    public static final String ENDPOINT_EMPLOYEE_INFO = "/employee/getme";
+    public static final String ENDPOINT_EMPLOYEE_INFO = "/employee/get_me";
 
     public static final String ENDPOINT_REQUEST = "/v1/request";
 

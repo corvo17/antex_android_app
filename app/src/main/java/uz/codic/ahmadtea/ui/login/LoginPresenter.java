@@ -114,34 +114,34 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
     @Override
     public void onRequestLoginInfo(final User user) {
 
-        getDisposable().add(getDataManager()
-                .requestEmployeInfo("Bearer " + user.getToken())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribeWith(new DisposableSingleObserver<Employee>() {
-                    @Override
-                    public void onSuccess(Employee employee) {
-                        //Name
-                        //Role
-                        //Sync_Time
-                        user.setName(employee.getName());
-                        user.setRole_label(employee.getRole_label());
-                        user.setSync_time(CommonUtils.getCurrentTime());
-                        //1.Insert user info and login. Use login as a foreign key
-                        getDataManager().insertUser(user);
-                        //2.Call workspace
-                        onRequestWorkspace(employee.getId(), user.getToken());
+        getDisposable().add(
+                getDataManager().requestEmployeInfo("Bearer " + user.getToken())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribeWith(new DisposableSingleObserver<ApiObeject<Employee>>() {
+                            @Override
+                            public void onSuccess(ApiObeject<Employee> apiObeject) {
+                                if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
+                                    user.setName(apiObeject.getPayload().get(0).getName());
+                                    user.setRole_label(apiObeject.getPayload().get(0).getRole_label());
+                                    user.setSync_time(CommonUtils.getCurrentTime());
+                                    getDataManager().insertUser(user);
+                                    onRequestWorkspace(apiObeject.getPayload().get(0).getId(), user.getToken());
+                                }else {
+                                    getMvpView().showMessage(apiObeject.getMeta().getMessage());
+                                    getMvpView().hideLoading();
+                                    Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
+                                }
+                            }
 
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        getMvpView().showMessage(e.getMessage());
-                        getMvpView().hideLoading();
-                        Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
-                    }
-                }));
+                            @Override
+                            public void onError(Throwable e) {
+                                getMvpView().showMessage(e.getMessage());
+                                getMvpView().hideLoading();
+                                Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
+                            }
+                        })
+        );
     }
 
     @Override
@@ -157,6 +157,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                 if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
                                     getDataManager().insertMyWorkspaces(apiObeject.getPayload());
                                     requestSharedObjectsList(token);
+                                }else {
+                                    getMvpView().showMessage(apiObeject.getMeta().getMessage());
+                                    getMvpView().hideLoading();
+                                    Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
                                 }
                             }
 
@@ -212,6 +216,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                         getDataManager().insertMmds(apiObeject.getPayload().get(0).getMmds());
                                         getDataManager().insertStocks(apiObeject.getPayload().get(0).getWorkspaces_product_stocks());
                                         //go insert Workspace relations to db
+                                    }else {
+                                        getMvpView().showMessage(apiObeject.getMeta().getMessage());
+                                        getMvpView().hideLoading();
+                                        Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
                                     }
                                     onRequestGetWorkspaceRelations(token);
                                 }
@@ -247,6 +255,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().insertWorkspacePaymentType(apiObeject.getPayload().get(0).getWorkspaces_payment_types());
                                     getMvpView().hideLoading();
                                     getMvpView().dontStay();
+                                }else {
+                                    getMvpView().showMessage(apiObeject.getMeta().getMessage());
+                                    getMvpView().hideLoading();
+                                    Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
                                 }
                             }
 

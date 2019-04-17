@@ -50,7 +50,7 @@ public interface ApiService {
 
     //Employee info
     @GET(ApiEndPoint.ENDPOINT_EMPLOYEE_INFO)
-    Single<Employee> requestEmployeInfo(@Header("X-Authorization")String token);
+    Single<ApiObeject<Employee>> requestEmployeInfo(@Header("X-Authorization")String token);
 
     //List Emloyee_workspace to employee
     @GET(ApiEndPoint.ENDPOINT_REQUEST_WORKSPACE_EMPLOYEE)

@@ -189,7 +189,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<Employee> requestEmployeInfo(String token) {
+    public Single<ApiObeject<Employee>> requestEmployeInfo(String token) {
         return apiService.requestEmployeInfo(token);
     }
 
