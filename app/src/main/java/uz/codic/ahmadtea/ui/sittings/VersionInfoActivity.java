@@ -4,12 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import uz.codic.ahmadtea.BuildConfig;
 import uz.codic.ahmadtea.R;
 
 public class VersionInfoActivity extends AppCompatActivity {
 
     Toolbar toolbar;
+    TextView info_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +23,10 @@ public class VersionInfoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        info_text = findViewById(R.id.info_text);
+        info_text.append("Version Name: " + BuildConfig.VERSION_NAME + "\n");
+        info_text.append("Version Code: " + BuildConfig.VERSION_CODE + "\n");
 
     }
 
