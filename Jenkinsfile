@@ -3,7 +3,8 @@ pipeline {
         stages {
             stage('Build') {
                 steps {
-                    sh 'gradle assembleDebug'
+                    sh "ls"
+                    sh "gradle assembleDebug"
                     sh 'sudo cp -R app/build/outputs/apk/debug/*.apk /mnt/sdb/app'
                 }
             }
