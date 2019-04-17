@@ -9,9 +9,9 @@ public class MyWorkspace {
     @PrimaryKey(autoGenerate = true)
     int pid;
 
-    String id_workspace;
-    String id_employee;
-    Integer id_status;
+    String workspace_id;
+    String employee_id;
+    Integer status_id;
 
     public int getPid() {
         return pid;
@@ -21,27 +21,27 @@ public class MyWorkspace {
         this.pid = pid;
     }
 
-    public String getId_workspace() {
-        return id_workspace;
+    public String getWorkspace_id() {
+        return workspace_id;
     }
 
-    public void setId_workspace(String id_workspace) {
-        this.id_workspace = id_workspace;
+    public void setWorkspace_id(String workspace_id) {
+        this.workspace_id = workspace_id;
     }
 
-    public String getId_employee() {
-        return id_employee;
+    public String getEmployee_id() {
+        return employee_id;
     }
 
-    public void setId_employee(String id_employee) {
-        this.id_employee = id_employee;
+    public void setEmployee_id(String employee_id) {
+        this.employee_id = employee_id;
     }
 
-    public Integer getId_status() {
-        return id_status;
+    public Integer getStatus_id() {
+        return status_id;
     }
 
-    public void setId_status(Integer id_status) {
-        this.id_status = id_status;
+    public void setStatus_id(Integer status_id) {
+        this.status_id = status_id;
     }
 }

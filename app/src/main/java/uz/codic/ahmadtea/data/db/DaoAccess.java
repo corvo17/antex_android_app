@@ -373,10 +373,10 @@ public interface DaoAccess {
     Single<List<String>> allCommentNames();
 
     // get my workspaces
-    @Query("select Workspace.* from MyWorkspace inner join Workspace on Workspace.id = MyWorkspace.id_workspace where MyWorkspace.id_employee = :id_employee")
+    @Query("select Workspace.* from MyWorkspace inner join Workspace on Workspace.id = MyWorkspace.workspace_id where MyWorkspace.employee_id = :id_employee")
     Single<List<Workspace>> getMyWorkspaces(String id_employee);
 
-    @Query("select w.id from MyWorkspace as mw inner join Workspace as w on w.id = mw.id_workspace where mw.id_employee =:id_employee")
+    @Query("select w.id from MyWorkspace as mw inner join Workspace as w on w.id = mw.workspace_id where mw.employee_id =:id_employee")
     List<String> getMyWorkspaceIds(String id_employee);
 
     // get merchants in workspace
