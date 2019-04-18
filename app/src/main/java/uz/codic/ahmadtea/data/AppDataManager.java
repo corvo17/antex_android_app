@@ -40,6 +40,7 @@ import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
 import uz.codic.ahmadtea.data.network.ApiCentral;
 import uz.codic.ahmadtea.data.network.ApiClient;
+import uz.codic.ahmadtea.data.network.ApiEndPoint;
 import uz.codic.ahmadtea.data.network.ApiService;
 import uz.codic.ahmadtea.data.network.model.ApiOrder;
 import uz.codic.ahmadtea.data.network.model.BeforeSyncObject;
@@ -72,7 +73,7 @@ public class AppDataManager implements DataManager {
 
     ApiService apiService;
     ApiCentral apiCentral;
-    ApiService apiServiceBook;
+    //ApiService apiServiceBook;
 
     DbHelper dbHelper;
     PrefHelper prefHelper;
@@ -86,17 +87,16 @@ public class AppDataManager implements DataManager {
         //apiServiceBook = ApiClient.getApiClient2(context).create(ApiService.class);
         dbHelper = DbHelper.getDatabase(context);
         prefHelper = new AppPrefHelper(context);
-        apiClient = new ApiClient(context, prefHelper.getBaseUrl());
-        apiServiceBook = apiClient.getApiClient().create(ApiService.class);
+        //apiClient = new ApiClient(context, prefHelper.getBaseUrl());
+        //apiServiceBook = apiClient.getApiClient().create(ApiService.class);
         if (isLocalized()){
             //apiService = ApiClient.getApiClient(context, prefHelper.getBaseUrl()).create(ApiService.class);
             Log.d("baxtiyor", "AppDataManager pref helper base url: " + prefHelper.getBaseUrl());
             ApiClient api_client = new ApiClient(mContext, prefHelper.getBaseUrl());
             apiService = api_client.getApiClient2(mContext).create(ApiService.class);
-        }else {
-//            /apiCentral = ApiClient.getApiClient(context, prefHelper.getBaseUrl()).create(ApiCentral.class);
-            apiCentral = apiClient.getApiClient().create(ApiCentral.class);
         }
+        ApiClient updateApiClient =new  ApiClient(context, ApiEndPoint.URL_CHECK_FOR_UPDATE);
+        apiCentral = updateApiClient.getApiClient().create(ApiCentral.class);
 
     }
 
@@ -238,7 +238,7 @@ public class AppDataManager implements DataManager {
 
     @Override
     public Single<ResponseBody> uploadeBook(RequestBody description, MultipartBody.Part fileAttached) {
-        return apiServiceBook.uploadeBook(description,fileAttached);
+        return null;//apiServiceBook.uploadeBook(description,fileAttached);
     }
 
     // request Get Workspace relations
@@ -268,6 +268,11 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<CentralObject> getBaseUrlReq(HashMap<String, String> hashMap) {
         return apiCentral.getBaseUrlReq(hashMap);
+    }
+
+    @Override
+    public Single<HashMap<String, HashMap<String, String>>> getMobileCurrentVersion() {
+        return apiCentral.getMobileCurrentVersion();
     }
 
     /**

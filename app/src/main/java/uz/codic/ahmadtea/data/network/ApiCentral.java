@@ -39,5 +39,8 @@ public interface ApiCentral {
     @POST(ApiEndPoint.ENDPOINT_REQUEST_CENTRAL_CERVER)
     Single<CentralObject> getBaseUrlReq(@Body HashMap<String, String> hashMap);
 
+    @GET(ApiEndPoint.URL_CURRENT_MOBILE_V)
+    Single<HashMap<String , HashMap<String , String >>> getMobileCurrentVersion();
+
 
 }

@@ -3,6 +3,7 @@ package uz.codic.ahmadtea.data.network;
 public class ApiEndPoint {
 
     public static final String BASE_URL = "http://t2.oltinolma.uz/";
+    public static final String URL_CHECK_FOR_UPDATE = "http://central.oltinolma.uz/";
     public static final String IMAGE_URL = "http://192.168.0.108:3088/";
 
     public static final String Attach_File = "Books/post/file";
@@ -13,6 +14,8 @@ public class ApiEndPoint {
     public static final String ENDPOINT_EMPLOYEE_INFO = "/employee/get_me";
 
     public static final String ENDPOINT_REQUEST = "/v1/request";
+
+    public static final String URL_CURRENT_MOBILE_V = "/open/get_mobile_current_release_info";
 
     public static final String ENDPOINT_REQUEST_SYNCHRONISATION = "/sync";
 

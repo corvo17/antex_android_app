@@ -124,4 +124,6 @@ public interface ApiService {
     @POST(ApiEndPoint.ERROR_SEND)
     Single<ErrorObject> sendError(@Header("X-Authorization")String token, @Body ErrorObject errorObject);
 
+
+
 }
