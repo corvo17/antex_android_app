@@ -43,7 +43,7 @@
         android:layout_margin="32dp"
         android:background="@drawable/bg_send_bt"
         android:shadowColor="@color/textLightColor"
-        android:text="Upload"
+        android:text="CHECK for UpDaTeS"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent" />
 
