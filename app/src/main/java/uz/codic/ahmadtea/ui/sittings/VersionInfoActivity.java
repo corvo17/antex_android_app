@@ -59,23 +59,23 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
             progressBar.setVisibility(View.VISIBLE);
         });
     }
-
     private void updateVersion(File apk) {
-        Intent i = new Intent();
-        i.setAction(Intent.ACTION_VIEW);
-
         Uri uri;
-        if(Build.VERSION.SDK_INT>= Build.VERSION_CODES.LOLLIPOP){
-            String author = this.getApplicationContext().getPackageName()+".fileprovider";
-            uri = FileProvider.getUriForFile(this,author,apk);
-        }else{
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            String author = this.getApplicationContext().getPackageName() + ".fileprovider";
+            uri = FileProvider.getUriForFile(this, author, apk);
+            Intent intent = new Intent((Intent.ACTION_INSTALL_PACKAGE));
+            intent.setData(uri);
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            startActivity(intent);
+
+        } else {
             uri = Uri.fromFile(apk);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
-        Log.d("Checker", "updateVersion uri: " + uri.toString());
-        i.setDataAndType(uri, "application/vnd.android.package-archive");
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Log.d("Lofting", "About to install new .apk");
-        this.startActivity(i);
     }
 
     @Override
