@@ -71,7 +71,9 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
         }else{
             uri = Uri.fromFile(apk);
         }
+        Log.d("Checker", "updateVersion uri: " + uri.toString());
         i.setDataAndType(uri, "application/vnd.android.package-archive");
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Log.d("Lofting", "About to install new .apk");
         this.startActivity(i);
     }
