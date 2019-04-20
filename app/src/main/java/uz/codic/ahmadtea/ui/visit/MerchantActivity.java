@@ -273,7 +273,7 @@ public class MerchantActivity extends BaseActivity
         visit.setTime_start(System.currentTimeMillis());
         visit.setLatitude(0.0);
         visit.setLongitude(0.0);
-        visit.setId_filial(getCompleteObject().getWorkspace().getId_filial());
+        visit.setId_filial(getCompleteObject().getWorkspace().getFilial_id());
     }
 
     /**

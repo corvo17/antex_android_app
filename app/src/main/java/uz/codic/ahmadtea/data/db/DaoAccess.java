@@ -334,17 +334,17 @@ public interface DaoAccess {
     @Query("SELECT  OrderBasket.*,p.label as p_name ,ProductPrice.value as pp_value FROM orderbasket INNER JOIN productprice, product as p ON orderbasket.id_product = ProductPrice.product_id and p.id= orderbasket.id_product where ProductPrice.price_id = :priceId and orderId = :orderId")
     Single<List<BasketProduct>> getBasketList(int priceId, String orderId);
 
-    @Query("SELECT Workspace.id as w_id, Workspace.name as w_name, Workspace.pid as w_pid, Workspace.id_status as w_id_status, InfoAction.*,  Merchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.id_merchant INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.id_workspace left JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.id_merchant and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.id_workspace where id_workspace in (:id_workspaces) ORDER BY Merchant.id")
+    @Query("SELECT Workspace.id as w_id, Workspace.label as w_name, Workspace.pid as w_pid, Workspace.status_id as w_id_status, InfoAction.*,  Merchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.merchant_id INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id left JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.merchant_id and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.workspace_id where workspace_id in (:id_workspaces) ORDER BY Merchant.id")
     Single<List<WorkspaceAndMerchant>> getWorkspaceAndMerchants(List<String > id_workspaces, String date);
 
     //
-    @Query("select PaymentType.* from PaymentType inner join WorkspacePaymentType on WorkspacePaymentType.id_payment_type = PaymentType.id where WorkspacePaymentType.id_workspace = :id_workspace")
+    @Query("select PaymentType.* from PaymentType inner join WorkspacePaymentType on WorkspacePaymentType.payment_type_id = PaymentType.id where WorkspacePaymentType.workspace_id = :id_workspace")
     Single<List<PaymentType>> getPayentTypeForMerchant(String id_workspace);
 
-    @Query("select Price.* from Price inner join WorkspacePrice on WorkspacePrice.id_price = Price.id where WorkspacePrice.id_workspace = :id_workspace")
+    @Query("select Price.* from Price inner join WorkspacePrice on WorkspacePrice.price_id = Price.id where WorkspacePrice.workspace_id = :id_workspace")
     Single<List<Price>> getPricesmerchant(String id_workspace);
 
-    @Query("select Mmd.* from Mmd inner join WorkspaceMmd on WorkspaceMmd.id_mmd = Mmd.id where WorkspaceMmd.id_workspace = :id_workspace")
+    @Query("select Mmd.* from Mmd inner join WorkspaceMmd on WorkspaceMmd.mmd_id = Mmd.id where WorkspaceMmd.workspace_id = :id_workspace")
     Single<List<Mmd>> getMmdForMerchant(String id_workspace);
 
     @Query("select * from WorkspacePrice")
@@ -353,7 +353,7 @@ public interface DaoAccess {
     @Query("select * from Price")
     List<Price> getPrices();
 
-    @Query("SELECT * FROM WorkspacePrice where id_workspace = :id_workspace")
+    @Query("SELECT * FROM WorkspacePrice where workspace_id = :id_workspace")
     List<WorkspacePrice> getWorkspacePricesById_4(String id_workspace);
 
     @Query("select * from WorkspacePaymentType")
@@ -363,7 +363,7 @@ public interface DaoAccess {
     List<PaymentType> getPaymentTypes();
 
     // get id_workspace from WorkspaceMerchant like : id_merchant
-    @Query("select id_workspace from workspacemerchant where id_merchant = :id_merchant")
+    @Query("select workspace_id from workspacemerchant where merchant_id = :id_merchant")
     String getId_workspace(String id_merchant);
 
     @Query("SELECT * FROM COMMENT")
@@ -380,13 +380,13 @@ public interface DaoAccess {
     List<String> getMyWorkspaceIds(String id_employee);
 
     // get merchants in workspace
-    @Query("SELECT Workspace.id as w_id, Workspace.name as w_name, Workspace.pid as w_pid, Workspace.id_status as w_id_status, InfoAction.*, Merchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.id_merchant INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.id_workspace left JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.id_merchant where WorkspaceMerchant.id_workspace in(:id_workspace)")
+    @Query("SELECT Workspace.id as w_id, Workspace.label as w_name, Workspace.pid as w_pid, Workspace.status_id as w_id_status, InfoAction.*, Merchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.merchant_id INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id left JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.merchant_id where WorkspaceMerchant.workspace_id in(:id_workspace)")
     Single<List<WorkspaceAndMerchant>> getMerchantsInWorkspace(String... id_workspace);
 
-    @Query("SELECT Workspace.id as w_id, Workspace.name as w_name, Workspace.pid as w_pid, Workspace.id_status as w_id_status, InfoAction.*, Merchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.id_merchant INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.id_workspace left JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.id_merchant and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.id_workspace where WorkspaceMerchant.id_workspace in(:id_workspaces) ORDER BY Merchant.id")
+    @Query("SELECT Workspace.id as w_id, Workspace.label as w_name, Workspace.pid as w_pid, Workspace.status_id as w_id_status, InfoAction.*, Merchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.merchant_id INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id left JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.merchant_id and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.workspace_id where WorkspaceMerchant.workspace_id in(:id_workspaces) ORDER BY Merchant.id")
     Single<List<WorkspaceAndMerchant>> getMerchantsInWorkspace(List<String> id_workspaces, String date);
 
-    @Query("SELECT Workspace.id as w_id, Workspace.name as w_name, Workspace.pid as w_pid, Workspace.id_status as w_id_status, InfoAction.*, Merchant.*, WorkspaceMerchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.id_merchant INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.id_workspace  left JOIN InfoAction ON InfoAction.i_id_merchant = WorkspaceMerchant.id_merchant  where WorkspaceMerchant.id_workspace =:id_workspace and WorkspaceMerchant.id_merchant =:id_merchant")
+    @Query("SELECT Workspace.id as w_id, Workspace.label as w_name, Workspace.pid as w_pid, Workspace.status_id as w_id_status, InfoAction.*, Merchant.*, WorkspaceMerchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.merchant_id INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id  left JOIN InfoAction ON InfoAction.i_id_merchant = WorkspaceMerchant.merchant_id  where WorkspaceMerchant.workspace_id =:id_workspace and WorkspaceMerchant.merchant_id =:id_merchant")
     WorkspaceAndMerchant getWorkspaceAndMerchants(String id_merchant, String id_workspace);
 
     @Query("SELECT * FROM PhotoG")

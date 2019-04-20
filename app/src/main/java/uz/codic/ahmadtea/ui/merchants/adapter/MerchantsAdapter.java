@@ -156,7 +156,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
 
         List<String> names = new ArrayList<>();
         for (int i = 0; i < merchants.get(pisition).getSizeWorkspaces(); i++) {
-            names.add(merchants.get(pisition).getWorkspaces().get(i).getName());
+            names.add(merchants.get(pisition).getWorkspaces().get(i).getLabel());
         }
         CharSequence[] items = names.toArray(new CharSequence[0]);
         return items;

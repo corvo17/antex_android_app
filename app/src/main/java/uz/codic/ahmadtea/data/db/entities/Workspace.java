@@ -17,28 +17,28 @@ public class Workspace implements Serializable {
     private String id;
 
     @ColumnInfo(name = "name")
-    private String name;
+    private String label;
 
     @ColumnInfo(name = "code")
     private String code;
 
     @ColumnInfo(name = "id_status")
-    private int id_status;
+    private int status_id;
 
-    private int id_filial;
+    private int filial_id;
 
-    private int id_warehouse;
+    private int warehouse_id;
 
     public Workspace(){
 
     }
 
-    public void setId_filial(int id_filial) {
-        this.id_filial = id_filial;
+    public void setFilial_id(int filial_id) {
+        this.filial_id = filial_id;
     }
 
-    public int getId_filial() {
-        return id_filial;
+    public int getFilial_id() {
+        return filial_id;
     }
 
     public int getPid() {
@@ -57,12 +57,12 @@ public class Workspace implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getCode() {
@@ -73,30 +73,30 @@ public class Workspace implements Serializable {
         this.code = code;
     }
 
-    public int getId_status() {
-        return id_status;
+    public int getStatus_id() {
+        return status_id;
     }
 
-    public void setId_status(int id_status) {
-        this.id_status = id_status;
+    public void setStatus_id(int status_id) {
+        this.status_id = status_id;
     }
 
-    public int getId_warehouse() {
-        return id_warehouse;
+    public int getWarehouse_id() {
+        return warehouse_id;
     }
 
-    public void setId_warehouse(int id_warehouse) {
-        this.id_warehouse = id_warehouse;
+    public void setWarehouse_id(int warehouse_id) {
+        this.warehouse_id = warehouse_id;
     }
 
     public String toString() {
         return "Workspace{" +
                 "i_id=" + pid +
                 ", id='" + id + '\'' +
-                ", label='" + name + '\'' +
-                ", address='" + id_filial + '\'' +
-                ", latitude=" + id_warehouse +
-                ", longitude=" + id_status +
+                ", label='" + label + '\'' +
+                ", address='" + filial_id + '\'' +
+                ", latitude=" + warehouse_id +
+                ", longitude=" + status_id +
                 '}';
     }
 }

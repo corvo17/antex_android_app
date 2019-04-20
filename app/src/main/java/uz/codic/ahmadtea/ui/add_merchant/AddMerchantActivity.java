@@ -194,7 +194,7 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
         merchant.setId_workspace(workspaces.get(0).getId());
         ArrayList<String> items = new ArrayList<>();
         for (int i = 0; i < workspaces.size(); i++) {
-            items.add(workspaces.get(i).getName());
+            items.add(workspaces.get(i).getLabel());
         }
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, items);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

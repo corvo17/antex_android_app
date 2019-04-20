@@ -9,9 +9,9 @@ public class WorkspacePrice {
     @PrimaryKey(autoGenerate = true)
     private int pid;
 
-    Integer id_price;
-    String id_workspace;
-    Integer id_status;
+    Integer price_id;
+    String workspace_id;
+    Integer status_id;
 
     public int getPid() {
         return pid;
@@ -21,37 +21,37 @@ public class WorkspacePrice {
         this.pid = pid;
     }
 
-    public Integer getId_price() {
-        return id_price;
+    public Integer getPrice_id() {
+        return price_id;
     }
 
-    public void setId_price(Integer id_price) {
-        this.id_price = id_price;
+    public void setPrice_id(Integer price_id) {
+        this.price_id = price_id;
     }
 
-    public String getId_workspace() {
-        return id_workspace;
+    public String getWorkspace_id() {
+        return workspace_id;
     }
 
-    public void setId_workspace(String id_workspace) {
-        this.id_workspace = id_workspace;
+    public void setWorkspace_id(String workspace_id) {
+        this.workspace_id = workspace_id;
     }
 
-    public Integer getId_status() {
-        return id_status;
+    public Integer getStatus_id() {
+        return status_id;
     }
 
-    public void setId_status(Integer id_status) {
-        this.id_status = id_status;
+    public void setStatus_id(Integer status_id) {
+        this.status_id = status_id;
     }
 
     @Override
     public String toString() {
         return "WorkspacePrice{" +
                 "i_id=" + pid +
-                ", id_price=" + id_price +
-                ", id_workspace='" + id_workspace + '\'' +
-                ", status_id=" + id_status +
+                ", id_price=" + price_id +
+                ", id_workspace='" + workspace_id + '\'' +
+                ", status_id=" + status_id +
                 '}';
     }
 }

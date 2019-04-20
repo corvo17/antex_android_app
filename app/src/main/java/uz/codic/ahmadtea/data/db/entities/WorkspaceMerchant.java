@@ -9,9 +9,9 @@ public class WorkspaceMerchant {
     @PrimaryKey(autoGenerate = true)
     private int pid;
 
-    String id_workspace;
-    String id_merchant;
-    Integer id_status;
+    String workspace_id;
+    String merchant_id;
+    Integer status_id;
 
     public int getPid() {
         return pid;
@@ -21,37 +21,37 @@ public class WorkspaceMerchant {
         this.pid = pid;
     }
 
-    public String getId_workspace() {
-        return id_workspace;
+    public String getWorkspace_id() {
+        return workspace_id;
     }
 
-    public void setId_workspace(String id_workspace) {
-        this.id_workspace = id_workspace;
+    public void setWorkspace_id(String workspace_id) {
+        this.workspace_id = workspace_id;
     }
 
-    public String getId_merchant() {
-        return id_merchant;
+    public String getMerchant_id() {
+        return merchant_id;
     }
 
-    public void setId_merchant(String id_merchant) {
-        this.id_merchant = id_merchant;
+    public void setMerchant_id(String merchant_id) {
+        this.merchant_id = merchant_id;
     }
 
-    public Integer getId_status() {
-        return id_status;
+    public Integer getStatus_id() {
+        return status_id;
     }
 
-    public void setId_status(Integer id_status) {
-        this.id_status = id_status;
+    public void setStatus_id(Integer status_id) {
+        this.status_id = status_id;
     }
 
     @Override
     public String toString() {
         return "WorkspaceMerchant{" +
                 "i_id=" + pid +
-                ", id_workspace='" + id_workspace + '\'' +
-                ", id_merchant='" + id_merchant + '\'' +
-                ", status_id=" + id_status +
+                ", id_workspace='" + workspace_id + '\'' +
+                ", id_merchant='" + merchant_id + '\'' +
+                ", status_id=" + status_id +
                 '}';
     }
 }

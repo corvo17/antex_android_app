@@ -10,9 +10,9 @@ public class WorkspaceMmd {
     @PrimaryKey(autoGenerate = true)
     private int pid;
 
-    Integer id_mmd;
-    String id_workspace;
-    Integer id_status;
+    Integer mmd_id;
+    String workspace_id;
+    Integer status_id;
 
     public int getPid() {
         return pid;
@@ -22,27 +22,27 @@ public class WorkspaceMmd {
         this.pid = pid;
     }
 
-    public Integer getId_mmd() {
-        return id_mmd;
+    public Integer getMmd_id() {
+        return mmd_id;
     }
 
-    public void setId_mmd(Integer id_mmd) {
-        this.id_mmd = id_mmd;
+    public void setMmd_id(Integer mmd_id) {
+        this.mmd_id = mmd_id;
     }
 
-    public String getId_workspace() {
-        return id_workspace;
+    public String getWorkspace_id() {
+        return workspace_id;
     }
 
-    public void setId_workspace(String id_workspace) {
-        this.id_workspace = id_workspace;
+    public void setWorkspace_id(String workspace_id) {
+        this.workspace_id = workspace_id;
     }
 
-    public Integer getId_status() {
-        return id_status;
+    public Integer getStatus_id() {
+        return status_id;
     }
 
-    public void setId_status(Integer id_status) {
-        this.id_status = id_status;
+    public void setStatus_id(Integer status_id) {
+        this.status_id = status_id;
     }
 }

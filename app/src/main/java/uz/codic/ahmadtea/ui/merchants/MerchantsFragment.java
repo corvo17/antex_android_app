@@ -169,11 +169,11 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
     @Override
     public void onReadyMyWorkspaces(List<Workspace> workspaces) {
         Workspace allworkspace = new Workspace();
-        allworkspace.setName("All Workspaces");
+        allworkspace.setLabel("All Workspaces");
         workspaces.add(0, allworkspace);
         List<String> nameWorkspaces = new ArrayList<>();
         for (int i = 0; i < workspaces.size(); i++) {
-            nameWorkspaces.add(workspaces.get(i).getName());
+            nameWorkspaces.add(workspaces.get(i).getLabel());
         }
         CharSequence [] items = nameWorkspaces.toArray(new CharSequence[0]);
 
@@ -182,7 +182,7 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 presenter.getMerchantsInWorkspace(workspaces.get(which).getId());
-                listener.setToolbarTitle(workspaces.get(which).getName());
+                listener.setToolbarTitle(workspaces.get(which).getLabel());
             }
         });
         builder.show();
