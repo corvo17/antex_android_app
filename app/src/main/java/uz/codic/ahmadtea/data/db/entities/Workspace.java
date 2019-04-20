@@ -16,13 +16,13 @@ public class Workspace implements Serializable {
     @ColumnInfo(name = "id")
     private String id;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "label")
     private String label;
 
     @ColumnInfo(name = "code")
     private String code;
 
-    @ColumnInfo(name = "id_status")
+    @ColumnInfo(name = "status_id")
     private int status_id;
 
     private int filial_id;
