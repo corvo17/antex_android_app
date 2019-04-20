@@ -45,7 +45,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder( ViewHolder holder, int position) {
-        final Merchant item = items.get(position).getMerchant();
+        final Merchant item = items.get(holder.getAdapterPosition()).getMerchant();
         holder.address.setText(item.getAddress());
         holder.name.setText(item.getLabel());
 
@@ -72,7 +72,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
                 merchant.putExtra("click", "onClick");
                 merchant.putExtra("name", item.getLabel());
                 merchant.putExtra("id", item.getPid());
-                merchant.putExtra("id_workspace", items.get(position).getWorkspace().getId());
+                merchant.putExtra("id_workspace", items.get(holder.getAdapterPosition()).getWorkspace().getId());
                 holder.itemView.getContext().startActivity(merchant);
             }
         });

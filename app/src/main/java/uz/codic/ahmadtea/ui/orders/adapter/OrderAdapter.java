@@ -36,7 +36,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        final OrderedList item = items.get(position);
+        final OrderedList item = items.get(holder.getAdapterPosition());
 
 
         holder.itemView.setOnClickListener(v -> {

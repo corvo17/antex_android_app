@@ -40,14 +40,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
-        viewHolder.userName.setText(userList.get(i).getName());
-        viewHolder.syncTime.setText(userList.get(i).getSync_time());
+        viewHolder.userName.setText(userList.get(viewHolder.getAdapterPosition()).getName());
+        viewHolder.syncTime.setText(userList.get(viewHolder.getAdapterPosition()).getSync_time());
 
         viewHolder.itemView.setOnClickListener(v -> {
             Intent dashboard = new Intent(viewHolder.itemView.getContext(), MainActivity.class);
             //main_menu.putExtra("id_employee", userList.get(i).getId());
-            callback.setId_employee(userList.get(i).getId(), userList.get(i).getRole_label());
-            callback.setToken(userList.get(i).getToken());
+            callback.setId_employee(userList.get(viewHolder.getAdapterPosition()).getId(), userList.get(viewHolder.getAdapterPosition()).getRole_label());
+            callback.setToken(userList.get(viewHolder.getAdapterPosition()).getToken());
             viewHolder.itemView.getContext().startActivity(dashboard);
         });
     }

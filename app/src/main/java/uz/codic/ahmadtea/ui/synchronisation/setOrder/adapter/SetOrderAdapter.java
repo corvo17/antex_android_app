@@ -43,7 +43,7 @@ public class SetOrderAdapter extends RecyclerView.Adapter<SetOrderAdapter.ViewHo
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
         if (productItems != null) {
-            ProductAndProductPrice item = productItems.get(i);
+            ProductAndProductPrice item = productItems.get(viewHolder.getAdapterPosition());
 
             viewHolder.product_name.setText(item.getProduct().getLabel());
             if (isChanged){
@@ -51,10 +51,10 @@ public class SetOrderAdapter extends RecyclerView.Adapter<SetOrderAdapter.ViewHo
             }else {
                 viewHolder.product_count.setTextColor(Color.parseColor("#333333"));
             }
-            viewHolder.product_count.setText(CommonUtils.getFormattedNumber(orderBaskets.get(i).getTotal_count()) + "");
+            viewHolder.product_count.setText(CommonUtils.getFormattedNumber(orderBaskets.get(viewHolder.getAdapterPosition()).getTotal_count()) + "");
 
-            if (item.getProductPrices().getValue() != orderBaskets.get(i).getPrice_value()){
-                viewHolder.product_price.setText("old" +CommonUtils.getFormattedNumber(orderBaskets.get(i).getPrice_value() / 100));
+            if (item.getProductPrices().getValue() != orderBaskets.get(viewHolder.getAdapterPosition()).getPrice_value()){
+                viewHolder.product_price.setText("old" +CommonUtils.getFormattedNumber(orderBaskets.get(viewHolder.getAdapterPosition()).getPrice_value() / 100));
                 viewHolder.product_price.append("\nnew" + CommonUtils.getFormattedNumber(item.getProductPrices().getValue() / 100));
                 viewHolder.product_price.setTextColor(Color.parseColor("#FF0000"));
             }else {
@@ -62,7 +62,7 @@ public class SetOrderAdapter extends RecyclerView.Adapter<SetOrderAdapter.ViewHo
                 viewHolder.product_price.setTextColor(Color.parseColor("#333333"));
             }
             viewHolder.product_remaining.setText(CommonUtils.getFormattedNumber(item.getStocks().getTotal_count()));
-            if (positions.get(i)){
+            if (positions.get(viewHolder.getAdapterPosition())){
                 viewHolder.product_count.setTextColor(Color.parseColor("#FF0000"));
             }else {
                 viewHolder.product_name.setTextColor(Color.parseColor("#333333"));
@@ -71,7 +71,7 @@ public class SetOrderAdapter extends RecyclerView.Adapter<SetOrderAdapter.ViewHo
             viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    calback.itemClick(item, i);
+                    calback.itemClick(item, viewHolder.getAdapterPosition());
                 }
             });
 

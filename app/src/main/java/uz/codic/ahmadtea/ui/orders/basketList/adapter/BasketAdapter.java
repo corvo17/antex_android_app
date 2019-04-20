@@ -28,7 +28,7 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        BasketProduct item = list.get(i);
+        BasketProduct item = list.get(viewHolder.getAdapterPosition());
 
         viewHolder.name.setText(item.getProduct().getLabel());
         viewHolder.price.setText(Integer.toString(item.getProductPrice().getValue()));

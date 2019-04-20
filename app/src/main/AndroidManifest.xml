@@ -9,6 +9,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permissions.READ_DATABASE"/>
+    <uses-permission android:name="android.permissioms.WRITE_DATABASE"/>
+    <uses-permission android:name="${applicationId}.fileprovider.READ_DATABASE"/>
+    <uses-permission android:name="${applicationId}.fileprovider.WRITE_DATABASE"/>
+
     <uses-permission
         android:name="android.hardware.camera2"
         android:required="true" />
@@ -16,8 +21,6 @@
     <meta-data
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".MvpApplication"
@@ -62,6 +65,8 @@
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
             android:exported="false"
+            android:readPermission="${applicationId}.fileprovider.READ_DATABASE"
+            android:writePermission="${applicationId}.fileprovider.WRITE_DATABASE"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"

@@ -38,7 +38,7 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        if (priceList.get(i).isChecked())
+        if (priceList.get(viewHolder.getAdapterPosition()).isChecked())
             viewHolder.checkBox.setChecked(true);
         else
             viewHolder.checkBox.setChecked(false);
@@ -46,16 +46,16 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
 //        if (lastCheckedPos == i) {
 //            viewHolder.checkBox.setChecked(true);
 //        }
-        viewHolder.checkBox.setText(priceList.get(i).getLabel());
+        viewHolder.checkBox.setText(priceList.get(viewHolder.getAdapterPosition()).getLabel());
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 if(lastCheckedPos >= 0){
                     priceList.get(lastCheckedPos).setChecked(false);
                     notifyDataSetChanged();
                 }
-                priceList.get(i).setChecked(true);
-                lastCheckedPos = i;
-                callback.onItemClick(priceList.get(i).getId());
+                priceList.get(viewHolder.getAdapterPosition()).setChecked(true);
+                lastCheckedPos = viewHolder.getAdapterPosition();
+                callback.onItemClick(priceList.get(viewHolder.getAdapterPosition()).getId());
             }
         });
 

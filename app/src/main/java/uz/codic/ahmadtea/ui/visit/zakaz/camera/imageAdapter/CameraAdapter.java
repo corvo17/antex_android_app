@@ -34,12 +34,12 @@ public class CameraAdapter extends RecyclerView.Adapter<CameraViewHolde>{
 
     @Override
     public void onBindViewHolder(@NonNull CameraViewHolde cameraViewHolde, int i) {
-        File imageFile = allImages.get(i).getImage();
+        File imageFile = allImages.get(cameraViewHolde.getAdapterPosition()).getImage();
        // File imageFile = new File("sdcard/AhmadTeaImage/kotlin/1549178085323.jpg");
         Log.d("MakhmudjonPath",imageFile.getAbsolutePath());
         Bitmap myImage = BitmapFactory.decodeFile(imageFile.getPath());
         cameraViewHolde.imageIllustrater.setImageBitmap(myImage);
-        cameraViewHolde.titleImage.setText(allImages.get(i).getTitle());
+        cameraViewHolde.titleImage.setText(allImages.get(cameraViewHolde.getAdapterPosition()).getTitle());
         cameraViewHolde.itemView.setOnClickListener(action->{
             context.openImage(imageFile);
         });

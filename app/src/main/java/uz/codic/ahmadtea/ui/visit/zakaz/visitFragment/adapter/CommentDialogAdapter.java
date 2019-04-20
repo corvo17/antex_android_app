@@ -28,7 +28,7 @@ public class CommentDialogAdapter extends RecyclerView.Adapter<CommentDialogAdap
 
     @Override
     public void onBindViewHolder(@NonNull CommentDialogViewHolder commentDialogViewHolder, int position) {
-        commentDialogViewHolder.bindView(items.get(position));
+        commentDialogViewHolder.bindView(items.get(commentDialogViewHolder.getAdapterPosition()));
     }
 
     @Override

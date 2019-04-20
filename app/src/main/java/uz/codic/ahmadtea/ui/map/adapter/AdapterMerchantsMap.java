@@ -29,7 +29,7 @@ public class AdapterMerchantsMap extends RecyclerView.Adapter<AdapterMerchantsMa
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        AdapterItems items = adapterItems.get(i);
+        AdapterItems items = adapterItems.get(viewHolder.getAdapterPosition());
         viewHolder.name.setText(items.name);
         viewHolder.value.setText((items.value) + " km");
     }

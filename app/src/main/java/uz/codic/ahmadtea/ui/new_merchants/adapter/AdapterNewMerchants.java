@@ -27,34 +27,28 @@ public class AdapterNewMerchants extends RecyclerView.Adapter<AdapterNewMerchant
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int i) {
-        holder.tvMerchantName.setText(merchants.get(i).getName());
-        holder.tvMerchantAddress.setText(merchants.get(i).getAddress());
+        holder.tvMerchantName.setText(merchants.get(holder.getAdapterPosition()).getName());
+        holder.tvMerchantAddress.setText(merchants.get(holder.getAdapterPosition()).getAddress());
         holder.tvSizeWorkspaces.setText("");
 
-        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), MerchantActivity.class);
-                intent.putExtra("click", "onClick");
+        holder.linearLayout.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), MerchantActivity.class);
+            intent.putExtra("click", "onClick");
 
-                intent.putExtra("name", merchants.get(i).getName());
-                intent.putExtra("id", merchants.get(i).getPid());
-                intent.putExtra("id_workspace", merchants.get(i).getId_workspace());
-                holder.itemView.getContext().startActivity(intent);
-            }
+            intent.putExtra("name", merchants.get(holder.getAdapterPosition()).getName());
+            intent.putExtra("id", merchants.get(holder.getAdapterPosition()).getPid());
+            intent.putExtra("id_workspace", merchants.get(holder.getAdapterPosition()).getId_workspace());
+            holder.itemView.getContext().startActivity(intent);
         });
-        holder.linearLayout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent = new Intent(holder.itemView.getContext(), MerchantActivity.class);
-                intent.putExtra("click", "longClick");
+        holder.linearLayout.setOnLongClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), MerchantActivity.class);
+            intent.putExtra("click", "longClick");
 
-                intent.putExtra("name", merchants.get(i).getName());
-                intent.putExtra("id", merchants.get(i).getPid());
-                intent.putExtra("id_workspace", merchants.get(i).getId_workspace());
-                holder.itemView.getContext().startActivity(intent);
-                return true;
-            }
+            intent.putExtra("name", merchants.get(holder.getAdapterPosition()).getName());
+            intent.putExtra("id", merchants.get(holder.getAdapterPosition()).getPid());
+            intent.putExtra("id_workspace", merchants.get(holder.getAdapterPosition()).getId_workspace());
+            holder.itemView.getContext().startActivity(intent);
+            return true;
         });
     }
 

@@ -38,7 +38,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
-        Merchant item = merchants.get(i).getMerchant();
+        Merchant item = merchants.get(viewHolder.getAdapterPosition()).getMerchant();
         viewHolder.tvMerchantName.setText(item.getLabel());
         viewHolder.tvMerchantAddress.setText(item.getAddress());
         viewHolder.tvSum.setText("sum");
@@ -56,10 +56,10 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
             viewHolder.tvSum.setTextColor(Color.parseColor("#737373"));
         }
 
-        if (merchants.get(i).getSizeWorkspaces() == 1) {
+        if (merchants.get(viewHolder.getAdapterPosition()).getSizeWorkspaces() == 1) {
             viewHolder.tvSizeWorkspaces.setText("");
         } else {
-            viewHolder.tvSizeWorkspaces.setText(merchants.get(i).getSizeWorkspaces() + "");
+            viewHolder.tvSizeWorkspaces.setText(merchants.get(viewHolder.getAdapterPosition()).getSizeWorkspaces() + "");
         }
 
         viewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -67,16 +67,16 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
             public void onClick(View v) {
                 Intent intent = new Intent(viewHolder.itemView.getContext(), MerchantActivity.class);
                 intent.putExtra("click", "onClick");
-                if (merchants.get(i).getSizeWorkspaces() > 1) {
+                if (merchants.get(viewHolder.getAdapterPosition()).getSizeWorkspaces() > 1) {
 
                     intent.putExtra("name", item.getLabel());
                     intent.putExtra("id", item.getPid());
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(callback.getThisActivity());
-                    builder.setTitle("Selected Workspace").setItems(getWorkspaceNames(i), new DialogInterface.OnClickListener() {
+                    builder.setTitle("Selected Workspace").setItems(getWorkspaceNames(viewHolder.getAdapterPosition()), new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            intent.putExtra("id_workspace", merchants.get(i).getWorkspaces().get(which).getId());
+                            intent.putExtra("id_workspace", merchants.get(viewHolder.getAdapterPosition()).getWorkspaces().get(which).getId());
                             viewHolder.itemView.getContext().startActivity(intent);
                         }
                     });
@@ -85,7 +85,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
                 } else {
                     intent.putExtra("name", item.getLabel());
                     intent.putExtra("id", item.getPid());
-                    intent.putExtra("id_workspace", merchants.get(i).getWorkspaces().get(0).getId());
+                    intent.putExtra("id_workspace", merchants.get(viewHolder.getAdapterPosition()).getWorkspaces().get(0).getId());
                     viewHolder.itemView.getContext().startActivity(intent);
                 }
             }
@@ -98,14 +98,14 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
                 intent.putExtra("click", "longClick");
                 intent.putExtra("name", item.getLabel());
                 intent.putExtra("id", item.getPid());
-                intent.putExtra("id_workspace", merchants.get(i).getWorkspaces().get(0).getId());
+                intent.putExtra("id_workspace", merchants.get(viewHolder.getAdapterPosition()).getWorkspaces().get(0).getId());
                 viewHolder.itemView.getContext().startActivity(intent);
                 return true;
             }
         });
 
-        if (!merchants.get(i).getInfos().isEmpty()){
-            Log.d("baxtiyor", "ifff: " + merchants.get(i).getInfos());
+        if (!merchants.get(viewHolder.getAdapterPosition()).getInfos().isEmpty()){
+            Log.d("baxtiyor", "ifff: " + merchants.get(viewHolder.getAdapterPosition()).getInfos());
             boolean error = false;
             boolean send = false;
             boolean send_draft = false;
@@ -114,7 +114,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
 
 
 
-            for (InfoAction action :merchants.get(i).getInfos()) {
+            for (InfoAction action :merchants.get(viewHolder.getAdapterPosition()).getInfos()) {
                 Log.d("baxtiyor", "info: " + action);
                 if (action.isError())error = true;
                 if (action.isSave()) save = true;
@@ -147,7 +147,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         }
 
         //Log.d("baxtiyor", "onBindViewHolder: " + merchants.get(i).getInfos());
-        callback.changedPosition(i);
+        callback.changedPosition(viewHolder.getAdapterPosition());
 
     }
 

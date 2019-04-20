@@ -38,11 +38,11 @@ public class PaymentTypesAdapter extends RecyclerView.Adapter<PaymentTypesAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
 
-        if (paymentTypes.get(i).isChecked())
+        if (paymentTypes.get(viewHolder.getAdapterPosition()).isChecked())
             viewHolder.checkBox.setChecked(true);
         else
             viewHolder.checkBox.setChecked(false);
-        viewHolder.checkBox.setText(paymentTypes.get(i).getLabel());
+        viewHolder.checkBox.setText(paymentTypes.get(viewHolder.getAdapterPosition()).getLabel());
 
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
@@ -50,9 +50,9 @@ public class PaymentTypesAdapter extends RecyclerView.Adapter<PaymentTypesAdapte
                     paymentTypes.get(lastCheckedPos).setChecked(false);
                     notifyDataSetChanged();
                 }
-                paymentTypes.get(i).setChecked(true);
-                lastCheckedPos = i;
-                callback.onItemClick(paymentTypes.get(i).getId());
+                paymentTypes.get(viewHolder.getAdapterPosition()).setChecked(true);
+                lastCheckedPos = viewHolder.getAdapterPosition();
+                callback.onItemClick(paymentTypes.get(viewHolder.getAdapterPosition()).getId());
             }
         });
     }
