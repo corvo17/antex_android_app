@@ -34,7 +34,7 @@
 
         <item
             android:id="@+id/sittings"
-            android:title="Sittings"/>
+            android:title="Settings"/>
     </group>
 
 

@@ -25,6 +25,7 @@ import java.util.Objects;
 
 import uz.codic.ahmadtea.BuildConfig;
 import uz.codic.ahmadtea.R;
+import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 
 public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpView {
@@ -94,6 +95,7 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
         if (!map.get("payload").get("version_name").equals(BuildConfig.VERSION_NAME)) {
             String path = Environment.getExternalStorageDirectory() + File.separator + "antex.apk";
             new MyTask().execute(path, (Objects.requireNonNull(map.get("payload")).get("absolute_path_apk")));
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
         } else {
             info_text.append("\n\nNo Update required");
             progressBar.setVisibility(View.GONE);
