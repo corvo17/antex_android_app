@@ -3,14 +3,14 @@ package uz.codic.ahmadtea.data.network.model;
 public class ApiVisit {
 
     String id;
-    String id_merchant;
-    String id_comment;
+    String merchant_id;
+    String comment_id;
     String notes;
     long time_start;
     long time_end;
     double latitude;
     double longitude;
-    Integer id_filial;
+    Integer filial_id;
 
     public ApiVisit(){
 
@@ -24,20 +24,20 @@ public class ApiVisit {
         this.id = id;
     }
 
-    public String getId_merchant() {
-        return id_merchant;
+    public String getMerchant_id() {
+        return merchant_id;
     }
 
-    public void setId_merchant(String id_merchant) {
-        this.id_merchant = id_merchant;
+    public void setMerchant_id(String merchant_id) {
+        this.merchant_id = merchant_id;
     }
 
-    public String getId_comment() {
-        return id_comment;
+    public String getComment_id() {
+        return comment_id;
     }
 
-    public void setId_comment(String id_comment) {
-        this.id_comment = id_comment;
+    public void setComment_id(String comment_id) {
+        this.comment_id = comment_id;
     }
 
     public String getNotes() {
@@ -80,11 +80,11 @@ public class ApiVisit {
         this.longitude = longitude;
     }
 
-    public Integer getId_filial() {
-        return id_filial;
+    public Integer getFilial_id() {
+        return filial_id;
     }
 
-    public void setId_filial(Integer id_filial) {
-        this.id_filial = id_filial;
+    public void setFilial_id(Integer filial_id) {
+        this.filial_id = filial_id;
     }
 }

@@ -471,32 +471,32 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
 
         for (OrderBasket orderBasket : baskets) {
             ApiOrderBasket apiOrderBasket = new ApiOrderBasket();
-            apiOrderBasket.setId_product(orderBasket.getId_product());
+            apiOrderBasket.setProduct_id(orderBasket.getId_product());
             apiOrderBasket.setTotal_count(orderBasket.getTotal_count());
             apiOrderBaskets.add(apiOrderBasket);
         }
         apiOrder.setId(order.getId());
-        apiOrder.setId_payment_type(order.getId_payment_type());
-        apiOrder.setId_mmd(order.getId_mmd());
-        apiOrder.setId_merchant(order.getId_merchant());
+        apiOrder.setPayment_type_id(order.getId_payment_type());
+        apiOrder.setMmd_id(order.getId_mmd());
+        apiOrder.setMerchant_id(order.getId_merchant());
         apiOrder.setTotal_cost(order.getTotal_cost());
         apiOrder.setTotal_cost_with_mmd(order.getTotal_cost_with_mmd());
-        apiOrder.setNotes(order.getNotes());
-        apiOrder.setId_filial(order.getId_filial());
-        apiOrder.setId_price(order.getId_price());
-        apiOrder.setId_workspace(order.getId_workspace());
+        apiOrder.setNote(order.getNotes());
+        apiOrder.setFilial_id(order.getId_filial());
+        apiOrder.setPrice_id(order.getId_price());
+        apiOrder.setWorkspace_id(order.getId_workspace());
         apiOrder.setDelivery_date(order.getDelivery_date());
 
 
         apiVisit.setId(visit.getId());
-        apiVisit.setId_merchant(visit.getId_merchant());
-        apiVisit.setId_comment(visit.getId_comment());
+        apiVisit.setMerchant_id(visit.getId_merchant());
+        apiVisit.setComment_id(visit.getId_comment());
         apiVisit.setNotes(visit.getNotes());
         apiVisit.setTime_start(visit.getTime_start());
         apiVisit.setTime_end(visit.getTime_end());
         apiVisit.setLatitude(visit.getLatitude());
         apiVisit.setLongitude(visit.getLongitude());
-        apiVisit.setId_filial(visit.getId_filial());
+        apiVisit.setFilial_id(visit.getId_filial());
 
         Payload payload = new Payload(apiVisit, apiOrder, apiOrderBaskets);
         return new Send(payload);

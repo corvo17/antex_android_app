@@ -3,16 +3,17 @@ package uz.codic.ahmadtea.data.network.model;
 public class ApiOrder {
 
     String id;
-    Integer id_payment_type;
-    Integer id_mmd;
-    String id_merchant;
+    Integer payment_type_id;
+    Integer mmd_id;
+    String merchant_id;
     Long total_cost;
     Long total_cost_with_mmd;
-    String notes;
-    Integer id_filial;
-    Integer id_price;
-    String id_workspace;
+    String note;
+    Integer filial_id;
+    Integer price_id;
+    String workspace_id;
     String delivery_date;
+    Integer order_status_id;
 
 
     public ApiOrder(){
@@ -27,28 +28,28 @@ public class ApiOrder {
         this.id = id;
     }
 
-    public Integer getId_payment_type() {
-        return id_payment_type;
+    public Integer getPayment_type_id() {
+        return payment_type_id;
     }
 
-    public void setId_payment_type(Integer id_payment_type) {
-        this.id_payment_type = id_payment_type;
+    public void setPayment_type_id(Integer payment_type_id) {
+        this.payment_type_id = payment_type_id;
     }
 
-    public Integer getId_mmd() {
-        return id_mmd;
+    public Integer getMmd_id() {
+        return mmd_id;
     }
 
-    public void setId_mmd(Integer id_mmd) {
-        this.id_mmd = id_mmd;
+    public void setMmd_id(Integer mmd_id) {
+        this.mmd_id = mmd_id;
     }
 
-    public String getId_merchant() {
-        return id_merchant;
+    public String getMerchant_id() {
+        return merchant_id;
     }
 
-    public void setId_merchant(String id_merchant) {
-        this.id_merchant = id_merchant;
+    public void setMerchant_id(String merchant_id) {
+        this.merchant_id = merchant_id;
     }
 
     public Long getTotal_cost() {
@@ -67,36 +68,36 @@ public class ApiOrder {
         this.total_cost_with_mmd = total_cost_with_mmd;
     }
 
-    public String getNotes() {
-        return notes;
+    public String getNote() {
+        return note;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
+    public void setNote(String note) {
+        this.note = note;
     }
 
-    public Integer getId_filial() {
-        return id_filial;
+    public Integer getFilial_id() {
+        return filial_id;
     }
 
-    public void setId_filial(Integer id_filial) {
-        this.id_filial = id_filial;
+    public void setFilial_id(Integer filial_id) {
+        this.filial_id = filial_id;
     }
 
-    public Integer getId_price() {
-        return id_price;
+    public Integer getPrice_id() {
+        return price_id;
     }
 
-    public void setId_price(Integer id_price) {
-        this.id_price = id_price;
+    public void setPrice_id(Integer price_id) {
+        this.price_id = price_id;
     }
 
-    public String getId_workspace() {
-        return id_workspace;
+    public String getWorkspace_id() {
+        return workspace_id;
     }
 
-    public void setId_workspace(String id_workspace) {
-        this.id_workspace = id_workspace;
+    public void setWorkspace_id(String workspace_id) {
+        this.workspace_id = workspace_id;
     }
 
     public String getDelivery_date() {
@@ -105,5 +106,13 @@ public class ApiOrder {
 
     public void setDelivery_date(String delivery_date) {
         this.delivery_date = delivery_date;
+    }
+
+    public Integer getOrder_status_id() {
+        return order_status_id;
+    }
+
+    public void setOrder_status_id(Integer order_status_id) {
+        this.order_status_id = order_status_id;
     }
 }

@@ -200,8 +200,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<SendResponse> requestSend(String token, Send send) {
-        return apiService.requestSend(token, send);
+    public Single<ApiObeject<uz.codic.ahmadtea.data.network.model.Payload>> requestSend(String token, ApiObeject<uz.codic.ahmadtea.data.network.model.Payload> apiObeject) {
+        return apiService.requestSend(token, apiObeject);
     }
 
     @Override

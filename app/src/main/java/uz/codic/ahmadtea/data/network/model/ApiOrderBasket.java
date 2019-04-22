@@ -2,19 +2,19 @@ package uz.codic.ahmadtea.data.network.model;
 
 public class ApiOrderBasket {
 
-    String id_product;
+    String product_id;
     int total_count;
 
     public ApiOrderBasket(){
 
     }
 
-    public String getId_product() {
-        return id_product;
+    public String getProduct_id() {
+        return product_id;
     }
 
-    public void setId_product(String id_product) {
-        this.id_product = id_product;
+    public void setProduct_id(String product_id) {
+        this.product_id = product_id;
     }
 
     public int getTotal_count() {

@@ -61,11 +61,8 @@ public interface ApiService {
 
 
     //Send Request
-    @Headers({
-            "Routing-Key:" + ApiEndPoint.ROUTING_KEY_SEND_ORDER
-    })
     @POST(ApiEndPoint.ENDPOINT_SEND)
-    Single<SendResponse> requestSend(@Header("X-Authorization")String token, @Body Send send);
+    Single<ApiObeject<uz.codic.ahmadtea.data.network.model.Payload>> requestSend(@Header("X-Authorization")String token, @Body ApiObeject<uz.codic.ahmadtea.data.network.model.Payload> apiObeject);
 
 
     //Send DRAFT Request

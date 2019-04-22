@@ -19,6 +19,7 @@ import uz.codic.ahmadtea.data.network.model.ApiVisit;
 import uz.codic.ahmadtea.data.network.model.Payload;
 import uz.codic.ahmadtea.data.network.model.Send;
 import uz.codic.ahmadtea.data.network.model.SendResponse;
+import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.utils.Consts;
 
@@ -60,21 +61,25 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
 
     @Override
     public void requestSend(List<OrderBasket> baskets, Order order, Visit visit) {
-        Send send = collectApiObjects(baskets, visit, order);
+        ApiObeject<Payload> send = collectApiObjects(baskets, visit, order);
+        send.getPayload().get(0).getOrder().setOrder_status_id(5);
 
         getDataManager().requestSend(getDataManager().getToken(), send)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<SendResponse>() {
+                .subscribe(new SingleObserver<ApiObeject<Payload>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(SendResponse sendResponse) {
-                        updateOrder(baskets, order, visit, Consts.statusSaveAsDraft);
-                        getMvpView().back();
+                    public void onSuccess(ApiObeject<Payload> apiObeject) {
+                        if (apiObeject.getMeta().getStatus().equals("200")) {
+                            updateOrder(baskets, order, visit, Consts.statusSaveAsDraft);
+                            //TODO add info action
+                            getMvpView().back();
+                        }
                     }
 
                     @Override
@@ -87,21 +92,24 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
 
     @Override
     public void requestSendDraft(List<OrderBasket> baskets, Order order, Visit visit) {
-        Send send = collectApiObjects(baskets, visit, order);
+        ApiObeject<Payload> send = collectApiObjects(baskets, visit, order);
+        send.getPayload().get(0).getOrder().setOrder_status_id(5);
 
-        getDataManager().requestSendDraft(getDataManager().getToken(), send)
+        getDataManager().requestSend(getDataManager().getToken(), send)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<SendResponse>() {
+                .subscribe(new SingleObserver<ApiObeject<Payload>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(SendResponse sendResponse) {
-                        updateOrder(baskets, order, visit, Consts.statusSendAsDraft);
-                        getMvpView().back();
+                    public void onSuccess(ApiObeject<Payload> apiObeject) {
+                        if (apiObeject.getMeta().getStatus().equals("200")) {
+                            updateOrder(baskets, order, visit, Consts.statusSendAsDraft);
+                            getMvpView().back();
+                        }
                     }
 
                     @Override
@@ -136,44 +144,48 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
          return getDataManager().getVisitByIdOrder(id_visit);
     }
 
-    private Send collectApiObjects(List<OrderBasket> baskets, Visit visit, Order order) {
+    private ApiObeject<Payload> collectApiObjects(List<OrderBasket> baskets, Visit visit, Order order) {
         ApiOrder apiOrder = new ApiOrder();
         ApiVisit apiVisit = new ApiVisit();
         List<ApiOrderBasket> apiOrderBaskets = new ArrayList<>();
 
         for (OrderBasket orderBasket : baskets) {
             ApiOrderBasket apiOrderBasket = new ApiOrderBasket();
-            apiOrderBasket.setId_product(orderBasket.getId_product());
+            apiOrderBasket.setProduct_id(orderBasket.getId_product());
             apiOrderBasket.setTotal_count(orderBasket.getTotal_count());
             apiOrderBaskets.add(apiOrderBasket);
         }
         apiOrder.setId(order.getId());
-        apiOrder.setId_payment_type(order.getId_payment_type());
-        apiOrder.setId_mmd(order.getId_mmd());
-        apiOrder.setId_merchant(order.getId_merchant());
+        apiOrder.setPayment_type_id(order.getId_payment_type());
+        apiOrder.setMmd_id(order.getId_mmd());
+        apiOrder.setMerchant_id(order.getId_merchant());
         apiOrder.setTotal_cost(order.getTotal_cost());
         apiOrder.setTotal_cost_with_mmd(order.getTotal_cost_with_mmd());
-        apiOrder.setNotes(order.getNotes());
-        apiOrder.setId_filial(order.getId_filial());
-        apiOrder.setId_price(order.getId_price());
-        apiOrder.setId_workspace(order.getId_workspace());
+        apiOrder.setNote(order.getNotes());
+        apiOrder.setFilial_id(order.getId_filial());
+        apiOrder.setPrice_id(order.getId_price());
+        apiOrder.setWorkspace_id(order.getId_workspace());
         apiOrder.setDelivery_date(order.getDelivery_date());
 
 
         if (visit != null) {
             apiVisit.setId(visit.getId());
-            apiVisit.setId_merchant(visit.getId_merchant());
-            apiVisit.setId_comment(visit.getId_comment());
+            apiVisit.setMerchant_id(visit.getId_merchant());
+            apiVisit.setComment_id(visit.getId_comment());
             apiVisit.setNotes(visit.getNotes());
             apiVisit.setTime_start(visit.getTime_start());
             apiVisit.setTime_end(visit.getTime_end());
             apiVisit.setLatitude(visit.getLatitude());
             apiVisit.setLongitude(visit.getLongitude());
-            apiVisit.setId_filial(visit.getId_filial());
+            apiVisit.setFilial_id(visit.getId_filial());
         }
 
         Payload payload = new Payload(apiVisit, apiOrder, apiOrderBaskets);
-        return new Send(payload);
+        ApiObeject<Payload> apiObeject = new ApiObeject<>();
+        List<Payload> payloads = new ArrayList<>();
+        payloads.add(payload);
+        apiObeject.setPayload(payloads);
+        return apiObeject;
 
     }
 }
