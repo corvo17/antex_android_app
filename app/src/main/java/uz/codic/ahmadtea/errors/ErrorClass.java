@@ -109,7 +109,7 @@ public class ErrorClass{
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.start_icon)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setChannelId(CHANNEL_ID)
                 .setContentText("Произошла ошибка!\n" +
                         "код: общая ошибка\n" +
@@ -144,7 +144,7 @@ public class ErrorClass{
                 .setAutoCancel(true)
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.drawable.start_icon)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setChannelId(CHANNEL_ID)
                 .setContentText("Произошла ошибка!\n" +
                         "код: общая ошибка\n" +
