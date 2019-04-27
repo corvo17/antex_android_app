@@ -567,12 +567,25 @@ public class MainActivity extends BaseActivity
     }
 
     private void updateFragment() {
+
+        Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+        if (f instanceof NewMerchantsFragment && !presenter.getDataManager().isAdmin())
+        {
         try {
-            fragment = (Fragment) fragmentClass.newInstance();
+            fragment = (Fragment) DashboardFragment.class.newInstance();
+            setTitle("AntEx");
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InstantiationException e) {
             e.printStackTrace();
+        }}else{
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
         }
 
         FragmentManager fm = getSupportFragmentManager();
