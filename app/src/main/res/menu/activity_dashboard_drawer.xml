@@ -27,12 +27,6 @@
             android:title="Report" />
 
         <item
-            android:id="@+id/test"
-            android:visible="true"
-            android:title="test"
-            />
-
-        <item
             android:id="@+id/sittings"
             android:title="Settings"/>
     </group>

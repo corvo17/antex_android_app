@@ -261,7 +261,6 @@ public class MainActivity extends BaseActivity
             closeMapItem();
             closeCalendarItem();
             closeFilter();
-            Log.d("baxtiyor", "onNavigationItemSelected: dashboard" );
             fragmentClass = DashboardFragment.class;
         } else if (id == R.id.nav_synch) {
             search_item.setVisible(false);
@@ -270,7 +269,6 @@ public class MainActivity extends BaseActivity
             closeCalendarItem();
             closeFilter();
             fragmentClass = SynchronisationFragment.class;
-            Log.d("baxtiyor", "onNavigationItemSelected: synch" );
         } else if (id == R.id.nav_daily_plan) {
             search_item.setVisible(true);
             closeSearchField();
@@ -281,7 +279,6 @@ public class MainActivity extends BaseActivity
             if (!calendar_item.isVisible()) {
                 calendar_item.setVisible(true);
             }
-            Log.d("baxtiyor", "onNavigationItemSelected: plan" );
             fragmentClass = DailyFragment.class;
         } else if (id == R.id.nav_merchants) {
             search_item.setVisible(true);
@@ -297,7 +294,6 @@ public class MainActivity extends BaseActivity
             } else {
                 closeFilter();
             }
-            Log.d("baxtiyor", "onNavigationItemSelected: merchant" );
             closeCalendarItem();
             fragmentClass = MerchantsFragment.class;
         } else if (id == R.id.nav_orders) {
@@ -306,16 +302,10 @@ public class MainActivity extends BaseActivity
             closeFilter();
             closeMapItem();
             closeCalendarItem();
-            Log.d("baxtiyor", "onNavigationItemSelected: order" );
             fragmentClass = OrderFragment.class;
-        } if (id == R.id.test){
-            getTestData();
-            return true;
         }
-
         if (id == R.id.sittings){
             startActivity(new Intent(MainActivity.this, VersionInfoActivity.class));
-            Log.d("baxtiyor", "onNavigationItemSelected: setting" );
             return true;
         }
 
@@ -325,7 +315,6 @@ public class MainActivity extends BaseActivity
             closeFilter();
             closeMapItem();
             closeCalendarItem();
-            Log.d("baxtiyor", "onNavigationItemSelected: dashboard" );
             fragmentClass = NewMerchantsFragment.class;
         }
 
@@ -348,96 +337,6 @@ public class MainActivity extends BaseActivity
 
         return true;
     }
-
-    // text fuctions
-    private void getTestData() {
-        Log.d("baxtiyor", "getAndroid version: " + getAndroidVersion(Build.VERSION.SDK_INT));
-        Log.d("baxtiyor", "get SDK : " + Build.VERSION.SDK_INT);
-        Log.d("baxtiyor", "get BASE OS: " + Build.VERSION.BASE_OS);
-        Log.d("baxtiyor", "get RELEASE: " + Build.VERSION.RELEASE);
-        Log.d("baxtiyor", "get INCREMENTAL: " + Build.VERSION.INCREMENTAL);
-        Log.d("baxtiyor", "get device name: " + getDeviceName());
-        Log.d("baxtiyor", "get device name: " + Build.MODEL);
-        Log.d("baxtiyor", "isEmulator: " + isEmulator());
-    }
-
-    private boolean isEmulator(){
-
-        return (Build.FINGERPRINT.startsWith("generic")
-                || Build.FINGERPRINT.startsWith("unknown")
-                || Build.MODEL.contains("google_sdk")
-                || Build.MODEL.contains("Emulator")
-                || Build.MODEL.contains("Android SDK built for x86")
-                || Build.MANUFACTURER.contains("Genymotion")
-                || Build.BRAND.startsWith("generic") && Build.DEVICE.startsWith("generic")
-                || "google_sdk" == Build.PRODUCT);
-    }
-
-    public String getDeviceName() {
-        String manufacturer = Build.MANUFACTURER;
-        String model = Build.MODEL;
-        if (model.startsWith(manufacturer)) {
-            return capitalize(model);
-        }
-        return capitalize(manufacturer) + " " + model;
-    }
-
-    private String capitalize(String str) {
-        if (TextUtils.isEmpty(str)) {
-            return str;
-        }
-        char[] arr = str.toCharArray();
-        boolean capitalizeNext = true;
-
-        StringBuilder phrase = new StringBuilder();
-        for (char c : arr) {
-            if (capitalizeNext && Character.isLetter(c)) {
-                phrase.append(Character.toUpperCase(c));
-                capitalizeNext = false;
-                continue;
-            } else if (Character.isWhitespace(c)) {
-                capitalizeNext = true;
-            }
-            phrase.append(c);
-        }
-
-        return phrase.toString();
-    }
-
-    private String getAndroidVersion(int sdk) {
-        switch (sdk) {
-            case 1:  return                          "(Android 1.0)";
-            case 2:  return  "Petit Four"          + "(Android 1.1)";
-            case 3:  return  "Cupcake"             + "(Android 1.5)";
-            case 4:  return  "Donut"               + "(Android 1.6)";
-            case 5:  return  "Eclair"              + "(Android 2.0)";
-            case 6:  return  "Eclair"              + "(Android 2.0.1)";
-            case 7:  return  "Eclair"              + "(Android 2.1)";
-            case 8:  return  "Froyo"               + "(Android 2.2)";
-            case 9:  return  "Gingerbread"         + "(Android 2.3)";
-            case 10: return  "Gingerbread"         + "(Android 2.3.3)";
-            case 11: return  "Honeycomb"           + "(Android 3.0)";
-            case 12: return  "Honeycomb"           + "(Android 3.1)";
-            case 13: return  "Honeycomb"           + "(Android 3.2)";
-            case 14: return  "Ice Cream Sandwich"  + "(Android 4.0)";
-            case 15: return  "Ice Cream Sandwich"  + "(Android 4.0.3)";
-            case 16: return  "Jelly Bean"          + "(Android 4.1)";
-            case 17: return  "Jelly Bean"          + "(Android 4.2)";
-            case 18: return  "Jelly Bean"          + "(Android 4.3)";
-            case 19: return  "KitKat"              + "(Android 4.4)";
-            case 20: return  "KitKat Watch"        + "(Android 4.4)";
-            case 21: return  "Lollipop"            + "(Android 5.0)";
-            case 22: return  "Lollipop"            + "(Android 5.1)";
-            case 23: return  "Marshmallow"         + "(Android 6.0)";
-            case 24: return  "Nougat"              + "(Android 7.0)";
-            case 25: return  "Nougat"              + "(Android 7.1.1)";
-            case 26: return  "Oreo"                + "(Android 8.0)";
-            case 27: return  "Oreo"                + "(Android 8.1)";
-            case 28: return  "Pie"                 + "(Android 9.0)";
-            default: return  "";
-        }
-    }
-    // ^ text func
 
     private void closeCalendarItem() {
         if (calendar_item.isVisible()) {
@@ -485,7 +384,6 @@ public class MainActivity extends BaseActivity
     private void startStep3() {
 
         if (!mAlreadyStartedService) {
-            Log.d(TAG, "Service started");
             //Start location sharing service to app server.........
             Intent intent = new Intent(this, LocationMonitoringService.class);
             startService(intent);
@@ -537,7 +435,6 @@ public class MainActivity extends BaseActivity
         // Provide an additional rationale to the img_user. This would happen if the img_user denied the
         // request previously, but didn't check the "Don't ask again" checkbox.
         if (shouldProvideRationale || shouldProvideRationale2) {
-            Log.i(TAG, "Displaying permission rationale to provide additional context.");
             showSnackbar(R.string.permission_rationale,
                     android.R.string.ok, new View.OnClickListener() {
                         @Override
@@ -549,7 +446,6 @@ public class MainActivity extends BaseActivity
                         }
                     });
         } else {
-            Log.i(TAG, "Requesting permission");
             // Request permission. It's possible this can be auto answered if device policy
             // sets the permission in a given state or the img_user denied the permission
             // previously and checked "Never ask again".
@@ -573,21 +469,16 @@ public class MainActivity extends BaseActivity
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        Log.i(TAG, "onRequestPermissionResult");
         if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
             if (grantResults.length <= 0) {
                 // If img_user interaction was interrupted, the permission request is cancelled and you
                 // receive empty arrays.
-                Log.i(TAG, "User interaction was cancelled.");
             } else if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                Log.i(TAG, "Permission granted, updates requested, starting location updates");
                 //   turnGPSOn(); //I am turning on the GPS if dissabled.
                 startStep3();
 
             } else {
 
-                Log.d(TAG, "Permission denied");
 
                 showSnackbar(R.string.permission_denied_explanation,
                         R.string.settings, new View.OnClickListener() {
@@ -658,7 +549,6 @@ public class MainActivity extends BaseActivity
 
         if (!user.getId().equals(presenter.getDataManager().getId_employee())) {
             Random rnd = new Random();
-            Log.d("baxtiyor", "initializeUserForButton: " + rnd.nextInt(6));
             agentName.setText(user.getName());
             agentRole.setText(user.getRole_label());
             lnl_nav_head.setBackgroundColor(Color.parseColor(Consts.colors[rnd.nextInt(6)]));
@@ -677,7 +567,6 @@ public class MainActivity extends BaseActivity
     }
 
     private void updateFragment() {
-        Log.d("baxtiyor", "faragmen " + fragmentClass.getName());
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (IllegalAccessException e) {
