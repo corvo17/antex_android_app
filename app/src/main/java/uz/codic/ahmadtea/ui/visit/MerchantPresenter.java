@@ -27,8 +27,6 @@ import uz.codic.ahmadtea.data.network.model.ApiOrder;
 import uz.codic.ahmadtea.data.network.model.ApiOrderBasket;
 import uz.codic.ahmadtea.data.network.model.ApiVisit;
 import uz.codic.ahmadtea.data.network.model.Payload;
-import uz.codic.ahmadtea.data.network.model.Send;
-import uz.codic.ahmadtea.data.network.model.SendResponse;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteApi;
@@ -48,7 +46,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
     @Override
     public void requestSend(CompleteApi completeApi) {
         ApiObeject<Payload> send = collectApiObjects(completeApi.getOrderBasketList(), completeApi.getVisitObject(), completeApi.getOrderObject());
-        send.getPayload().get(0).getOrder().setOrder_status_id(5);
+        send.getPayload().get(0).getOrder().setStatus_id(5);
         getDataManager().requestSend(getDataManager().getToken(),send)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -60,7 +58,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
 
                     @Override
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
-                        if (apiObeject.getMeta().getStatus().equals("200")){
+                        if (apiObeject.getMeta().getStatus() == 200){
                         saveObjectsAsSent(completeApi.getOrderBasketList(),completeApi.getVisitObject(), completeApi.getOrderObject());
                         getMvpView().getInfoAction().setSend(true);
                         getDataManager().updateInfoAction(getMvpView().getInfoAction());
@@ -142,7 +140,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
     public void requestSendDraft(CompleteApi completeApi) {
 
         ApiObeject<Payload> send = collectApiObjects(completeApi.getOrderBasketList(), completeApi.getVisitObject(), completeApi.getOrderObject());
-        send.getPayload().get(0).getOrder().setOrder_status_id(3);
+        send.getPayload().get(0).getOrder().setStatus_id(3);
         getDataManager().requestSend(getDataManager().getToken(),send)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -154,7 +152,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
 
                     @Override
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
-                        if (apiObeject.getMeta().getStatus().equals("200")){
+                        if (apiObeject.getMeta().getStatus() == 200){
                             saveObjectsAsDraft(completeApi);
                         }
                     }

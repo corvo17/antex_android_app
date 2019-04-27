@@ -22,7 +22,9 @@ import java.util.UUID;
 
 import javax.inject.Inject;
 
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import uz.codic.ahmadtea.MvpApplication;
 import uz.codic.ahmadtea.R;
@@ -64,7 +66,7 @@ public class ErrorClass{
             Log.d("baxtiyor", "error_printStackTrace: " + stackTraceElement.toString());
         }
         openNotifi(id);
-        //sendError(id, exception);
+        sendError(id, exception);
     }
 
     public static void log(Exception exception) {
@@ -184,7 +186,22 @@ public class ErrorClass{
         appDataManager.sendError(appDataManager.getToken(), errorObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe();
+                .subscribe(new SingleObserver<ErrorObject>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ErrorObject errorObject) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        log((Exception) e);
+                    }
+                });
 
     }
 

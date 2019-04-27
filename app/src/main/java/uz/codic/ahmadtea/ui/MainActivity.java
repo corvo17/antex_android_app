@@ -126,7 +126,7 @@ public class MainActivity extends BaseActivity
 
 
         //default fragment
-        fragmentClass = DailyFragment.class;
+        fragmentClass = DashboardFragment.class;
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
         //startStep1();
@@ -261,6 +261,7 @@ public class MainActivity extends BaseActivity
             closeMapItem();
             closeCalendarItem();
             closeFilter();
+            Log.d("baxtiyor", "onNavigationItemSelected: dashboard" );
             fragmentClass = DashboardFragment.class;
         } else if (id == R.id.nav_synch) {
             search_item.setVisible(false);
@@ -269,6 +270,7 @@ public class MainActivity extends BaseActivity
             closeCalendarItem();
             closeFilter();
             fragmentClass = SynchronisationFragment.class;
+            Log.d("baxtiyor", "onNavigationItemSelected: synch" );
         } else if (id == R.id.nav_daily_plan) {
             search_item.setVisible(true);
             closeSearchField();
@@ -279,6 +281,7 @@ public class MainActivity extends BaseActivity
             if (!calendar_item.isVisible()) {
                 calendar_item.setVisible(true);
             }
+            Log.d("baxtiyor", "onNavigationItemSelected: plan" );
             fragmentClass = DailyFragment.class;
         } else if (id == R.id.nav_merchants) {
             search_item.setVisible(true);
@@ -294,6 +297,7 @@ public class MainActivity extends BaseActivity
             } else {
                 closeFilter();
             }
+            Log.d("baxtiyor", "onNavigationItemSelected: merchant" );
             closeCalendarItem();
             fragmentClass = MerchantsFragment.class;
         } else if (id == R.id.nav_orders) {
@@ -302,6 +306,7 @@ public class MainActivity extends BaseActivity
             closeFilter();
             closeMapItem();
             closeCalendarItem();
+            Log.d("baxtiyor", "onNavigationItemSelected: order" );
             fragmentClass = OrderFragment.class;
         } if (id == R.id.test){
             getTestData();
@@ -310,6 +315,7 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.sittings){
             startActivity(new Intent(MainActivity.this, VersionInfoActivity.class));
+            Log.d("baxtiyor", "onNavigationItemSelected: setting" );
             return true;
         }
 
@@ -319,6 +325,7 @@ public class MainActivity extends BaseActivity
             closeFilter();
             closeMapItem();
             closeCalendarItem();
+            Log.d("baxtiyor", "onNavigationItemSelected: dashboard" );
             fragmentClass = NewMerchantsFragment.class;
         }
 
@@ -643,7 +650,7 @@ public class MainActivity extends BaseActivity
 //            drawer.closeDrawer(GravityCompat.START);
 //        }
 
-        presenter.getWorkspaceAndMerchant();
+        //presenter.getWorkspaceAndMerchant();
     }
 
     @Override
@@ -664,13 +671,13 @@ public class MainActivity extends BaseActivity
                 presenter.getDataManager().changeIsAdmin(false);
                 nav_item_new_merchants.setVisible(false);
             }
-            presenter.getWorkspaceAndMerchant();
+            //presenter.getWorkspaceAndMerchant();
             updateFragment();
         }
     }
 
     private void updateFragment() {
-
+        Log.d("baxtiyor", "faragmen " + fragmentClass.getName());
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (IllegalAccessException e) {

@@ -33,7 +33,7 @@ public class LeftUsersAdapter extends RecyclerView.Adapter<LeftUserViewHolder> {
         String startLetter = Character.toString(users.get(i).getName().charAt(0));
         String endLetter = Character.toString(users.get(i).getName().charAt(users.get(i).getName().length() - 1));
         leftUserViewHolder.userName.setText(startLetter.toUpperCase() + endLetter.toLowerCase());
-        leftUserViewHolder.getView().setOnClickListener(action -> {
+        leftUserViewHolder.left_user_layout.setOnClickListener(action -> {
             baseView.initializeUserForButton(users.get(i));
         });
     }

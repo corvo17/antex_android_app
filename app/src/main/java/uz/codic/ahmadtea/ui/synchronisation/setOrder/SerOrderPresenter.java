@@ -17,8 +17,6 @@ import uz.codic.ahmadtea.data.network.model.ApiOrder;
 import uz.codic.ahmadtea.data.network.model.ApiOrderBasket;
 import uz.codic.ahmadtea.data.network.model.ApiVisit;
 import uz.codic.ahmadtea.data.network.model.Payload;
-import uz.codic.ahmadtea.data.network.model.Send;
-import uz.codic.ahmadtea.data.network.model.SendResponse;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.utils.Consts;
@@ -62,7 +60,7 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
     @Override
     public void requestSend(List<OrderBasket> baskets, Order order, Visit visit) {
         ApiObeject<Payload> send = collectApiObjects(baskets, visit, order);
-        send.getPayload().get(0).getOrder().setOrder_status_id(5);
+        send.getPayload().get(0).getOrder().setStatus_id(5);
 
         getDataManager().requestSend(getDataManager().getToken(), send)
                 .subscribeOn(Schedulers.io())
@@ -75,7 +73,7 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
 
                     @Override
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
-                        if (apiObeject.getMeta().getStatus().equals("200")) {
+                        if (apiObeject.getMeta().getStatus() == 200){
                             updateOrder(baskets, order, visit, Consts.statusSaveAsDraft);
                             //TODO add info action
                             getMvpView().back();
@@ -93,7 +91,7 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
     @Override
     public void requestSendDraft(List<OrderBasket> baskets, Order order, Visit visit) {
         ApiObeject<Payload> send = collectApiObjects(baskets, visit, order);
-        send.getPayload().get(0).getOrder().setOrder_status_id(5);
+        send.getPayload().get(0).getOrder().setStatus_id(5);
 
         getDataManager().requestSend(getDataManager().getToken(), send)
                 .subscribeOn(Schedulers.io())
@@ -106,7 +104,7 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
 
                     @Override
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
-                        if (apiObeject.getMeta().getStatus().equals("200")) {
+                        if (apiObeject.getMeta().getStatus() == 200){
                             updateOrder(baskets, order, visit, Consts.statusSendAsDraft);
                             getMvpView().back();
                         }

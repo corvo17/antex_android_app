@@ -61,7 +61,7 @@ public interface ApiService {
 
 
     //Send Request
-    @POST(ApiEndPoint.ENDPOINT_SEND)
+    @POST(ApiEndPoint.ENDPOINT_SEND_ORDER)
     Single<ApiObeject<uz.codic.ahmadtea.data.network.model.Payload>> requestSend(@Header("X-Authorization")String token, @Body ApiObeject<uz.codic.ahmadtea.data.network.model.Payload> apiObeject);
 
 

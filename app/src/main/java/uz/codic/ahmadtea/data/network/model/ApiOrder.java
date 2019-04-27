@@ -13,7 +13,7 @@ public class ApiOrder {
     Integer price_id;
     String workspace_id;
     String delivery_date;
-    Integer order_status_id;
+    Integer status_id;
 
 
     public ApiOrder(){
@@ -108,11 +108,11 @@ public class ApiOrder {
         this.delivery_date = delivery_date;
     }
 
-    public Integer getOrder_status_id() {
-        return order_status_id;
+    public Integer getStatus_id() {
+        return status_id;
     }
 
-    public void setOrder_status_id(Integer order_status_id) {
-        this.order_status_id = order_status_id;
+    public void setStatus_id(Integer status_id) {
+        this.status_id = status_id;
     }
 }
