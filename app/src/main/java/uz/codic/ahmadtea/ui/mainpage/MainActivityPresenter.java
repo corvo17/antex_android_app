@@ -33,8 +33,9 @@ public class MainActivityPresenter<v extends MainActivityView> extends BasePrese
                                   //To not get an error I used foreach loop rather than getting 0's index
 
                                   for (User x : list) {
+                                      if (x.getId().equals(getDataManager().getId_employee())){
                                       getMvpView().initializeUser(x);
-                                      break;
+                                      break;}
                                   }
                               }
                           })
