@@ -2,6 +2,7 @@ package uz.codic.ahmadtea.ui.visit.zakaz.prices;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,15 +48,16 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
 //            viewHolder.checkBox.setChecked(true);
 //        }
         viewHolder.checkBox.setText(priceList.get(viewHolder.getAdapterPosition()).getLabel());
+        int position = viewHolder.getAdapterPosition();
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
                 if(lastCheckedPos >= 0){
                     priceList.get(lastCheckedPos).setChecked(false);
                     notifyDataSetChanged();
                 }
-                priceList.get(viewHolder.getAdapterPosition()).setChecked(true);
-                lastCheckedPos = viewHolder.getAdapterPosition();
-                callback.onItemClick(priceList.get(viewHolder.getAdapterPosition()).getId());
+                priceList.get(position).setChecked(true);
+                lastCheckedPos = position;
+                callback.onItemClick(priceList.get(position).getId());
             }
         });
 

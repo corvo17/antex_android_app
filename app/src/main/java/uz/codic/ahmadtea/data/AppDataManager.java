@@ -91,7 +91,6 @@ public class AppDataManager implements DataManager {
         //apiServiceBook = apiClient.getApiClient().create(ApiService.class);
         if (isLocalized()){
             //apiService = ApiClient.getApiClient(context, prefHelper.getBaseUrl()).create(ApiService.class);
-            Log.d("baxtiyor", "AppDataManager pref helper base url: " + prefHelper.getBaseUrl());
             ApiClient api_client = new ApiClient(mContext, prefHelper.getBaseUrl());
             apiService = api_client.getApiClient2(mContext).create(ApiService.class);
         }

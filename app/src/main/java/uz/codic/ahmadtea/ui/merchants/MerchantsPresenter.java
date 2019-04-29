@@ -35,7 +35,6 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
                         @Override
                         public void onSuccess(List<WorkspaceAndMerchant> workspaceAndMerchants) {
                             getMerchantListWorkspaces(workspaceAndMerchants);
-                            Log.d("baxtiyor", "merchant presenter: " + workspaceAndMerchants);
                         }
 
                         @Override
@@ -62,7 +61,6 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
 
                     @Override
                     public void onSuccess(List<WorkspaceAndMerchant> workspaceAndMerchants) {
-                        Log.d("baxtiyor", "size: " + workspaceAndMerchants.size());
                         //convertMerchantListWorkspaces(workspaceAndMerchants);
                         getMerchantListWorkspaces(workspaceAndMerchants);
                     }

@@ -40,7 +40,7 @@ public class ApiClient {
 
     public  Retrofit getApiClient(){
 
-        Log.d("baxtiyor", "base url: " + base_url );
+
         if(okHttpClient == null){
             initOkHttp(mContext);
         }
