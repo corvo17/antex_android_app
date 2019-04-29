@@ -96,19 +96,12 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
         adapter.setCallback(this);
         //# add adapter to recyclerview
         recyclerView.setAdapter(adapter);
-        if (presenter.isAdmin()){
+        if (presenter.isAdmin()) {
             add_merchant_bn.setVisibility(View.VISIBLE);
-//            if (listener.getmMerchants()!= null){
-//                presenter.getMerchantListWorkspaces(listener.getmMerchants());
-//            }else
-                presenter.getWorkspaceAndMerchants();
-        }else {
+            presenter.getWorkspaceAndMerchants();
+        } else {
             add_merchant_bn.setVisibility(View.GONE);
-//            if (listener.getmMerchants()!= null){
-//                Log.d("baxtiyor", "m size: " + listener.getmMerchants().size());
-//                presenter.getMerchantListWorkspaces(listener.getmMerchants());
-//            }else
-                presenter.getWorkspaceAndMerchants();
+            presenter.getWorkspaceAndMerchants();
         }
 
         add_merchant_bn.setOnClickListener(new View.OnClickListener() {
@@ -139,9 +132,9 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof FragmentsListener){
+        if (context instanceof FragmentsListener) {
             listener = (FragmentsListener) context;
-        }else {
+        } else {
             throw new RuntimeException(context.toString() + "must implement listener");
         }
     }
@@ -175,7 +168,7 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
         for (int i = 0; i < workspaces.size(); i++) {
             nameWorkspaces.add(workspaces.get(i).getLabel());
         }
-        CharSequence [] items = nameWorkspaces.toArray(new CharSequence[0]);
+        CharSequence[] items = nameWorkspaces.toArray(new CharSequence[0]);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setItems(items, new DialogInterface.OnClickListener() {
@@ -200,25 +193,25 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
         return getActivity();
     }
 
-    public void openMap(){
+    public void openMap() {
 
         Intent intent = new Intent(getActivity(), MerchantsMapActivity.class);
         startActivity(intent);
     }
 
-    public void filter(){
+    public void filter() {
         presenter.getMyWorkspaces();
     }
 
-    public void searcMerchant(String text){
+    public void searcMerchant(String text) {
         MerchantsAdapter resultAdapter = new MerchantsAdapter();
         List<MerchantListWorspaces> resultMerchants = new ArrayList<>();
         String otherVersion = cyrillicLatin.getOtherVersion(text);
         text = text.toLowerCase();
         for (int i = 0; i < merchants.size(); i++) {
-            if (merchants.get(i).getMerchant().getLabel().toLowerCase().indexOf(text)>=0
-                    || merchants.get(i).getMerchant().getLabel().toLowerCase().indexOf(otherVersion)>=0
-                    || merchants.get(i).getMerchant().getLabel().toLowerCase().indexOf(replaceStringToCyrilli(text))>=0){
+            if (merchants.get(i).getMerchant().getLabel().toLowerCase().indexOf(text) >= 0
+                    || merchants.get(i).getMerchant().getLabel().toLowerCase().indexOf(otherVersion) >= 0
+                    || merchants.get(i).getMerchant().getLabel().toLowerCase().indexOf(replaceStringToCyrilli(text)) >= 0) {
                 resultMerchants.add(0, merchants.get(i));
             }
         }
@@ -226,14 +219,14 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
         tv_merchants_size.setText("Merchants: " + resultMerchants.size());
         resultAdapter.setCallback(this);
         recyclerView.setAdapter(resultAdapter);
-        if (text.equals("")){
+        if (text.equals("")) {
             recyclerView.setAdapter(adapter);
             tv_merchants_size.setText("Merchants: " + merchants.size());
         }
 
     }
 
-    public String replaceStringToCyrilli(String string){
+    public String replaceStringToCyrilli(String string) {
 
         ///lotin
         string = string.replace("ch", "ч");
@@ -273,11 +266,11 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
 
     @Override
     public void changedPosition(int position) {
-        if (position>20 /*&& go_to_top.getVisibility() == View.GONE*/){
+        if (position > 20 /*&& go_to_top.getVisibility() == View.GONE*/) {
             //lnrButtons.animate().translationY(0).setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(600);
             //go_to_top.setVisibility(View.VISIBLE);
             go_to_top.animate().translationY(0).setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(600);
-        }else if (position<20 /*&& go_to_top.getVisibility() == View.VISIBLE*/){
+        } else if (position < 20 /*&& go_to_top.getVisibility() == View.VISIBLE*/) {
             go_to_top.animate().translationY(500).setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(600);
             //go_to_top.setVisibility(View.GONE);
         }

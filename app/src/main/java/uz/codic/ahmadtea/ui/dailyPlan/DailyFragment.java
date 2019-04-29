@@ -32,6 +32,7 @@ import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
 import uz.codic.ahmadtea.ui.dailyPlan.Adapter.DailyCallBack;
 import uz.codic.ahmadtea.ui.dailyPlan.Adapter.DailyAdapter;
+import uz.codic.ahmadtea.ui.login.LoginActivity;
 import uz.codic.ahmadtea.ui.map.MerchantsMapActivity;
 import uz.codic.ahmadtea.ui.merchants.MerchantListWorspaces;
 import uz.codic.ahmadtea.utils.Consts;
@@ -132,5 +133,12 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
         dialog.show();
 
 
+    }
+
+    @Override
+    public void goLoginActivity(String error_label) {
+        Intent intent = new Intent(getActivity(), LoginActivity.class);
+        intent.putExtra("error_label", error_label);
+        startActivity(intent);
     }
 }

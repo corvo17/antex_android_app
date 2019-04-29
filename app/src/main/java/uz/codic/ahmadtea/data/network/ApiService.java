@@ -84,7 +84,7 @@ public interface ApiService {
             "Routing-Key:" + ApiEndPoint.ROUTING_KEY_PLANNING_FOR_TODAY
     })
     @POST(ApiEndPoint.ENDPOINT_REQUEST)
-    Single<DailyMerchants> requestDailyMerchants(@Header("X-Authorization")String token, @Body DailyBody body);
+    Single<ApiObeject<Object>> requestDailyMerchants(@Header("X-Authorization")String token, @Body DailyBody body);
 
     //Location
     @POST(ApiEndPoint.ENDPOINT_LOCATION_INSERT)

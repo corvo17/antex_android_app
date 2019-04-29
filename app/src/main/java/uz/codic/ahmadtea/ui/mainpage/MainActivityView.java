@@ -13,6 +13,4 @@ public interface MainActivityView extends MvpView {
 
      void initializeUserForButton(User user);
 
-     void setmMerchants(List<WorkspaceAndMerchant> mMerchants);
-
 }

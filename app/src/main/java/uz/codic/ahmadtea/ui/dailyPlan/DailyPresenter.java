@@ -1,6 +1,7 @@
 package uz.codic.ahmadtea.ui.dailyPlan;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import java.text.DateFormat;
@@ -25,8 +26,12 @@ import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.network.model.DailyBody;
 import uz.codic.ahmadtea.data.network.model.DailyMerchants;
 import uz.codic.ahmadtea.data.network.model.RequestWithWorkspaceId;
+import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
+import uz.codic.ahmadtea.errors.ErrorClass;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.utils.Consts;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> implements DailyMvpPresenter<V> {
 
@@ -41,21 +46,31 @@ public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> imp
         getDataManager().requestDailyMerchants(getDataManager().getToken(), body)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<DailyMerchants>() {
+                .subscribe(new SingleObserver<ApiObeject<Object>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(DailyMerchants dailyMerchants) {
-                        getData(dailyMerchants);
-                        //getMvpView().onResponseDailyMerchants(dailyMerchants.);
+                    public void onSuccess(ApiObeject<Object> apiObeject) {
+                        Log.d("error_message", "onSuccess: ");
+                        if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count()>0){
+                        //getData(dailyMerchants);
+                        }else {
+                            Integer error_type_id = (Integer) apiObeject.getMeta().getError().get("error_type_id");
+                            if (error_type_id > 20000 && error_type_id < 21000){
+                                getMvpView().goLoginActivity((String) apiObeject.getMeta().getError().get("error_label"));
+                            }
+                        }
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        e.printStackTrace();
+                        ErrorClass.log((Exception) e);
+                        Log.d("error_message", "onError: " + e.getMessage());
+                        Log.d("error_message", "Error: " + e.toString());
                     }
                 });
     }

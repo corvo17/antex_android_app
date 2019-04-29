@@ -73,7 +73,6 @@ public class MainActivity extends BaseActivity
     TextView agentRole;
     LinearLayout lnl_nav_head;
     Toolbar toolbar;
-    public List<WorkspaceAndMerchant> mMerchants;
     MenuItem nav_item_new_merchants;
     Fragment fragment = null;
     Class fragmentClass = null;
@@ -108,7 +107,6 @@ public class MainActivity extends BaseActivity
 
         ((RecyclerView) findViewById(R.id.userRecycler)).setAdapter(adapter);
         presenter.LoadUsers();
-        presenter.getWorkspaceAndMerchant();
 
         //region Initial step
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -518,10 +516,6 @@ public class MainActivity extends BaseActivity
         adapter.setData(all);
     }
 
-    //endregion
-
-    //endregion
-
     @Override
     public void initializeUser(User user) {
         agentName.setText(user.getName());
@@ -536,12 +530,6 @@ public class MainActivity extends BaseActivity
             presenter.getDataManager().changeIsAdmin(false);
             nav_item_new_merchants.setVisible(false);
         }
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        if (drawer.isDrawerOpen(GravityCompat.START)) {
-//            drawer.closeDrawer(GravityCompat.START);
-//        }
-
-        //presenter.getWorkspaceAndMerchant();
     }
 
     @Override
@@ -599,11 +587,4 @@ public class MainActivity extends BaseActivity
         toolbar.setTitle(title);
     }
 
-    public List<WorkspaceAndMerchant> getmMerchants() {
-        return mMerchants;
-    }
-
-    public void setmMerchants(List<WorkspaceAndMerchant> mMerchants) {
-        this.mMerchants = mMerchants;
-    }
 }

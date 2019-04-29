@@ -215,7 +215,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<DailyMerchants> requestDailyMerchants(String token, DailyBody body) {
+    public Single<ApiObeject<Object>> requestDailyMerchants(String token, DailyBody body) {
         return apiService.requestDailyMerchants(token, body);
     }
 

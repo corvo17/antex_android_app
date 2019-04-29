@@ -42,28 +42,4 @@ public class MainActivityPresenter<v extends MainActivityView> extends BasePrese
           );
 
       }
-
-    @Override
-    public void getWorkspaceAndMerchant() {
-        getDataManager().getWorkspaceAndMerchants(getDataManager().getMyWorkspaceIds(getDataManager().getId_employee()), CommonUtils.getToday())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<WorkspaceAndMerchant>>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onSuccess(List<WorkspaceAndMerchant> merchants) {
-                        getMvpView().setmMerchants(merchants);
-                        Log.d("baxtiyor", "MainActivityPresenter: " + merchants);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-                });
-    }
 }

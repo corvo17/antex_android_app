@@ -12,4 +12,5 @@ public interface DailyMvpView extends MvpView {
 
     void onMerchantsListReady(List<WorkspaceAndMerchant> merchants);
 
+    void goLoginActivity(String error_label);
 }

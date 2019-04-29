@@ -1,5 +1,7 @@
 package uz.codic.ahmadtea.data.network.model.api_objects;
 
+import java.util.HashMap;
+
 public class Meta {
 
     Integer status;
@@ -9,7 +11,7 @@ public class Meta {
     Integer payload_type_id;
     String payload_type_label;
     Integer payload_count;
-    String error;
+    HashMap<String, Object> error;
 
     public Meta() {
     }
@@ -70,11 +72,11 @@ public class Meta {
         this.payload_count = payload_count;
     }
 
-    public String getError() {
+    public HashMap<String, Object> getError() {
         return error;
     }
 
-    public void setError(String error) {
+    public void setError(HashMap<String, Object> error) {
         this.error = error;
     }
 
