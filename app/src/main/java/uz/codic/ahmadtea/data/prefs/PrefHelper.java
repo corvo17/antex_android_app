@@ -30,4 +30,8 @@ public interface PrefHelper {
 
     void setisLocalized(boolean isLogin);
 
+    boolean isLogin();
+
+    void setIslogin(boolean islogin);
+
 }

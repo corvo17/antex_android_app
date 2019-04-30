@@ -60,6 +60,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onSuccess(Integer integer) {
+                        Log.d("baxtiyor", "onSuccess: "  + integer);
                         if (integer == 0) {
                             onRequestLogin(login);
                         } else {
@@ -70,6 +71,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onError(Throwable e) {
+                        Log.d("baxtiyor", "onError: " + e.getMessage());
+                        e.printStackTrace();
                         getMvpView().showMessage(e.getMessage());
                         getMvpView().hideLoading();
                     }
@@ -104,6 +107,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onError(Throwable e) {
+                        e.printStackTrace();
                         getMvpView().showMessage(e.getMessage());
                         getMvpView().hideLoading();
                     }
@@ -126,8 +130,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     user.setRole_label(apiObeject.getPayload().get(0).getRole_label());
                                     user.setSync_time(CommonUtils.getCurrentTime());
                                     getDataManager().insertUser(user);
+                                    getDataManager().setIslogin(true);
+                                    getDataManager().setId_employee(user.getId());
                                     onRequestWorkspace(apiObeject.getPayload().get(0).getId(), user.getToken());
-                                }else {
+                                } else {
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                     getMvpView().hideLoading();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
@@ -136,6 +142,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                             @Override
                             public void onError(Throwable e) {
+                                e.printStackTrace();
                                 getMvpView().showMessage(e.getMessage());
                                 getMvpView().hideLoading();
                                 Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
@@ -157,7 +164,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                 if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
                                     getDataManager().insertMyWorkspaces(apiObeject.getPayload());
                                     requestSharedObjectsList(token);
-                                }else {
+                                } else {
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                     getMvpView().hideLoading();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
@@ -166,6 +173,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                             @Override
                             public void onError(Throwable e) {
+                                e.printStackTrace();
                                 getMvpView().showMessage(e.getMessage());
                                 getMvpView().hideLoading();
                                 Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
@@ -216,7 +224,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                         getDataManager().insertMmds(apiObeject.getPayload().get(0).getMmds());
                                         getDataManager().insertStocks(apiObeject.getPayload().get(0).getWorkspaces_product_stocks());
                                         //go insert Workspace relations to db
-                                    }else {
+                                    } else {
                                         getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                         getMvpView().hideLoading();
                                         Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
@@ -255,7 +263,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().insertWorkspacePaymentType(apiObeject.getPayload().get(0).getWorkspaces_payment_types());
                                     getMvpView().hideLoading();
                                     getMvpView().dontStay();
-                                }else {
+                                } else {
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                     getMvpView().hideLoading();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
@@ -276,18 +284,29 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
     @Override
     public void checkUser() {
-        getDisposable().add(getDataManager().getAllUsers()
-                .observeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.io())
-                .subscribe(users -> {
-                    if (users == null || users.size() <= 0) {
-                        //not found any user from database
-                        getMvpView().onStay();// ☺
-                    } else {
-                        //if found a user
-                        getMvpView().dontStay(); // :-D ☺
-                    }
-                }));
+
+        if (true) {
+            if (getDataManager().isLogin()){
+                Log.d("baxtiyor", "checkUser: dontStay");
+                getMvpView().dontStay();
+            }else {
+                Log.d("baxtiyor", "checkUser: onStay");
+                getMvpView().onStay();
+            }
+        } else {
+            getDisposable().add(getDataManager().getAllUsers()
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .observeOn(Schedulers.io())
+                    .subscribe(users -> {
+                        if (users == null || users.size() <= 0) {
+                            //not found any user from database
+                            getMvpView().onStay();// ☺
+                        } else {
+                            //if found a user
+                            getMvpView().dontStay(); // :-D ☺
+                        }
+                    }));
+        }
     }
 
     @Override
@@ -306,16 +325,53 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onSuccess(CentralObject centralObject) {
-                        Log.d("baxtiyor", "onSuccess: " + centralObject.getPayload().get("baseUrl"));
+                        Log.d("baxtiyor", "response central");
                         getDataManager().setBaseUrl(centralObject.getPayload().get("baseUrl"));
-                        Log.d("baxtiyor", "onSuccess: " + getDataManager().getBaseUrl());
                         getDataManager().setisLocalized(true);
                         getMvpView().onResponseCentral();
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        e.printStackTrace();
                         Log.d("baxtiyor", "onError: ");
+                    }
+                });
+    }
+
+    @Override
+    public void onRequestResetToken(Login login) {
+        getDataManager()
+                .requestToken(login)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Token>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(Token token) {
+                        //id_employee
+                        //key
+                        //token
+                        //login
+                        Log.d("baxtiyor", "token onSuccess: " + token.getToken());
+                        Log.d("baxtiyor", "token : " + getDataManager().getToken());
+                        getDataManager().putToken(token.getToken());
+                        User user = getDataManager().getUserById(getDataManager().getId_employee());
+                        user.setToken(token.getToken());
+                        getDataManager().updateUser(user);
+                        getMvpView().hideLoading();
+                        getMvpView().dontStay();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        e.printStackTrace();
+                        getMvpView().showMessage(e.getMessage());
+                        getMvpView().hideLoading();
                     }
                 });
     }

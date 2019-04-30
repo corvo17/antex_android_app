@@ -18,6 +18,6 @@ public abstract class BaseActivity extends AppCompatActivity implements MvpView{
 
     @Override
     public void showMessage(String message) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 }

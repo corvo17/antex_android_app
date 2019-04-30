@@ -1,8 +1,6 @@
 package uz.codic.ahmadtea.data.network.model;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DailyMerchants {
 
@@ -13,26 +11,26 @@ public class DailyMerchants {
     }
 
     public class Casual{
-        String id_merchant;
-        String id_workspace;
+        String merchant_id;
+        String workspace_id;
 
         public Casual() {
         }
 
-        public String getId_merchant() {
-            return id_merchant;
+        public String getMerchant_id() {
+            return merchant_id;
         }
 
-        public void setId_merchant(String id_merchant) {
-            this.id_merchant = id_merchant;
+        public void setMerchant_id(String merchant_id) {
+            this.merchant_id = merchant_id;
         }
 
-        public String getId_workspace() {
-            return id_workspace;
+        public String getWorkspace_id() {
+            return workspace_id;
         }
 
-        public void setId_workspace(String id_workspace) {
-            this.id_workspace = id_workspace;
+        public void setWorkspace_id(String workspace_id) {
+            this.workspace_id = workspace_id;
         }
     }
 

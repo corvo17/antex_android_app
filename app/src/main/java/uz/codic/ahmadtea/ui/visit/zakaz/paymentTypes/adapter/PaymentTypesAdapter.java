@@ -43,16 +43,16 @@ public class PaymentTypesAdapter extends RecyclerView.Adapter<PaymentTypesAdapte
         else
             viewHolder.checkBox.setChecked(false);
         viewHolder.checkBox.setText(paymentTypes.get(viewHolder.getAdapterPosition()).getLabel());
-
+        int position = viewHolder.getAdapterPosition();
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if(isChecked){
                 if(lastCheckedPos >= 0){
                     paymentTypes.get(lastCheckedPos).setChecked(false);
                     notifyDataSetChanged();
                 }
-                paymentTypes.get(viewHolder.getAdapterPosition()).setChecked(true);
-                lastCheckedPos = viewHolder.getAdapterPosition();
-                callback.onItemClick(paymentTypes.get(viewHolder.getAdapterPosition()).getId());
+                paymentTypes.get(position).setChecked(true);
+                lastCheckedPos = position;
+                callback.onItemClick(paymentTypes.get(position).getId());
             }
         });
     }

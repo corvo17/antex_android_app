@@ -1,6 +1,7 @@
 package uz.codic.ahmadtea.data.network.model.api_objects;
 
 import java.util.HashMap;
+import java.util.UUID;
 
 public class Meta {
 
@@ -11,7 +12,7 @@ public class Meta {
     Integer payload_type_id;
     String payload_type_label;
     Integer payload_count;
-    HashMap<String, Object> error;
+    Error error;
 
     public Meta() {
     }
@@ -72,11 +73,11 @@ public class Meta {
         this.payload_count = payload_count;
     }
 
-    public HashMap<String, Object> getError() {
+    public Error getError() {
         return error;
     }
 
-    public void setError(HashMap<String, Object> error) {
+    public void setError(Error error) {
         this.error = error;
     }
 
@@ -92,5 +93,68 @@ public class Meta {
                 ", payload_count=" + payload_count +
                 ", error='" + error + '\'' +
                 '}';
+    }
+
+    public class Error{
+
+        UUID error_id;
+        String error_label;
+        Integer error_type_id;
+        String error_type_label;
+        HashMap<String , String > params;
+
+        public Error() {
+        }
+
+        public UUID getError_id() {
+            return error_id;
+        }
+
+        public void setError_id(UUID error_id) {
+            this.error_id = error_id;
+        }
+
+        public String getError_label() {
+            return error_label;
+        }
+
+        public void setError_label(String error_label) {
+            this.error_label = error_label;
+        }
+
+        public Integer getError_type_id() {
+            return error_type_id;
+        }
+
+        public void setError_type_id(Integer error_type_id) {
+            this.error_type_id = error_type_id;
+        }
+
+        public String getError_type_label() {
+            return error_type_label;
+        }
+
+        public void setError_type_label(String error_type_label) {
+            this.error_type_label = error_type_label;
+        }
+
+        public HashMap<String, String> getParams() {
+            return params;
+        }
+
+        public void setParams(HashMap<String, String> params) {
+            this.params = params;
+        }
+
+        @Override
+        public String toString() {
+            return "Error{" +
+                    "error_id=" + error_id +
+                    ", error_label='" + error_label + '\'' +
+                    ", error_type_id=" + error_type_id +
+                    ", error_type_label='" + error_type_label + '\'' +
+                    ", params=" + params +
+                    '}';
+        }
     }
 }

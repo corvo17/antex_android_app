@@ -32,4 +32,13 @@
     </group>
 
 
+    <item
+        android:title="">
+        <menu>
+            <item
+                android:id="@+id/logout"
+                android:title="Log Out"
+                />
+        </menu>
+    </item>
 </menu>

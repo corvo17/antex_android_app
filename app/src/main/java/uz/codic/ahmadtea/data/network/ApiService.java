@@ -80,11 +80,9 @@ public interface ApiService {
     Single<SendResponse> requestSendPending(@Header("X-Authorization")String token, @Body Send send);
 
     //Send Request
-    @Headers({
-            "Routing-Key:" + ApiEndPoint.ROUTING_KEY_PLANNING_FOR_TODAY
-    })
-    @POST(ApiEndPoint.ENDPOINT_REQUEST)
-    Single<ApiObeject<Object>> requestDailyMerchants(@Header("X-Authorization")String token, @Body DailyBody body);
+
+    @POST(ApiEndPoint.ENDPOINT_REQUEST_PLANNING)
+    Single<ApiObeject<DailyMerchants>> requestDailyMerchants(@Header("X-Authorization")String token, @Body HashMap<String , HashMap<String , String >> body);
 
     //Location
     @POST(ApiEndPoint.ENDPOINT_LOCATION_INSERT)

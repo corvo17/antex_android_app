@@ -175,6 +175,16 @@ public class AppDataManager implements DataManager {
         prefHelper.setisLocalized(isLogin);
     }
 
+    @Override
+    public boolean isLogin() {
+        return prefHelper.isLogin();
+    }
+
+    @Override
+    public void setIslogin(boolean islogin) {
+        prefHelper.setIslogin(islogin);
+    }
+
     /***
      Api calls
      **/
@@ -214,7 +224,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<ApiObeject<Object>> requestDailyMerchants(String token, DailyBody body) {
+    public Single<ApiObeject<DailyMerchants>> requestDailyMerchants(String token, HashMap<String , HashMap<String , String >> body) {
         return apiService.requestDailyMerchants(token, body);
     }
 
@@ -573,6 +583,16 @@ public class AppDataManager implements DataManager {
     @Override
     public InfoAction getInfoAction(String id_merchant, String id_workspace, String date) {
         return dbHelper.daoAccess().getInfoAction(id_merchant, id_workspace, date);
+    }
+
+    @Override
+    public User getUserById(String id) {
+        return dbHelper.daoAccess().getUserById(id);
+    }
+
+    @Override
+    public void updateUser(User... users) {
+        dbHelper.daoAccess().updateUser(users);
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------

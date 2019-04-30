@@ -395,4 +395,10 @@ public interface DaoAccess {
     @Query("select * from InfoAction where i_id_merchant=:id_merchant and i_id_workspace =:id_workspace and i_date =:date")
     InfoAction getInfoAction(String id_merchant, String id_workspace, String date);
 
+    @Query("select * from User where id = :id")
+    User getUserById(String id);
+
+    @Update
+    void updateUser(User... users);
+
 }

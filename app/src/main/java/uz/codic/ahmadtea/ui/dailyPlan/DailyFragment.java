@@ -139,6 +139,7 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     public void goLoginActivity(String error_label) {
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.putExtra("error_label", error_label);
+        intent.putExtra("isFirstTime", false);
         startActivity(intent);
     }
 }

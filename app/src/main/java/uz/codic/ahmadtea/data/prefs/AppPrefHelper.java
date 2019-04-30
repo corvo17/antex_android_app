@@ -82,4 +82,14 @@ public class AppPrefHelper implements PrefHelper{
     public void setisLocalized(boolean isLogin) {
         mPref.edit().putBoolean("isLocalized", isLogin).apply();
     }
+
+    @Override
+    public boolean isLogin() {
+        return mPref.getBoolean("islogin", false);
+    }
+
+    @Override
+    public void setIslogin(boolean islogin) {
+        mPref.edit().putBoolean("islogin", islogin).apply();
+    }
 }
