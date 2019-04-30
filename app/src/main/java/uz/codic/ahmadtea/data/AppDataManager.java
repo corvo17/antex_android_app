@@ -595,6 +595,21 @@ public class AppDataManager implements DataManager {
         dbHelper.daoAccess().updateUser(users);
     }
 
+    @Override
+    public void removeUser(User... users) {
+        dbHelper.daoAccess().removeUser(users);
+    }
+
+    @Override
+    public void removeUserWorkspaces(List<MyWorkspace> myWorkspaces) {
+        dbHelper.daoAccess().removeUserWorkspaces(myWorkspaces);
+    }
+
+    @Override
+    public List<MyWorkspace> getUserWorkspaceForLogOut(String id_employee) {
+        return dbHelper.daoAccess().getUserWorkspaceForLogOut(id_employee);
+    }
+
     //-------------------------------------------------------------------------------------------------------------------------------
     //region Synchronisation start
 

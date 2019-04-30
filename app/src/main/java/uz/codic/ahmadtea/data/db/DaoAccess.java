@@ -2,6 +2,7 @@ package uz.codic.ahmadtea.data.db;
 
 
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -400,5 +401,15 @@ public interface DaoAccess {
 
     @Update
     void updateUser(User... users);
+
+    @Delete
+    void removeUser(User... users);
+
+    @Delete
+    void removeUserWorkspaces(List<MyWorkspace> myWorkspaces);
+
+    @Query("select * from myworkspace where employee_id=:id_employee")
+    List<MyWorkspace> getUserWorkspaceForLogOut(String id_employee);
+
 
 }

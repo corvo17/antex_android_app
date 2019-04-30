@@ -45,6 +45,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     LinearLayout lnl_code;
     boolean is_eye_open;
     String error_label = null;
+    boolean isFirstTime;
 
     LoginPresenter<LoginMvpView> presenter;
 
@@ -64,7 +65,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         presenter = new LoginPresenter<>(this);
         presenter.onAttach(this);
 
-        boolean isFirstTime = getIntent().getBooleanExtra("isFirstTime", true);
+        isFirstTime = getIntent().getBooleanExtra("isFirstTime", true);
         error_label = getIntent().getStringExtra("error_label");
         Log.d("baxtiyor", "onCreate: " + error_label);
         if (isFirstTime) {
@@ -211,5 +212,12 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     @Override
     public void onResponseCentral() {
         goLogin();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isFirstTime){
+            finishAffinity();
+        }else super.onBackPressed();
     }
 }

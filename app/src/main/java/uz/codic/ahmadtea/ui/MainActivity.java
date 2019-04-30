@@ -315,6 +315,10 @@ public class MainActivity extends BaseActivity
             closeCalendarItem();
             fragmentClass = NewMerchantsFragment.class;
         }
+        if (id ==R.id.logout){
+            presenter.logOut();
+            return true;
+        }
 
         try {
             fragment = (Fragment) fragmentClass.newInstance();
@@ -587,4 +591,17 @@ public class MainActivity extends BaseActivity
         toolbar.setTitle(title);
     }
 
+    @Override
+    public void functionBeforeLogOut(boolean isLogin) {
+        Intent login = new Intent(MainActivity.this, LoginActivity.class);
+        if (isLogin){
+            login.putExtra("isFirstTime", false);
+            startActivity(login);
+        }else {
+            login.putExtra("isFirstTime", true);
+            startActivity(login);
+            finish();
+        }
+
+    }
 }
