@@ -3,6 +3,7 @@ package uz.codic.ahmadtea.data.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -12,6 +13,7 @@ import java.util.List;
 import io.reactivex.Single;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
+import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
@@ -410,6 +412,13 @@ public interface DaoAccess {
 
     @Query("select * from myworkspace where employee_id=:id_employee")
     List<MyWorkspace> getUserWorkspaceForLogOut(String id_employee);
+
+    // file_report_types
+    @Insert
+    void insertFileReportType(List<FileReportType> fileReportTypes);
+
+    @Query("select * from FileReportType")
+    Single<List<FileReportType>> getFileReportTypes();
 
 
 }

@@ -223,6 +223,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                         getDataManager().insertPrice(apiObeject.getPayload().get(0).getPrices());
                                         getDataManager().insertMmds(apiObeject.getPayload().get(0).getMmds());
                                         getDataManager().insertStocks(apiObeject.getPayload().get(0).getWorkspaces_product_stocks());
+                                        getDataManager().insertFileReportType(apiObeject.getPayload().get(0).getFile_report_types());
                                         //go insert Workspace relations to db
                                     } else {
                                         getMvpView().showMessage(apiObeject.getMeta().getMessage());

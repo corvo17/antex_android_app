@@ -7,6 +7,7 @@ import android.content.Context;
 
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
+import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
@@ -64,10 +65,11 @@ import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
                 WorkspacePaymentType.class,
                 PhotoG.class,
                 NewMerchant.class,
-                InfoAction.class
+                InfoAction.class,
+                FileReportType.class
 
         },
-        version = 5,
+        version = 1,
         exportSchema = false
 )
 public abstract class DbHelper extends RoomDatabase {

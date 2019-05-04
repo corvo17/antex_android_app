@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +29,7 @@ import javax.inject.Inject;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Comment;
+import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.PhotoLabel;
 import uz.codic.ahmadtea.di.visitFragment.ActivityComponent;
 import uz.codic.ahmadtea.di.visitFragment.CameraClass;
@@ -38,6 +40,7 @@ import uz.codic.ahmadtea.ui.visit.comments.CommentListAdapter;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
 import uz.codic.ahmadtea.ui.visit.zakaz.camera.CameraFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.prices.PricesFragment;
+import uz.codic.ahmadtea.ui.visit.zakaz.visit_photo.PhotoFragment;
 
 import static uz.codic.ahmadtea.utils.Consts.pricesTag;
 
@@ -49,7 +52,7 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
     ImageView ic_cart;
     EditText et_notes_viseit;
     private static final int IMAGE_REQ_CODE = 107;
-
+    private Integer file_report_type_id = 0;
     LinearLayout btnphoto;
 
 
@@ -168,18 +171,11 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
             mListener.transactionFragments(PricesFragment.newInstance(), pricesTag);
         });
 
+        presenter.getFileReportTypes();
         btnphoto.setOnClickListener(action -> {
 
             //But method comment
-            ArrayList<PhotoLabel> photoLabels = new ArrayList<>();
-            photoLabels.add(new PhotoLabel("America"));
-            photoLabels.add(new PhotoLabel("America"));
-            photoLabels.add(new PhotoLabel("America"));
-            photoLabels.add(new PhotoLabel("America"));
-            photoLabels.add(new PhotoLabel("America"));
-            photoLabels.add(new PhotoLabel("America"));
-            photoLabels.add(new PhotoLabel("America"));
-            createPhotoDialog(view, photoLabels);
+
             showPhotoDialog();
 
 //            if (myCamera.isEmptyy()) {
@@ -240,6 +236,10 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
         createCommentDialog(view, (ArrayList<Comment>) alltitles);
     }
 
+    @Override
+    public void loadFileReportType(List<FileReportType> fileReportTypes) {
+        createPhotoDialog(view, fileReportTypes);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -290,7 +290,7 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
     }
 
 
-    private void createPhotoDialog(View view, ArrayList<PhotoLabel> items) {
+    private void createPhotoDialog(View view, List<FileReportType> items) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(view.getContext());
         //LayoutInflater inflater = this.getLayoutInflater();
         //View dialogView = inflater.inflate(R.layout.comment_dialog, null);
@@ -300,7 +300,7 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
         boolean[] choicesInitial = new boolean[items.size()];
 
         for (int i = 0; i < items.size(); i++) {
-            choices[i] = items.get(i).getName();
+            choices[i] = items.get(i).getLabel();
             choicesInitial[i] = false;
         }
 
@@ -311,6 +311,9 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
 
             }
             //mListener.getCompleteApi().getVisitObject().setId_comment(null);
+            mListener.transactionFragments(PhotoFragment.newInstance(file_report_type_id), items.get(file_report_type_id).getLabel());
+            getActivity().findViewById(R.id.lnr_buttons).setVisibility(View.GONE);
+
         });
 
         dialogBuilder.setNegativeButton("CANCEL", (dialogInterface, i) -> commentDialog.dismiss());
@@ -318,7 +321,8 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
         dialogBuilder.setSingleChoiceItems(choices, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int position) {
-
+                Log.d("baxtiyor", "createPhotoDialog: " + items.get(position));
+                file_report_type_id = position;
             }
         });
         photoDialog = dialogBuilder.create();

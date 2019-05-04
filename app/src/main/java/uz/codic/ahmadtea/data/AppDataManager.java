@@ -14,6 +14,7 @@ import retrofit2.Call;
 import uz.codic.ahmadtea.data.db.DbHelper;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
+import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
@@ -608,6 +609,16 @@ public class AppDataManager implements DataManager {
     @Override
     public List<MyWorkspace> getUserWorkspaceForLogOut(String id_employee) {
         return dbHelper.daoAccess().getUserWorkspaceForLogOut(id_employee);
+    }
+
+    @Override
+    public void insertFileReportType(List<FileReportType> fileReportTypes) {
+        dbHelper.daoAccess().insertFileReportType(fileReportTypes);
+    }
+
+    @Override
+    public Single<List<FileReportType>> getFileReportTypes() {
+        return dbHelper.daoAccess().getFileReportTypes();
     }
 
     //-------------------------------------------------------------------------------------------------------------------------------

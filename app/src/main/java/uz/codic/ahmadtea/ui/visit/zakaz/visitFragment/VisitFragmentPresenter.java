@@ -27,4 +27,15 @@ public class VisitFragmentPresenter<v extends VisitFragmentView> extends BasePre
                     getMvpView().loadComments(data);
                 }));
     }
+
+    @Override
+    public void getFileReportTypes() {
+        getDisposable().add(getDataManager().getFileReportTypes()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe(data ->{
+                    getMvpView().loadFileReportType(data);
+                })
+        );
+    }
 }

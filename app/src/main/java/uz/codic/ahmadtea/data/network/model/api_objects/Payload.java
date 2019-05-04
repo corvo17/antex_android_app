@@ -4,6 +4,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
+import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.Mmd;
@@ -30,6 +31,7 @@ public class Payload {
     List<Measurement> measurements;
     List<Currencies> currencies;
     List<WorkspaceMmd> workspaces_mmds;
+    List<FileReportType> file_report_types;
 
     public Payload() {
     }
@@ -120,6 +122,22 @@ public class Payload {
 
     public void setWorkspaces_product_stocks(List<Stocks> workspaces_product_stocks) {
         this.workspaces_product_stocks = workspaces_product_stocks;
+    }
+
+    public List<WorkspaceMmd> getWorkspaces_mmds() {
+        return workspaces_mmds;
+    }
+
+    public void setWorkspaces_mmds(List<WorkspaceMmd> workspaces_mmds) {
+        this.workspaces_mmds = workspaces_mmds;
+    }
+
+    public List<FileReportType> getFile_report_types() {
+        return file_report_types;
+    }
+
+    public void setFile_report_types(List<FileReportType> file_report_types) {
+        this.file_report_types = file_report_types;
     }
 
     @Override
