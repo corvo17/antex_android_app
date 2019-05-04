@@ -12,7 +12,7 @@ public class ErrorAction {
     Integer pid;
     String label;
     Long timestamp;
-    Index active_activity_id;
+    Integer active_activity_id;
 
     public ErrorAction() {
     }
@@ -41,11 +41,11 @@ public class ErrorAction {
         this.timestamp = timestamp;
     }
 
-    public Index getActive_activity_id() {
+    public Integer getActive_activity_id() {
         return active_activity_id;
     }
 
-    public void setActive_activity_id(Index active_activity_id) {
+    public void setActive_activity_id(Integer active_activity_id) {
         this.active_activity_id = active_activity_id;
     }
 

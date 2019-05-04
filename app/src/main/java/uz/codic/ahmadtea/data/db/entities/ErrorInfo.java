@@ -12,7 +12,7 @@ public class ErrorInfo {
     @PrimaryKey(autoGenerate = true)
     Integer pid;
 
-    UUID id;
+    String  id;
     String api_version;
     String os_version;
     String device_model;
@@ -22,7 +22,9 @@ public class ErrorInfo {
     Long timestamp;
     String error_type;
     String error_label;
+    String error_message;
     String erro_log;
+    boolean isSent;
 
 
     public ErrorInfo() {
@@ -36,11 +38,11 @@ public class ErrorInfo {
         this.pid = pid;
     }
 
-    public UUID getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -124,6 +126,22 @@ public class ErrorInfo {
         this.erro_log = erro_log;
     }
 
+    public boolean isSent() {
+        return isSent;
+    }
+
+    public void setSent(boolean sent) {
+        isSent = sent;
+    }
+
+    public String getError_message() {
+        return error_message;
+    }
+
+    public void setError_message(String error_message) {
+        this.error_message = error_message;
+    }
+
     @Override
     public String toString() {
         return "ErrorInfo{" +
@@ -138,7 +156,9 @@ public class ErrorInfo {
                 ", timestamp=" + timestamp +
                 ", error_type='" + error_type + '\'' +
                 ", error_label='" + error_label + '\'' +
+                ", error_message='" + error_message + '\'' +
                 ", erro_log='" + erro_log + '\'' +
+                ", isSent=" + isSent +
                 '}';
     }
 }

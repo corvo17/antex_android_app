@@ -29,8 +29,10 @@ import io.reactivex.schedulers.Schedulers;
 import uz.codic.ahmadtea.MvpApplication;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.AppDataManager;
+import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
 import uz.codic.ahmadtea.data.network.model.ErrorBody;
 import uz.codic.ahmadtea.data.network.model.ErrorObject;
+import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.errors.error_activity.ErrorActivity;
 import uz.codic.ahmadtea.utils.Consts;
 
@@ -74,6 +76,7 @@ public class ErrorClass{
         //send
         exception.printStackTrace();
         String id = UUID.randomUUID().toString();
+        String log = null;
         Log.d("baxtiyor", "id: " + id);
         Log.d("baxtiyor", "API_version: " + Build.VERSION.SDK_INT);
         Log.d("baxtiyor", "OS_version: " + Build.VERSION.RELEASE);
@@ -85,10 +88,21 @@ public class ErrorClass{
         Log.d("baxtiyor", "error_toSting: " + exception.toString());
         for (StackTraceElement stackTraceElement :exception.getStackTrace()) {
             Log.d("baxtiyor", "error_printStackTrace: " + stackTraceElement.toString());
+            log += stackTraceElement.toString() + "\n";
         }
 
         openNotifi(id);
-        //sendError(id, exception);
+        ErrorInfo errorInfo = new ErrorInfo();
+        errorInfo.setApi_version(String.valueOf(Build.VERSION.SDK_INT));
+        errorInfo.setOs_version(String.valueOf(Build.VERSION.RELEASE));
+        errorInfo.setDevice_model(Build.MANUFACTURER.toUpperCase() + " " + Build.MODEL);
+        errorInfo.setId(id);
+        errorInfo.setActive_internet_connection(isOnline());
+        errorInfo.setErro_log(log);
+        errorInfo.setError_message(exception.getMessage());
+        errorInfo.setTimestamp(System.currentTimeMillis());
+        errorInfo.setSent(false);
+        appDataManager.insertErrorInfo(errorInfo);
 
     }
 
@@ -186,20 +200,20 @@ public class ErrorClass{
         appDataManager.sendError(appDataManager.getToken(), errorObject)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<ErrorObject>() {
+                .subscribe(new SingleObserver<ApiObeject<ErrorObject>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onSuccess(ErrorObject errorObject) {
+                    public void onSuccess(ApiObeject<ErrorObject> apiObeject) {
 
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        log((Exception) e);
+
                     }
                 });
 

@@ -21,4 +21,6 @@ public interface LoginMvpPresenter<V extends LoginMvpView> extends MvpPresenter<
     void onRequestBaseUrl(String code, String key);
 
     void onRequestResetToken(Login login);
+
+    void checkErrors();
 }

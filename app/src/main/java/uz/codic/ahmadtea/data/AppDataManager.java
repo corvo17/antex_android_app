@@ -14,6 +14,7 @@ import retrofit2.Call;
 import uz.codic.ahmadtea.data.db.DbHelper;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
+import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
 import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
@@ -271,7 +272,7 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<ErrorObject> sendError(String token, ErrorObject errorObject) {
+    public Single<ApiObeject<ErrorObject>> sendError(String token, ErrorObject errorObject) {
         return apiService.sendError(token, errorObject);
     }
 
@@ -620,6 +621,27 @@ public class AppDataManager implements DataManager {
     public Single<List<FileReportType>> getFileReportTypes() {
         return dbHelper.daoAccess().getFileReportTypes();
     }
+
+    // query error
+
+    @Override
+    public void insertErrorInfo(ErrorInfo... errorInfos) {
+        dbHelper.daoAccess().insertErrorInfo(errorInfos);
+    }
+
+    @Override
+    public Single<List<ErrorInfo>> getErrorInfoIsntSent(boolean isSent) {
+        return dbHelper.daoAccess().getErrorInfoIsntSent(isSent);
+    }
+
+    @Override
+    public void updateErrorInfo(ErrorInfo errorInfo) {
+        dbHelper.daoAccess().updateErrorInfo(errorInfo);
+    }
+
+
+    // query error ^
+
 
     //-------------------------------------------------------------------------------------------------------------------------------
     //region Synchronisation start

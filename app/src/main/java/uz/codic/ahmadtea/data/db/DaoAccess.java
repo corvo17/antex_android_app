@@ -13,6 +13,7 @@ import java.util.List;
 import io.reactivex.Single;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
+import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
 import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
@@ -419,6 +420,18 @@ public interface DaoAccess {
 
     @Query("select * from FileReportType")
     Single<List<FileReportType>> getFileReportTypes();
+
+    // error query
+    @Insert
+    void insertErrorInfo(ErrorInfo... errorInfos);
+
+    @Query("select * from errorinfo where isSent=:isSent")
+    Single<List<ErrorInfo>> getErrorInfoIsntSent(boolean isSent);
+
+    @Update
+    void updateErrorInfo(ErrorInfo errorInfo);
+    // error query ^
+
 
 
 }

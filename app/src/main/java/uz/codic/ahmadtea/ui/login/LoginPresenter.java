@@ -1,6 +1,7 @@
 package uz.codic.ahmadtea.ui.login;
 
 import android.content.Context;
+import android.os.Build;
 import android.util.Log;
 
 import java.util.HashMap;
@@ -12,11 +13,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
 import uz.codic.ahmadtea.data.db.entities.MyWorkspace;
 import uz.codic.ahmadtea.data.db.entities.User;
 import uz.codic.ahmadtea.data.network.model.ApiOrder;
 import uz.codic.ahmadtea.data.network.model.CentralObject;
 import uz.codic.ahmadtea.data.network.model.Employee;
+import uz.codic.ahmadtea.data.network.model.ErrorBody;
+import uz.codic.ahmadtea.data.network.model.ErrorObject;
 import uz.codic.ahmadtea.data.network.model.Login;
 import uz.codic.ahmadtea.data.network.model.Message;
 import uz.codic.ahmadtea.data.network.model.ObjectsForEmployee;
@@ -25,6 +29,7 @@ import uz.codic.ahmadtea.data.network.model.Token;
 import uz.codic.ahmadtea.data.network.model.WorkspaceRelations;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.data.network.model.api_objects.Payload;
+import uz.codic.ahmadtea.errors.ErrorClass;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.utils.CommonUtils;
 import uz.codic.ahmadtea.utils.Consts;
@@ -375,5 +380,81 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         getMvpView().hideLoading();
                     }
                 });
+    }
+
+    @Override
+    public void checkErrors() {
+
+        getDataManager().getErrorInfoIsntSent(false)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<ErrorInfo>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<ErrorInfo> errorInfos) {
+                        if (errorInfos.size() > 0){
+                            sendErrors(errorInfos);
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+
+    }
+
+    void sendErrors(List<ErrorInfo> errorInfos){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (ErrorInfo info:errorInfos) {
+                    ErrorObject errorObject = new ErrorObject();
+                    ErrorBody body = new ErrorBody();
+                    body.setAPI_version(info.getApi_version());
+                    body.setOS_version(info.getOs_version());
+                    body.setDevice_model(info.getDevice_model());
+                    body.setTimestamp(info.getTimestamp());
+                    body.setError_log(info.getErro_log());
+                    body.setActive_internet_connection(info.isActive_internet_connection());
+                    body.setError_message(info.getError_message());
+                    errorObject.setBody(body);
+                    errorObject.setId(info.getId());
+                    errorObject.setApp_client_type(Consts.APP_CLIENT_TYPE);
+                    getDataManager().sendError(getDataManager().getToken(), errorObject)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(new SingleObserver<ApiObeject<ErrorObject>>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(ApiObeject<ErrorObject> apiObeject) {
+                                    if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count()>0){
+                                        info.setSent(true);
+                                        getDataManager().updateErrorInfo(info);
+                                    }
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    e.printStackTrace();
+                                    ErrorClass.log("12548", (Exception) e);
+                                }
+                            });
+                }
+            }
+        });
+        thread.start();
+
+
     }
 }

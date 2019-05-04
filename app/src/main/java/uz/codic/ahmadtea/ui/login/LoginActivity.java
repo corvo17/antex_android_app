@@ -64,6 +64,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
         presenter = new LoginPresenter<>(this);
         presenter.onAttach(this);
+        presenter.checkErrors();
 
         isFirstTime = getIntent().getBooleanExtra("isFirstTime", true);
         error_label = getIntent().getStringExtra("error_label");

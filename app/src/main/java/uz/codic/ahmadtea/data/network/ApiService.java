@@ -117,7 +117,7 @@ public interface ApiService {
     Single<SendResponse> requestAddMerchant(@Header("X-Authorization")String token, @Body HashMap<String, uz.codic.ahmadtea.data.network.model.Merchant> hashMap);
 
     @POST(ApiEndPoint.ERROR_SEND)
-    Single<ErrorObject> sendError(@Header("X-Authorization")String token, @Body ErrorObject errorObject);
+    Single<ApiObeject<ErrorObject>> sendError(@Header("X-Authorization")String token, @Body ErrorObject errorObject);
 
 
 

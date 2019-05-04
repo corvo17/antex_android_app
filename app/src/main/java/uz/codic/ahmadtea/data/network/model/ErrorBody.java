@@ -16,6 +16,7 @@ public class ErrorBody {
     String error_label;
     List<HashMap<String , String >> params;
     String error_log;
+    String error_message;
     List<HashMap<String , String >> before_error;
     List<HashMap<String , String >> during_error;
 
@@ -126,6 +127,14 @@ public class ErrorBody {
         this.during_error = during_error;
     }
 
+    public String getError_message() {
+        return error_message;
+    }
+
+    public void setError_message(String error_message) {
+        this.error_message = error_message;
+    }
+
     @Override
     public String toString() {
         return "ErrorBody{" +
@@ -140,6 +149,7 @@ public class ErrorBody {
                 ", error_label='" + error_label + '\'' +
                 ", params=" + params +
                 ", error_log='" + error_log + '\'' +
+                ", error_message='" + error_message + '\'' +
                 ", before_error=" + before_error +
                 ", during_error=" + during_error +
                 '}';

@@ -5,8 +5,12 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
+import uz.codic.ahmadtea.data.db.entities.ActiveActivity;
+import uz.codic.ahmadtea.data.db.entities.ActivityError;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
+import uz.codic.ahmadtea.data.db.entities.ErrorAction;
+import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
 import uz.codic.ahmadtea.data.db.entities.FileReportType;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
@@ -30,6 +34,7 @@ import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
+import uz.codic.ahmadtea.errors.error_activity.ErrorActivity;
 
 
 //Need to have singleton instance of the DbHelper class
@@ -66,7 +71,13 @@ import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
                 PhotoG.class,
                 NewMerchant.class,
                 InfoAction.class,
-                FileReportType.class
+                FileReportType.class,
+                ActiveActivity.class,
+                ActivityError.class,
+                ErrorAction.class,
+                ErrorInfo.class
+
+
 
         },
         version = 1,
