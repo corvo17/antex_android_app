@@ -237,18 +237,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:background="@drawable/bg_add"
             android:onClick="onBtnAddClick">
 
-            <TextView
+            <Button
                 android:id="@+id/txt_add"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="45dp"
                 android:text="Add"
                 android:gravity="center"
-                android:layout_centerInParent="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="4dp"
+                android:onClick="onBtnAddClick"
+
+                android:background="@drawable/bg_add_bt"
                 android:textColor="@color/white"
-                android:paddingBottom="4dp"
                 />
 
             <ProgressBar
@@ -259,7 +263,6 @@
                 android:paddingBottom="4dp"
                 android:visibility="gone"
                 />
-
         </RelativeLayout>
         <!--<Button-->
             <!--android:id="@+id/btn_add"-->

@@ -40,7 +40,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     EditText edtxt_userName;
     EditText edtxt_code;
     RelativeLayout btn_add;
-    TextView txt_add;
+    Button txt_add;
     ProgressBar progressBar;
     LinearLayout lnl_code;
     boolean is_eye_open;

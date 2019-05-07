@@ -86,9 +86,9 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
             for (int i = 1; i < merchant.size(); i++) {
                 if (merchant.get(key).getMerchant().getId().equals(merchant.get(i).getMerchant().getId())) {
                     merchants1.setWorkspace(merchant.get(i).getWorkspace());
-                    if (merchant.get(i).getInfoAction() != null)
+                    if (merchant.get(i).getInfoAction() != null){
                     merchants1.setInfos(merchant.get(i).getInfoAction());
-                    merchants1.setIsinfos(merchant.get(i).getInfoAction().isAction());
+                    merchants1.setIsinfos(merchant.get(i).getInfoAction().isAction());}
                     merchants.add(merchants1);
 
                 } else {
