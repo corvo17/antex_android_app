@@ -44,7 +44,7 @@
 
     <TextView
         android:id="@+id/id_tv_merchant_size"
-        android:text="Merchants: 56"
+        android:text="Merchants: 0"
         android:background="@color/colorPrimary"
         android:padding="8dp"
         android:textSize="18sp"
