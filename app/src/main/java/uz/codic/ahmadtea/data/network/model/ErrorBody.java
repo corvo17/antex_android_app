@@ -5,6 +5,7 @@ import java.util.List;
 
 public class ErrorBody {
 
+    String error_id;
     String API_version;
     String OS_version;
     String device_model;
@@ -135,10 +136,19 @@ public class ErrorBody {
         this.error_message = error_message;
     }
 
+    public String getError_id() {
+        return error_id;
+    }
+
+    public void setError_id(String error_id) {
+        this.error_id = error_id;
+    }
+
     @Override
     public String toString() {
         return "ErrorBody{" +
-                "API_version='" + API_version + '\'' +
+                "error_id='" + error_id + '\'' +
+                ", API_version='" + API_version + '\'' +
                 ", OS_version='" + OS_version + '\'' +
                 ", device_model='" + device_model + '\'' +
                 ", permissions_granted=" + permissions_granted +

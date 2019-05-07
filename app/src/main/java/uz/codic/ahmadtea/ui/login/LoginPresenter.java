@@ -70,6 +70,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             onRequestLogin(login);
                         } else {
                             getMvpView().showMessage("User already logged in");
+                            ErrorClass.log("User already logged in", new Exception());
                             getMvpView().hideLoading();
                         }
                     }
@@ -78,6 +79,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                     public void onError(Throwable e) {
                         Log.d("baxtiyor", "onError: " + e.getMessage());
                         e.printStackTrace();
+                        ErrorClass.log(e.getMessage(), (Exception) e);
                         getMvpView().showMessage(e.getMessage());
                         getMvpView().hideLoading();
                     }
@@ -113,6 +115,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
+                        ErrorClass.log(e.getMessage(), (Exception) e);
                         getMvpView().showMessage(e.getMessage());
                         getMvpView().hideLoading();
                     }
@@ -139,6 +142,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().setId_employee(user.getId());
                                     onRequestWorkspace(apiObeject.getPayload().get(0).getId(), user.getToken());
                                 } else {
+                                    ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                     getMvpView().hideLoading();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
@@ -147,6 +151,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                             @Override
                             public void onError(Throwable e) {
+                                ErrorClass.log(e.getMessage(), (Exception) e);
                                 e.printStackTrace();
                                 getMvpView().showMessage(e.getMessage());
                                 getMvpView().hideLoading();
@@ -170,6 +175,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().insertMyWorkspaces(apiObeject.getPayload());
                                     requestSharedObjectsList(token);
                                 } else {
+                                    ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                     getMvpView().hideLoading();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
@@ -178,6 +184,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                             @Override
                             public void onError(Throwable e) {
+                                ErrorClass.log(e.getMessage(), (Exception) e);
                                 e.printStackTrace();
                                 getMvpView().showMessage(e.getMessage());
                                 getMvpView().hideLoading();
@@ -234,12 +241,14 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                         getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                         getMvpView().hideLoading();
                                         Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
+                                        ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     }
                                     onRequestGetWorkspaceRelations(token);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
+                                    ErrorClass.log(e.getMessage(), (Exception) e);
                                     e.printStackTrace();
                                     Log.d("baxtiyor", "onError: " + e.getMessage());
                                     getMvpView().showMessage(e.getMessage());
@@ -270,6 +279,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getMvpView().hideLoading();
                                     getMvpView().dontStay();
                                 } else {
+                                    ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
                                     getMvpView().hideLoading();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
@@ -278,6 +288,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                             @Override
                             public void onError(Throwable e) {
+                                ErrorClass.log(e.getMessage(), (Exception) e);
                                 e.printStackTrace();
                                 Log.d("baxtiyor", "onError: " + e.getMessage());
                                 getMvpView().showMessage(e.getMessage());
@@ -339,6 +350,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onError(Throwable e) {
+                        ErrorClass.log(e.getMessage(), (Exception) e);
                         e.printStackTrace();
                         Log.d("baxtiyor", "onError: ");
                     }
@@ -375,6 +387,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onError(Throwable e) {
+                        ErrorClass.log(e.getMessage(), (Exception) e);
                         e.printStackTrace();
                         getMvpView().showMessage(e.getMessage());
                         getMvpView().hideLoading();
@@ -403,7 +416,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onError(Throwable e) {
-
+                        ErrorClass.log(e.getMessage(), (Exception) e);
                     }
                 });
 
@@ -440,6 +453,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count()>0){
                                         info.setSent(true);
                                         getDataManager().updateErrorInfo(info);
+                                    }else {
+                                        ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     }
 
                                 }

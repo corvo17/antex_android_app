@@ -111,7 +111,6 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
                     if (validate()) {
                         setMerchantFilts();
                     } else {
-                        ErrorClass.openNotifi();
                         showMessage("complate name or address");
                     }
                 }

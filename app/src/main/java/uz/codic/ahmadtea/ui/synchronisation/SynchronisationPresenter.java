@@ -1,8 +1,17 @@
 package uz.codic.ahmadtea.ui.synchronisation;
 
 import android.content.Context;
+import android.util.JsonReader;
 import android.util.Log;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonParser;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +20,8 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
 import uz.codic.ahmadtea.data.db.entities.Measurement;
@@ -35,6 +46,7 @@ import uz.codic.ahmadtea.data.network.model.Send;
 import uz.codic.ahmadtea.data.network.model.SendResponse;
 import uz.codic.ahmadtea.data.network.model.Synchronisation;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
+import uz.codic.ahmadtea.errors.ErrorClass;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
 import uz.codic.ahmadtea.utils.Consts;
@@ -57,20 +69,47 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
                 .subscribe(new SingleObserver<ApiObeject<Synchronisation>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        Log.d("baxtiyor", "onSubscribe: " + d);
                     }
 
                     @Override
                     public void onSuccess(ApiObeject<Synchronisation> apiObeject) {
                         if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
                             nextStep(apiObeject.getPayload().get(0));
+                        }else {
+                            ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
+                            Log.d("baxtiyor", "onSuccess: ");
+                            getMvpView().hideLoading();
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
 
+
+                        e.printStackTrace();
+
+                        getMvpView().hideLoading();
+                        HttpException exception = (HttpException) e;
+                        ResponseBody responseBody = exception.response().errorBody();
+                        try {
+                            JSONObject array = new JSONObject(responseBody.string()).getJSONObject("meta");
+
+                            Log.d("baxtiyor", "onError: status " + array.getLong("status"));
+                            Log.d("baxtiyor", "onError: " + responseBody.string());
+                            ErrorClass.log(e.getMessage(), (Exception) e, array.getJSONObject("error").getString("error_id"));
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        catch (Exception ee){
+                            ee.printStackTrace();
+                        }
+
                     }
+
+
+
                 });
 
         //nextStep(synchronisation);

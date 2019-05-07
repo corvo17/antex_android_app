@@ -49,12 +49,12 @@ public class ErrorClass{
     }
 
     @SuppressLint("NewApi")
-    public static void log(String mdg, Exception exception) {
+    public static void log(String message, Exception exception, String error_id) {
         //log into db
         //send
         exception.printStackTrace();
         String id = UUID.randomUUID().toString();
-        Log.d("baxtiyor", "mesage: " + mdg);
+        Log.d("baxtiyor", "mesage: " + message);
         Log.d("baxtiyor", "id: " + id);
         Log.d("baxtiyor", "API_version: " + Build.VERSION.SDK_INT);
         Log.d("baxtiyor", "OS_version: " + Build.VERSION.RELEASE);
@@ -67,8 +67,12 @@ public class ErrorClass{
         for (StackTraceElement stackTraceElement :exception.getStackTrace()) {
             Log.d("baxtiyor", "error_printStackTrace: " + stackTraceElement.toString());
         }
-        openNotifi(id);
-        sendError(id, exception);
+        openNotifi(message, id);
+        sendError(message, id, exception, error_id);
+    }
+
+    public static void log(String message, Exception exception){
+        log(message, exception, null);
     }
 
     public static void log(Exception exception) {
@@ -107,16 +111,14 @@ public class ErrorClass{
     }
 
     @SuppressLint("NewApi")
-    public static void openNotifi(){
-        String id = UUID.randomUUID().toString();
-
+    public static void openNotifi(String message, String id){
         String CHANNEL_ID="MYCHANNEL";
 
         NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name",NotificationManager.IMPORTANCE_LOW);
 
         final Intent intent = new Intent(context, ErrorActivity.class);
         intent.putExtra("id", id);
-        intent.putExtra("message", "mm");
+        intent.putExtra("message", message);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -151,7 +153,7 @@ public class ErrorClass{
 
         final Intent intent = new Intent(context, ErrorActivity.class);
         intent.putExtra("id", id);
-        intent.putExtra("message", "mm");
+        intent.putExtra("message", "");
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -193,6 +195,48 @@ public class ErrorClass{
         body.setDevice_model(Build.MANUFACTURER.toUpperCase() + " " + Build.MODEL);
         body.setTimestamp(System.currentTimeMillis());
         body.setError_log(e.getMessage());
+        body.setActive_internet_connection(isOnline());
+        errorObject.setBody(body);
+        errorObject.setId(id);
+        errorObject.setApp_client_type(Consts.APP_CLIENT_TYPE);
+        appDataManager.sendError(appDataManager.getToken(), errorObject)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ApiObeject<ErrorObject>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ApiObeject<ErrorObject> apiObeject) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+
+    }
+
+    public static void sendError(String message, String id, Exception e, String id_error){
+
+        String log = null;
+        for (StackTraceElement stackTraceElement :e.getStackTrace()) {
+            log += stackTraceElement.toString() + "\n";
+        }
+
+        ErrorObject errorObject = new ErrorObject();
+        ErrorBody body = new ErrorBody();
+        body.setAPI_version(String.valueOf(Build.VERSION.SDK_INT));
+        body.setOS_version(String.valueOf(Build.VERSION.RELEASE));
+        body.setDevice_model(Build.MANUFACTURER.toUpperCase() + " " + Build.MODEL);
+        body.setTimestamp(System.currentTimeMillis());
+        body.setError_log(log);
+        body.setError_message(message);
+        body.setError_id(id_error);
         body.setActive_internet_connection(isOnline());
         errorObject.setBody(body);
         errorObject.setId(id);

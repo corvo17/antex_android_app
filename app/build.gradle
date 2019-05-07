@@ -118,5 +118,6 @@ dependencies {
     implementation 'id.zelory:compressor:2.1.0'
     implementation 'com.github.andremion:counterfab:1.1.0'
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.7.0'
+    implementation group: 'org.json', name: 'json', version: '20180813'
 }
 apply plugin: 'com.google.gms.google-services'
