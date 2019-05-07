@@ -2,6 +2,7 @@ package uz.codic.ahmadtea.ui.new_merchants.adapter;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,7 +66,7 @@ public class AdapterNewMerchants extends RecyclerView.Adapter<AdapterNewMerchant
         TextView tvMerchantName;
         TextView tvMerchantAddress;
         TextView tvSizeWorkspaces;
-        RelativeLayout linearLayout;
+        ConstraintLayout linearLayout;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
