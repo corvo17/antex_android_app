@@ -105,7 +105,6 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         });
 
         if (!merchants.get(viewHolder.getAdapterPosition()).getInfos().isEmpty()){
-            Log.d("baxtiyor", "ifff: " + merchants.get(viewHolder.getAdapterPosition()).getInfos());
             boolean error = false;
             boolean send = false;
             boolean send_draft = false;
@@ -115,7 +114,6 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
 
 
             for (InfoAction action :merchants.get(viewHolder.getAdapterPosition()).getInfos()) {
-                Log.d("baxtiyor", "info: " + action);
                 if (action.isError())error = true;
                 if (action.isSave()) save = true;
                 if (action.isSave_pending()) save_pending = true;

@@ -21,6 +21,8 @@ public class InfoAction {
 
     private boolean error;
 
+    private boolean isAction;
+
     @ColumnInfo(name = "i_id_merchant")
     private String id_merchant;
 
@@ -49,6 +51,7 @@ public class InfoAction {
 
     public void setSend(boolean send) {
         this.send = send;
+        if (send) setAction();
     }
 
     public boolean isSend_draft() {
@@ -57,6 +60,7 @@ public class InfoAction {
 
     public void setSend_draft(boolean send_draft) {
         this.send_draft = send_draft;
+        if (send_draft) setAction();
     }
 
     public boolean isSave_pending() {
@@ -65,6 +69,7 @@ public class InfoAction {
 
     public void setSave_pending(boolean save_pending) {
         this.save_pending = save_pending;
+        if (save_pending) setAction();
     }
 
     public boolean isSave() {
@@ -73,6 +78,7 @@ public class InfoAction {
 
     public void setSave(boolean save) {
         this.save = save;
+        if (save) setAction();
     }
 
     public boolean isError() {
@@ -81,6 +87,7 @@ public class InfoAction {
 
     public void setError(boolean error) {
         this.error = error;
+        if (error) setAction();
     }
 
     public String getId_merchant() {
@@ -107,6 +114,18 @@ public class InfoAction {
         this.date = date;
     }
 
+    public boolean isAction() {
+        return isAction;
+    }
+
+    public void setAction(boolean action) {
+        isAction = action;
+    }
+
+    private void setAction(){
+        isAction = true;
+    }
+
     @Override
     public String toString() {
         return "InfoAction{" +
@@ -116,6 +135,7 @@ public class InfoAction {
                 ", save_pending=" + save_pending +
                 ", save=" + save +
                 ", error=" + error +
+                ", isAction=" + isAction +
                 ", id_merchant='" + id_merchant + '\'' +
                 ", id_workspace='" + id_workspace + '\'' +
                 ", date='" + date + '\'' +

@@ -129,8 +129,10 @@ public class MerchantsMapActivity extends BaseActivity implements MapMvpView, On
 
         if (merchants != null) {
             for (MerchantListWorspaces merchant : merchants) {
+                if(merchant.getMerchant().getLatitude() != null){
                 LatLng latLng = new LatLng(merchant.getMerchant().getLatitude(), merchant.getMerchant().getLongitude());
                 mMap.addMarker(new MarkerOptions().position(latLng).title(merchant.getMerchant().getLabel()));
+                }
             }
         }
     }
@@ -158,7 +160,6 @@ public class MerchantsMapActivity extends BaseActivity implements MapMvpView, On
     public void onMerchantReady(Merchant merchant) {
         mMerchant = merchant;
         LatLng sydney = new LatLng(merchant.getLatitude(), merchant.getLongitude());
-        Log.d("mylog", "onMerchantReady: " + merchant.getLatitude() + " " + merchant.getLongitude());
         Marker marker = mMap.addMarker(new MarkerOptions()
                 .position(sydney)
                 .snippet(String.valueOf(merchant.getPid()))
@@ -225,14 +226,16 @@ public class MerchantsMapActivity extends BaseActivity implements MapMvpView, On
         for (int i = 0; i < merchants.size(); i++) {
             Merchant item = merchants.get(i).getMerchant();
             AdapterItems temp = new AdapterItems();
-            metchantLatLng = new LatLng(item.getLatitude(), item.getLongitude());
-            Double value = greatCircleInMeters(myLat, metchantLatLng);
-            Double truncatedDouble = BigDecimal.valueOf(value)
-                    .setScale(3, RoundingMode.HALF_UP)
-                    .doubleValue();
-            temp.setName(item.getLabel());
-            temp.setValue(truncatedDouble);
-            adapterItems.add(temp);
+            if (item.getLatitude()!= null) {
+                metchantLatLng = new LatLng(item.getLatitude(), item.getLongitude());
+                Double value = greatCircleInMeters(myLat, metchantLatLng);
+                Double truncatedDouble = BigDecimal.valueOf(value)
+                        .setScale(3, RoundingMode.HALF_UP)
+                        .doubleValue();
+                temp.setValue(truncatedDouble);
+            }
+                temp.setName(item.getLabel());
+                adapterItems.add(temp);
         }
         adapterItems.sort(Comparator.comparing(AdapterItems::getValue));
 

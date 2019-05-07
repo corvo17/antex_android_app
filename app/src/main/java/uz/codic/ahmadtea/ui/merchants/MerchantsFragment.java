@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.icu.text.IDNA;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -20,9 +21,12 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
+import uz.codic.ahmadtea.data.db.entities.InfoAction;
+import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.ui.add_merchant.AddMerchantActivity;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
@@ -147,6 +151,8 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
 
     @Override
     public void getMerchants(List<MerchantListWorspaces> merchants) {
+        merchants.sort(Comparator.comparing(MerchantListWorspaces::getMerchant, Comparator.comparing(Merchant::getLabel)));
+        merchants.sort(Comparator.comparing(MerchantListWorspaces::isIsinfos).reversed());
         adapter.setMerchants(merchants);
         this.merchants = merchants;
         tv_merchants_size.setText("Merchants: " + merchants.size());
@@ -154,6 +160,8 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
 
     @Override
     public void onReadyMerchantsInWorkspace(List<MerchantListWorspaces> merchantInWorkspace) {
+        merchantInWorkspace.sort(Comparator.comparing(MerchantListWorspaces::getMerchant, Comparator.comparing(Merchant::getLabel)));
+        merchantInWorkspace.sort(Comparator.comparing(MerchantListWorspaces::isIsinfos).reversed());
         adapter.setMerchants(merchantInWorkspace);
         this.merchants = merchantInWorkspace;
         tv_merchants_size.setText("Merchants: " + merchantInWorkspace.size());

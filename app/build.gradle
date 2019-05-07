@@ -8,6 +8,7 @@ android {
         versionCode 3
         versionName "3.0.15"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        useLibrary 'org.apache.http.legacy'
     }
     buildTypes {
         release {

@@ -88,6 +88,7 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
                     merchants1.setWorkspace(merchant.get(i).getWorkspace());
                     if (merchant.get(i).getInfoAction() != null)
                     merchants1.setInfos(merchant.get(i).getInfoAction());
+                    merchants1.setIsinfos(merchant.get(i).getInfoAction().isAction());
                     merchants.add(merchants1);
 
                 } else {
@@ -97,6 +98,7 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
                     merchants1.setWorkspace(merchant.get(i).getWorkspace());
                     if (merchant.get(i).getInfoAction() != null) {
                         merchants1.setInfos(merchant.get(i).getInfoAction());
+                        merchants1.setIsinfos(merchant.get(i).getInfoAction().isAction());
                     }
                     merchants.add(merchants1);
                 }
@@ -163,8 +165,11 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
             MerchantListWorspaces list = new MerchantListWorspaces();
             list.setMerchant(workspaceAndMerchants.get(i).getMerchant());
             list.setWorkspace(workspaceAndMerchants.get(i).getWorkspace());
-            if (workspaceAndMerchants.get(i).getInfoAction() != null)
+            if (workspaceAndMerchants.get(i).getInfoAction() != null){
             list.setInfos(workspaceAndMerchants.get(i).getInfoAction());
+            list.setIsinfos(workspaceAndMerchants.get(i).getInfoAction().isAction());
+            }
+
             merchantInWorkspaces.add(list);
         }
         getMvpView().onReadyMerchantsInWorkspace(merchantInWorkspaces);

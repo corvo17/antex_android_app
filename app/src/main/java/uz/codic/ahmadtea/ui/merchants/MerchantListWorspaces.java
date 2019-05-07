@@ -10,11 +10,13 @@ import uz.codic.ahmadtea.data.db.entities.Workspace;
 
 public class MerchantListWorspaces implements Serializable {
 
-    Merchant merchant;
+    public Merchant merchant;
 
     List<Workspace> workspaces;
 
-    List<InfoAction> infos;
+    public List<InfoAction> infos;
+
+    boolean isinfos;
 
     public MerchantListWorspaces() {
         workspaces = new ArrayList<>();
@@ -51,6 +53,14 @@ public class MerchantListWorspaces implements Serializable {
 
     public List<InfoAction> getInfos() {
         return infos;
+    }
+
+    public boolean isIsinfos() {
+        return isinfos;
+    }
+
+    public void setIsinfos(boolean isinfos) {
+        this.isinfos = isinfos;
     }
 
     public void setInfos(List<InfoAction> infos) {

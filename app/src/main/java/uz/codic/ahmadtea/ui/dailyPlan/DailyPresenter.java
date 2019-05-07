@@ -3,6 +3,9 @@ package uz.codic.ahmadtea.ui.dailyPlan;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +14,8 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.network.model.DailyBody;
 import uz.codic.ahmadtea.data.network.model.DailyMerchants;
@@ -59,9 +64,18 @@ public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> imp
                     @Override
                     public void onError(Throwable e) {
                         e.printStackTrace();
-                        ErrorClass.log((Exception) e);
-                        Log.d("error_message", "onError: " + e.getMessage());
-                        Log.d("error_message", "Error: " + e.toString());
+                        HttpException exception = (HttpException) e;
+                        ResponseBody responseBody = exception.response().errorBody();
+                        try {
+                            JSONObject array = new JSONObject(responseBody.string()).getJSONObject("meta");
+                            ErrorClass.log(e.getMessage(), (Exception) e, array.getJSONObject("error").getString("error_id"));
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        catch (Exception ee){
+                            ee.printStackTrace();
+                        }
                         //-
                     }
                 });
