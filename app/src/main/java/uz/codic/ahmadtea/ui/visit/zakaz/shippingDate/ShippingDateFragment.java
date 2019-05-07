@@ -115,13 +115,13 @@ public class ShippingDateFragment extends Fragment {
         calendarShipping = view.findViewById(R.id.celenderShipping);
         try {
             notesOrder.setText(listener.getCompleteApi().getOrderObject().getNotes());
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-            date = getNaxtDay();
-            tvDate.setText(date);
-            listener.getCompleteApi().getOrderObject().setDelivery_date(date);
+        date = getNaxtDay();
+        tvDate.setText(date);
+        listener.getCompleteApi().getOrderObject().setDelivery_date(date);
 
         calendarShipping.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +132,7 @@ public class ShippingDateFragment extends Fragment {
 
     }
 
-    private void openCalendar(){
+    private void openCalendar() {
         final Calendar c = Calendar.getInstance();
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
@@ -140,28 +140,32 @@ public class ShippingDateFragment extends Fragment {
         DatePickerDialog dialog = new DatePickerDialog(getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                date = year +"-0"+(month+1)+"-"+dayOfMonth;
+                if (dayOfMonth < 10) {
+                    date = year + "-0" + (month + 1) + "-0" + dayOfMonth;
+                } else {
+                    date = year + "-0" + (month + 1) + "-" + dayOfMonth;
+                }
                 tvDate.setText(date);
                 listener.getCompleteApi().getOrderObject().setDelivery_date(date);
                 allCompleted();
             }
-        },mYear, mMonth, mDay);
+        }, mYear, mMonth, mDay);
         dialog.show();
     }
 
     private void allCompleted() {
-        if (listener.getCompleteApi().getOrderObject().getId_price()!= null &&
-                listener.getCompleteApi().getOrderObject().getId_payment_type()!=null &&
-                listener.getCompleteApi().getOrderBasketList().size() > 0){
+        if (listener.getCompleteApi().getOrderObject().getId_price() != null &&
+                listener.getCompleteApi().getOrderObject().getId_payment_type() != null &&
+                listener.getCompleteApi().getOrderBasketList().size() > 0) {
             progressBar.setAllStatesCompleted(true);
-        }else {
+        } else {
             //progressBar.set
         }
     }
 
     private String getNaxtDay() {
         Calendar calendar = Calendar.getInstance();
-        String year, month=null, day = null;
+        String year, month = null, day = null;
         year = String.valueOf(calendar.get(Calendar.YEAR));
         switch (calendar.get(Calendar.MONTH)) {
             case 0:
@@ -298,6 +302,7 @@ public class ShippingDateFragment extends Fragment {
                 ;
                 break;
         }
+        if (Integer.parseInt(day) < 10) day = "0" + day;
         return year + "-" + month + "-" + day;
     }
 

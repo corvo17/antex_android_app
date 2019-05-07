@@ -160,7 +160,7 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
         apiOrder.setTotal_cost(order.getTotal_cost());
         apiOrder.setTotal_cost_with_mmd(order.getTotal_cost_with_mmd());
         apiOrder.setNote(order.getNotes());
-        apiOrder.setFilial_id(order.getId_filial());
+        apiOrder.setVisit_id(order.getVisitId());
         apiOrder.setPrice_id(order.getId_price());
         apiOrder.setWorkspace_id(order.getId_workspace());
         apiOrder.setDelivery_date(order.getDelivery_date());

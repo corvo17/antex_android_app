@@ -9,10 +9,11 @@ public class ApiOrder {
     Long total_cost;
     Long total_cost_with_mmd;
     String note;
-    Integer filial_id;
+//    Integer filial_id;
     Integer price_id;
     String workspace_id;
     String delivery_date;
+    String visit_id;
     Integer status_id;
 
 
@@ -76,13 +77,13 @@ public class ApiOrder {
         this.note = note;
     }
 
-    public Integer getFilial_id() {
-        return filial_id;
-    }
+//    public Integer getFilial_id() {
+//        return filial_id;
+//    }
 
-    public void setFilial_id(Integer filial_id) {
-        this.filial_id = filial_id;
-    }
+//    public void setFilial_id(Integer filial_id) {
+//        this.filial_id = filial_id;
+//    }
 
     public Integer getPrice_id() {
         return price_id;
@@ -114,5 +115,13 @@ public class ApiOrder {
 
     public void setStatus_id(Integer status_id) {
         this.status_id = status_id;
+    }
+
+    public String getVisit_id() {
+        return visit_id;
+    }
+
+    public void setVisit_id(String visit_id) {
+        this.visit_id = visit_id;
     }
 }
