@@ -112,72 +112,130 @@ public class ErrorClass{
 
     @SuppressLint("NewApi")
     public static void openNotifi(String message, String id){
-        String CHANNEL_ID="MYCHANNEL";
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "MYCHANNEL";
 
-        NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name",NotificationManager.IMPORTANCE_LOW);
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "name", NotificationManager.IMPORTANCE_LOW);
 
-        final Intent intent = new Intent(context, ErrorActivity.class);
-        intent.putExtra("id", id);
-        intent.putExtra("message", message);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            final Intent intent = new Intent(context, ErrorActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("message", message);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setChannelId(CHANNEL_ID)
-                .setContentText("Произошла ошибка!\n" +
-                        "код: общая ошибка\n" +
-                        "№: " +id + "\n" +
-                        "\n" +
-                        "просим синхронизировать приложение\n" +
-                        "и отправить скриншот этой ошибки\n" +
-                        "в техподдержку,\n" +
-                        "телеграм: +998908228585")
-                .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND)
-                .setContentIntent(pendingIntent)
-                .setContentInfo("Info");
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setChannelId(CHANNEL_ID)
+                    .setContentText("Произошла ошибка!\n" +
+                            "код: общая ошибка\n" +
+                            "№: " + id + "\n" +
+                            "\n" +
+                            "просим синхронизировать приложение\n" +
+                            "и отправить скриншот этой ошибки\n" +
+                            "в техподдержку,\n" +
+                            "телеграм: +998908228585")
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                    .setContentIntent(pendingIntent)
+                    .setContentInfo("Info");
 
 
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.createNotificationChannel(notificationChannel);
-        manager.notify(1, builder.build());
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(notificationChannel);
+            manager.notify(1, builder.build());
+        }else {
+            final Intent intent = new Intent(context, ErrorActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("message", message);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                    .setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentText("Произошла ошибка!\n" +
+                            "код: общая ошибка\n" +
+                            "№: " + id + "\n" +
+                            "\n" +
+                            "просим синхронизировать приложение\n" +
+                            "и отправить скриншот этой ошибки\n" +
+                            "в техподдержку,\n" +
+                            "телеграм: +998908228585")
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                    .setContentIntent(pendingIntent)
+                    .setContentInfo("Info");
+
+
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(1, builder.build());
+        }
     }
 
     @SuppressLint("NewApi")
     public static void openNotifi(String id){
-        String CHANNEL_ID="MYCHANNEL";
 
-        NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name",NotificationManager.IMPORTANCE_LOW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            String CHANNEL_ID = "MYCHANNEL";
 
-        final Intent intent = new Intent(context, ErrorActivity.class);
-        intent.putExtra("id", id);
-        intent.putExtra("message", "");
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, "name", NotificationManager.IMPORTANCE_LOW);
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setAutoCancel(true)
-                .setDefaults(Notification.DEFAULT_ALL)
-                .setWhen(System.currentTimeMillis())
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setChannelId(CHANNEL_ID)
-                .setContentText("Произошла ошибка!\n" +
-                        "код: общая ошибка\n" +
-                        "№: " +id + "\n" +
-                        "\n" +
-                        "просим синхронизировать приложение\n" +
-                        "и отправить скриншот этой ошибки\n" +
-                        "в техподдержку,\n" +
-                        "телеграм: +998908228585")
-                .setDefaults(Notification.DEFAULT_LIGHTS|Notification.DEFAULT_SOUND)
-                .setContentIntent(pendingIntent)
-                .setContentInfo("Info");
+            final Intent intent = new Intent(context, ErrorActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("message", "");
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                    .setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setChannelId(CHANNEL_ID)
+                    .setContentText("Произошла ошибка!\n" +
+                            "код: общая ошибка\n" +
+                            "№: " + id + "\n" +
+                            "\n" +
+                            "просим синхронизировать приложение\n" +
+                            "и отправить скриншот этой ошибки\n" +
+                            "в техподдержку,\n" +
+                            "телеграм: +998908228585")
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                    .setContentIntent(pendingIntent)
+                    .setContentInfo("Info");
 
 
-        NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        manager.createNotificationChannel(notificationChannel);
-        manager.notify(1, builder.build());
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.createNotificationChannel(notificationChannel);
+            manager.notify(1, builder.build());
+        }else {
+            final Intent intent = new Intent(context, ErrorActivity.class);
+            intent.putExtra("id", id);
+            intent.putExtra("message", "");
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(context)
+                    .setAutoCancel(true)
+                    .setDefaults(Notification.DEFAULT_ALL)
+                    .setWhen(System.currentTimeMillis())
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setContentText("Произошла ошибка!\n" +
+                            "код: общая ошибка\n" +
+                            "№: " + id + "\n" +
+                            "\n" +
+                            "просим синхронизировать приложение\n" +
+                            "и отправить скриншот этой ошибки\n" +
+                            "в техподдержку,\n" +
+                            "телеграм: +998908228585")
+                    .setDefaults(Notification.DEFAULT_LIGHTS | Notification.DEFAULT_SOUND)
+                    .setContentIntent(pendingIntent)
+                    .setContentInfo("Info");
+
+
+            NotificationManager manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            manager.notify(1, builder.build());
+        }
+
     }
 
     public static boolean isOnline() {

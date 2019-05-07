@@ -54,14 +54,6 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
             showMessage("Please Internet Turn On");
         }
         init();
-
-        try{
-            int i = Integer.parseInt("s");
-        }catch (Exception e){
-            ErrorClass.log("some", e);
-            //ErrorClass.log( e);
-
-        }
     }
 
     private void init() {
@@ -92,9 +84,6 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
         spinner = findViewById(R.id.id_add_merchant_spinner);
         merchant = new NewMerchant();
         merchant.setId(String.valueOf(UUID.randomUUID()));
-        Log.d("baxtiyor", "init: " + merchant.getId());
-
-
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
