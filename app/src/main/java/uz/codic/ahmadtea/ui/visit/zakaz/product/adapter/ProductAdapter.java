@@ -65,9 +65,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
                 @Override
                 public void onClick(View v) {
                     //try {
-                        if (Integer.parseInt(viewHolder.remaining.getText().toString()) >= ((Integer.parseInt(viewHolder.order_amount.getText().toString()) + 1) * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + Integer.parseInt(viewHolder.order_amount_count.getText().toString()))) {
+                        if (item.getStocks().getTotal_count() >= (item.getCount_boxes() + 1) * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + item.getCount()) {
                             callback.changedBoxOrCount(1, viewHolder.getAdapterPosition(), item.getProduct().getId());
-                            viewHolder.order_amount.setText(String.valueOf(Integer.parseInt(viewHolder.order_amount.getText().toString()) + 1));
+                            viewHolder.order_amount.setText(String.valueOf(item.getCount_boxes()+ 1));
 
 
                         }
@@ -78,9 +78,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             viewHolder.minus_box.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Integer.parseInt(viewHolder.order_amount.getText().toString()) > 0) {
+                    if (item.getCount_boxes() > 0) {
                         callback.changedBoxOrCount((-1), viewHolder.getAdapterPosition(), item.getProduct().getId());
-                        viewHolder.order_amount.setText(String.valueOf(Integer.parseInt(viewHolder.order_amount.getText().toString()) - 1));
+                        viewHolder.order_amount.setText(String.valueOf(item.getCount_boxes() - 1));
                     }
                 }
             });
@@ -88,9 +88,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             viewHolder.pulus_count.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Integer.parseInt(viewHolder.remaining.getText().toString()) >= (Integer.parseInt(viewHolder.order_amount.getText().toString()) * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + Integer.parseInt(viewHolder.order_amount_count.getText().toString()) + 1)) {
+                    if (item.getStocks().getTotal_count() >= (item.getCount_boxes() * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + item.getCount() + 1)) {
                         callback.changedBoxOrCount(2, viewHolder.getAdapterPosition(), item.getProduct().getId());
-                        viewHolder.order_amount_count.setText(String.valueOf(Integer.parseInt(viewHolder.order_amount_count.getText().toString()) + 1));
+                        viewHolder.order_amount_count.setText(String.valueOf(item.getCount() + 1));
                     }
                 }
             });
@@ -98,9 +98,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             viewHolder.minus_count.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Integer.parseInt(viewHolder.order_amount_count.getText().toString()) > 0) {
+                    if (item.getCount() > 0) {
                         callback.changedBoxOrCount((-2), viewHolder.getAdapterPosition(), item.getProduct().getId());
-                        viewHolder.order_amount_count.setText(String.valueOf(Integer.parseInt(viewHolder.order_amount_count.getText().toString()) - 1));
+                        viewHolder.order_amount_count.setText(String.valueOf(item.getCount() - 1));
                     }
                 }
             });
