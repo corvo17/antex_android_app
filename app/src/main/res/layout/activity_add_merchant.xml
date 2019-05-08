@@ -250,6 +250,15 @@
 
     </RelativeLayout>
 
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_below="@id/id_lnl_input_add_merchant"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="18dp"
+        android:src="@drawable/map"
+        android:onClick="goMapActiity"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="4dp"
@@ -278,6 +287,12 @@
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:srcCompat="@tools:sample/avatars" />
 
 
 </RelativeLayout>

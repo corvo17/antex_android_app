@@ -44,4 +44,14 @@ public class MyWorkspace {
     public void setStatus_id(Integer status_id) {
         this.status_id = status_id;
     }
+
+    @Override
+    public String toString() {
+        return "MyWorkspace{" +
+                "pid=" + pid +
+                ", workspace_id='" + workspace_id + '\'' +
+                ", employee_id='" + employee_id + '\'' +
+                ", status_id=" + status_id +
+                '}';
+    }
 }

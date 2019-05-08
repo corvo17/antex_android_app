@@ -56,6 +56,7 @@ project.ext {
     lottieVersion = "2.5.4"
 
 }
+
 dependencies {
 
     // appcompat
@@ -120,5 +121,8 @@ dependencies {
     implementation 'com.github.andremion:counterfab:1.1.0'
     implementation group: 'at.favre.lib', name: 'bcrypt', version: '0.7.0'
     implementation group: 'org.json', name: 'json', version: '20180813'
+
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.2'
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'
 }
 apply plugin: 'com.google.gms.google-services'

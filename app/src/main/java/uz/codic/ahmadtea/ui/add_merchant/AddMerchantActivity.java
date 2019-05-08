@@ -27,6 +27,7 @@ import uz.codic.ahmadtea.data.db.entities.NewMerchant;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.network.model.SendResponse;
 import uz.codic.ahmadtea.errors.ErrorClass;
+import uz.codic.ahmadtea.ui.MapsActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.ui.visit.MerchantActivity;
 
@@ -237,5 +238,10 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
                 (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();
         return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    public void goMapActiity(View view) {
+        startActivity(new Intent(this, MapsActivity.class));
+        finish();
     }
 }

@@ -171,8 +171,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         .subscribeWith(new DisposableSingleObserver<ApiObeject<MyWorkspace>>() {
                             @Override
                             public void onSuccess(ApiObeject<MyWorkspace> apiObeject) {
-                                if (apiObeject.getMeta().getStatus() == 200) {
-                                    if (apiObeject.getMeta().getPayload_count() > 0)
+                                if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
+                                    Log.d("p", "onSuccess: "+ apiObeject.getPayload());
                                     getDataManager().insertMyWorkspaces(apiObeject.getPayload());
                                     requestSharedObjectsList(token);
                                 } else {
