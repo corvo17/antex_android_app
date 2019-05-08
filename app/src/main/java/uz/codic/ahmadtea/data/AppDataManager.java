@@ -267,8 +267,8 @@ public class AppDataManager implements DataManager {
 
     // request add merchant
     @Override
-    public Single<SendResponse> requestAddMerchant(String token, HashMap<String, uz.codic.ahmadtea.data.network.model.Merchant> hashMap) {
-        return apiService.requestAddMerchant(token, hashMap);
+    public Single<ApiObeject<uz.codic.ahmadtea.data.network.model.Merchant>> requestAddMerchant(String token, ApiObeject<uz.codic.ahmadtea.data.network.model.Merchant> apiObeject) {
+        return apiService.requestAddMerchant(token, apiObeject);
     }
 
     @Override

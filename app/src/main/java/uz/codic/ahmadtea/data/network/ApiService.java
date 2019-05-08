@@ -110,11 +110,8 @@ public interface ApiService {
     );
 
     //Send add merchant
-    @Headers({
-            "Routing-Key:" + ApiEndPoint.ROUTING_KEY_ADD_MERCHANT
-    })
-    @POST(ApiEndPoint.ENDPOINT_REQUEST)
-    Single<SendResponse> requestAddMerchant(@Header("X-Authorization")String token, @Body HashMap<String, uz.codic.ahmadtea.data.network.model.Merchant> hashMap);
+    @POST(ApiEndPoint.REQUEST_ADD_MERCHANT)
+    Single<ApiObeject<uz.codic.ahmadtea.data.network.model.Merchant>> requestAddMerchant(@Header("X-Authorization")String token, @Body ApiObeject<uz.codic.ahmadtea.data.network.model.Merchant> apiObeject);
 
     @POST(ApiEndPoint.ERROR_SEND)
     Single<ApiObeject<ErrorObject>> sendError(@Header("X-Authorization")String token, @Body ErrorObject errorObject);

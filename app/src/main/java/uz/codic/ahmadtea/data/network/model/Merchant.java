@@ -3,12 +3,16 @@ package uz.codic.ahmadtea.data.network.model;
 public class Merchant {
 
     String id;
-    String name;
+    String label;
     String address;
     Double latitude;
     Double longitude;
     String inn;
     String phone;
+    Long current_balance;
+    Integer status_id;
+    String contact_person;
+
 
     public Merchant() {
     }
@@ -21,12 +25,12 @@ public class Merchant {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getLabel() {
+        return label;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getAddress() {
@@ -69,16 +73,43 @@ public class Merchant {
         this.phone = phone;
     }
 
+    public Long getCurrent_balance() {
+        return current_balance;
+    }
+
+    public void setCurrent_balance(Long current_balance) {
+        this.current_balance = current_balance;
+    }
+
+    public Integer getStatus_id() {
+        return status_id;
+    }
+
+    public void setStatus_id(Integer status_id) {
+        this.status_id = status_id;
+    }
+
+    public String getContact_person() {
+        return contact_person;
+    }
+
+    public void setContact_person(String contact_person) {
+        this.contact_person = contact_person;
+    }
+
     @Override
     public String toString() {
         return "Merchant{" +
                 "id='" + id + '\'' +
-                ", name='" + name + '\'' +
+                ", label='" + label + '\'' +
                 ", address='" + address + '\'' +
                 ", latitude=" + latitude +
                 ", longitude=" + longitude +
                 ", inn='" + inn + '\'' +
                 ", phone='" + phone + '\'' +
+                ", current_balance=" + current_balance +
+                ", status_id=" + status_id +
+                ", contact_person='" + contact_person + '\'' +
                 '}';
     }
 }

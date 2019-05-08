@@ -10,6 +10,6 @@ public interface AddMerchantMvpView extends MvpView {
 
     void onMyWorkspaces(List<Workspace> workspaces);
 
-    void resultAddMerchant(SendResponse response);
+    void resultAddMerchant();
 
 }
