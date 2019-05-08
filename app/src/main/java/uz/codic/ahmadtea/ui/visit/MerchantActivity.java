@@ -180,7 +180,7 @@ public class MerchantActivity extends BaseActivity
                 getCompleteApi().getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
                 presenter.requestSend(getCompleteApi());
             } else{
-                //showMessage("Please complete order");
+                showMessage("Please complete order");
             }
 
         });
@@ -190,7 +190,7 @@ public class MerchantActivity extends BaseActivity
                 getCompleteApi().getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
                 presenter.requestSendDraft(completeApi);
             } else{
-                //showMessage("Please complete order");
+                showMessage("Please complete order");
             }
         });
 
@@ -199,7 +199,7 @@ public class MerchantActivity extends BaseActivity
                 completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
                 presenter.saveAsPending(completeApi);
             } else{
-//                showMessage("Please complete order");
+                showMessage("Please complete order");
             }
         });
 
