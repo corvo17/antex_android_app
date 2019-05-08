@@ -207,6 +207,19 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
         startActivity(intent);
     }
 
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (presenter.isAdmin()) {
+            add_merchant_bn.setVisibility(View.VISIBLE);
+            presenter.getWorkspaceAndMerchants();
+        } else {
+            add_merchant_bn.setVisibility(View.GONE);
+            presenter.getWorkspaceAndMerchants();
+        }
+    }
+
     public void filter() {
         presenter.getMyWorkspaces();
     }
