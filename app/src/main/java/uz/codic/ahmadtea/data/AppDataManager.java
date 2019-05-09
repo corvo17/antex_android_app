@@ -573,8 +573,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public WorkspaceAndMerchant getWorkspaceAndMerchants(String id_merchant, String id_workspace) {
-        return dbHelper.daoAccess().getWorkspaceAndMerchants(id_merchant, id_workspace);
+    public WorkspaceAndMerchant getWorkspaceAndMerchants(String id_merchant, String id_workspace, String date) {
+        return dbHelper.daoAccess().getWorkspaceAndMerchants(id_merchant, id_workspace, date);
         }
         
     @Override
@@ -639,6 +639,10 @@ public class AppDataManager implements DataManager {
         dbHelper.daoAccess().updateErrorInfo(errorInfo);
     }
 
+    @Override
+    public List<Merchant> getMerchants(Integer... integers) {
+        return dbHelper.daoAccess().getMerchants(integers);
+    }
 
     // query error ^
 

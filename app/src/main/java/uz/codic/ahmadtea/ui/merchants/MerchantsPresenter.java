@@ -10,6 +10,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.ui.base.BasePresenter;

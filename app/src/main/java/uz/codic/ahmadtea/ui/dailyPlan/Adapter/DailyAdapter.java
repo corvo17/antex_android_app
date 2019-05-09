@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
+import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.ui.visit.MerchantActivity;
@@ -64,7 +66,6 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
             holder.tvSum.setTextColor(Color.parseColor("#737373"));
         }
 
-
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,6 +77,46 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
                 holder.itemView.getContext().startActivity(merchant);
             }
         });
+
+        if (items.get(holder.getAdapterPosition()).getInfoAction() != null){
+            boolean error = false;
+            boolean send = false;
+            boolean send_draft = false;
+            boolean save = false;
+            boolean save_pending = false;
+
+
+
+            InfoAction action = items.get(holder.getAdapterPosition()).getInfoAction();
+                if (action.isError())error = true;
+                if (action.isSave()) save = true;
+                if (action.isSave_pending()) save_pending = true;
+                if (action.isSend()) send = true;
+                if (action.isSend_draft()) send_draft = true;
+
+            if (error) holder.info_error.setVisibility(View.VISIBLE);
+            else holder.info_error.setVisibility(View.GONE);
+
+            if (send) holder.info_send.setVisibility(View.VISIBLE);
+            else holder.info_send.setVisibility(View.GONE);
+
+            if (send_draft) holder.info_send_draft.setVisibility(View.VISIBLE);
+            else holder.info_send_draft.setVisibility(View.GONE);
+
+            if (save) holder.info_save.setVisibility(View.VISIBLE);
+            else holder.info_save.setVisibility(View.GONE);
+
+            if (save_pending) holder.info_save_pending.setVisibility(View.VISIBLE);
+            else holder.info_save_pending.setVisibility(View.GONE);
+
+        }else{
+            holder.info_send.setVisibility(View.GONE);
+            holder.info_send_draft.setVisibility(View.GONE);
+            holder.info_save_pending.setVisibility(View.GONE);
+            holder.info_save.setVisibility(View.GONE);
+            holder.info_error.setVisibility(View.GONE);
+        }
+
     }
 
     @Override
@@ -92,6 +133,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         TextView distance;
         TextView tvMerchantCurrentBalance;
         TextView tvSum;
+        TextView info_send, info_send_draft, info_save, info_save_pending, info_error;
 
         TextView address;
         public ViewHolder(View itemView) {
@@ -100,6 +142,11 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
             address = itemView.findViewById(R.id.daily_planning_address);
             tvMerchantCurrentBalance = itemView.findViewById(R.id.id_merchant_current_balance);
             tvSum = itemView.findViewById(R.id.sum);
+            info_send = itemView.findViewById(R.id.info_send);
+            info_send_draft = itemView.findViewById(R.id.info_send_draft);
+            info_save = itemView.findViewById(R.id.info_save);
+            info_save_pending = itemView.findViewById(R.id.info_save_pending);
+            info_error = itemView.findViewById(R.id.info_error);
         }
 
     }

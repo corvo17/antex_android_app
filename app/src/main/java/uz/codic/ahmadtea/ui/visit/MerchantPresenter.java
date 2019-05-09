@@ -65,6 +65,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
                     @Override
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
                         if (apiObeject.getMeta().getStatus() == 200){
+                            Log.d("baxtiyor", "sent ordet: ");
                         saveObjectsAsSent(completeApi.getOrderBasketList(),completeApi.getVisitObject(), completeApi.getOrderObject());
                         getMvpView().getInfoAction().setSend(true);
                         getDataManager().updateInfoAction(getMvpView().getInfoAction());
@@ -316,6 +317,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
 
                     @Override
                     public void onComplete() {
+                        Log.d("baxtiyor", "onComplete: ");
                     }
 
                     @Override

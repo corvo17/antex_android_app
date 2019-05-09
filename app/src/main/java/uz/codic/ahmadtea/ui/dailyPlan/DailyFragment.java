@@ -87,7 +87,8 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
         recyclerView.setAdapter(adapter);
 //        presenter.getMerchantsInWorkspace(id_employee);
         android.text.format.DateFormat df = new android.text.format.DateFormat();
-        presenter.requestDailyMerchants(df.format("yyyy-MM-dd", new java.util.Date()).toString());
+        date = df.format("yyyy-MM-dd", new java.util.Date()).toString();
+        presenter.requestDailyMerchants(date);
     }
 
     @Override
@@ -103,6 +104,11 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.requestDailyMerchants(date);
+    }
 
     @Override
     public String id_workspace(String id_merchant) {
