@@ -25,6 +25,9 @@
         <item
             android:id="@+id/nav_orders"
             android:title="Report" />
+        <item
+            android:id="@+id/nav_saved"
+            android:title="Saved visits" />
 
         <item
             android:id="@+id/sittings"

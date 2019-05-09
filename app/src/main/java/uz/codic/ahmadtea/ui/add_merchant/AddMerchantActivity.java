@@ -1,10 +1,12 @@
 package uz.codic.ahmadtea.ui.add_merchant;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -17,6 +19,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,12 +40,16 @@ import uz.codic.ahmadtea.ui.MapsActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.ui.visit.MerchantActivity;
 
-public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpView {
+public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpView, OnMapReadyCallback {
+
+    private GoogleMap mMap;
+    private int REQUEST_CODE = 1414;
 
     AddMerchantMvpPresenter<AddMerchantMvpView> presenter;
     EditText et_name, et_address, et_phone, et_inn;
     ImageView back;
-    TextView tv_add, tv_name_value, tv_address_value, tv_phone_value, tv_inn_value, tv_some_text;
+    TextView  tv_name_value, tv_address_value, tv_phone_value, tv_inn_value, tv_some_text;
+    ImageView img_add;
     LinearLayout linearLayoutEdit;
     RelativeLayout relativeLayoutInfo;
     Button visitbn, orderbn;
@@ -50,6 +63,10 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_merchant);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         if (!isOnline()) {
             showMessage("Please Internet Turn On");
@@ -65,9 +82,8 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
         et_address = findViewById(R.id.et_add_merchant_address);
         et_phone = findViewById(R.id.et_add_merchant_phone);
         et_inn = findViewById(R.id.et_add_merchant_inn);
-
         //tv
-        tv_add = findViewById(R.id.id_add_merchant_add);
+        img_add = findViewById(R.id.img_add_merchat);
         tv_name_value = findViewById(R.id.id_add_merchant_name_value);
         tv_address_value = findViewById(R.id.id_add_merchant_address_value);
         tv_phone_value = findViewById(R.id.id_add_merchant_phone_value);
@@ -94,7 +110,7 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
             }
         });
 
-        tv_add.setOnClickListener(new View.OnClickListener() {
+        img_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!isCreateMerchant) {
@@ -241,7 +257,43 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
     }
 
     public void goMapActiity(View view) {
-        startActivity(new Intent(this, MapsActivity.class));
-        finish();
+        startActivityForResult(new Intent(this, MapsActivity.class), REQUEST_CODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if (requestCode == REQUEST_CODE) {
+            if (resultCode == Activity.RESULT_OK) {
+
+                double longlitude = data.getDoubleExtra("longitude", 14);
+                double latitude = data.getDoubleExtra("latitude", 14);
+                merchant.setLatitude(latitude);
+                merchant.setLongitude(longlitude);
+                mMap.clear();
+                LatLng citizenLocation = new LatLng(data.getDoubleExtra("latitude", 41.311162), data.getDoubleExtra("longitude", 69.279623));
+                MarkerOptions marker = new MarkerOptions().position(citizenLocation).title("Location");
+                mMap.addMarker(marker);
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(citizenLocation, 15f));
+            }
+        }
+
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+
+
+
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng location = new LatLng(41.311081, 69.240562);
+        mMap.addMarker(new MarkerOptions().position(location).title("Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(location));
+        mMap.setMinZoomPreference(7f);
+
     }
 }

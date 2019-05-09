@@ -82,6 +82,8 @@
         <activity android:name=".ui.add_merchant.AddMerchantActivity" />
         <activity android:name=".errors.error_activity.ErrorActivity" />
         <activity android:name=".ui.sittings.VersionInfoActivity"></activity>
+        <activity android:name=".ui.MapsActivity" />
+
         <uses-library android:name="org.apache.http.legacy" android:required="false"/>
     </application>
 

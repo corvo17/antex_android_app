@@ -34,9 +34,7 @@ public class BasketPresenter<V extends BasketMvpView> extends BasePresenter<V> i
                     public void onSuccess(List<BasketProduct> orderBaskets) {
                         for (BasketProduct basketProduct: orderBaskets
                              ) {
-                            Log.d(Consts.TEST_TAG, "onSuccess: " + basketProduct.getOrderBasket().toString());
-                            Log.d(Consts.TEST_TAG, "onSuccess: " + basketProduct.getProductPrice().getValue());
-                            Log.d(Consts.TEST_TAG, "onSuccess: " + basketProduct.getProduct().getLabel());
+
                         }
                         getMvpView().onBasketListReady(orderBaskets);
                     }
