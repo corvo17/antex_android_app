@@ -15,6 +15,8 @@ public class ApiEndPoint {
 
     public static final String ENDPOINT_REQUEST = "/v1/request";
 
+    public static final String REQUEST_ADD_MERCHANT = "/merchant/insert";
+
     public static final String ENDPOINT_REQUEST_PLANNING = "/planning";
 
     public static final String URL_CURRENT_MOBILE_V = "/open/get_mobile_current_release_info";

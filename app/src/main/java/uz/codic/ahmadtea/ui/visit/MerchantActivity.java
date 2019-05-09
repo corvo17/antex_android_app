@@ -124,11 +124,10 @@ public class MerchantActivity extends BaseActivity
 
         //Intent extra values
         stringClick = getIntent().getStringExtra("click");
-        pid_merchant = getIntent().getIntExtra("id", 0);
+        pid_merchant = getIntent().getIntExtra("id", -1);
         merchant_name = getIntent().getStringExtra("name");
         id_workspace = getIntent().getStringExtra("id_workspace");
 
-        Log.d("stacks", "onCreate: " + id_workspace);
 
         completeApi = new CompleteApi();
         completeApi.setOrderObject(new Order());
@@ -139,7 +138,7 @@ public class MerchantActivity extends BaseActivity
         presenter = new MerchantPresenter<>(this);
         presenter.onAttach(this);
 //        presenter.getMerchantById(pid_merchant);
-        if (pid_merchant == 0) {
+        if (pid_merchant == -1) {
             String id_merchant = getIntent().getStringExtra("id_merchant");
             presenter.requestCompleteObject(id_merchant, id_workspace);
 
@@ -180,7 +179,7 @@ public class MerchantActivity extends BaseActivity
                 getCompleteApi().getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
                 presenter.requestSend(getCompleteApi());
             } else{
-                //showMessage("Please complete order");
+                showMessage("Please complete order");
             }
 
         });
@@ -190,7 +189,7 @@ public class MerchantActivity extends BaseActivity
                 getCompleteApi().getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
                 presenter.requestSendDraft(completeApi);
             } else{
-                //showMessage("Please complete order");
+                showMessage("Please complete order");
             }
         });
 
@@ -199,7 +198,7 @@ public class MerchantActivity extends BaseActivity
                 completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
                 presenter.saveAsPending(completeApi);
             } else{
-//                showMessage("Please complete order");
+                showMessage("Please complete order");
             }
         });
 

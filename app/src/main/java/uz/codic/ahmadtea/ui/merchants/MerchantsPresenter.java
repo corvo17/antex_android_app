@@ -10,10 +10,12 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.utils.CommonUtils;
+import uz.codic.ahmadtea.utils.Consts;
 
 public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresenter<V> implements MerchantsMvpPresenter<V> {
     public MerchantsPresenter(Context context) {
@@ -134,10 +136,12 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
 
     @Override
     public void getMerchantsInWorkspace(String id_workspace) {
+        ArrayList<String> list = new ArrayList<>();
+        list.add(id_workspace);
         if (id_workspace == null) {
             getWorkspaceAndMerchants();
         } else {
-            getDataManager().getMerchantsInWorkspace(id_workspace)
+            getDataManager().getMerchantsInWorkspace(list, CommonUtils.getToday())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new SingleObserver<List<WorkspaceAndMerchant>>() {

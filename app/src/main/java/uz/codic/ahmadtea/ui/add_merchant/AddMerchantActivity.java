@@ -218,18 +218,13 @@ public class AddMerchantActivity extends BaseActivity implements AddMerchantMvpV
     }
 
     @Override
-    public void resultAddMerchant(SendResponse response) {
-        if (response.getStatus() == 1) {
+    public void resultAddMerchant() {
             //TODO add merchant success
             presenter.seveMerchant(merchant);
             hideEdit();
             showInfo();
             tv_some_text.setText("");
             isCreateMerchant = true;
-        } else {
-            //TODO add merchant error
-            tv_some_text.setText("Internet bilan muammo bo'ldi qaytadan urinib ko'ring");
-        }
     }
 
     private void showInfo() {

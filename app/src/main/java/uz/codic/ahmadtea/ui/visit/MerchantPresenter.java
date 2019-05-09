@@ -3,6 +3,9 @@ package uz.codic.ahmadtea.ui.visit;
 import android.content.Context;
 import android.util.Log;
 
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +17,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
+import okhttp3.ResponseBody;
+import retrofit2.HttpException;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.NewMerchant;
@@ -28,6 +33,7 @@ import uz.codic.ahmadtea.data.network.model.ApiOrderBasket;
 import uz.codic.ahmadtea.data.network.model.ApiVisit;
 import uz.codic.ahmadtea.data.network.model.Payload;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
+import uz.codic.ahmadtea.errors.ErrorClass;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteApi;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteObject;
@@ -59,16 +65,33 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
                     @Override
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
                         if (apiObeject.getMeta().getStatus() == 200){
+                            Log.d("baxtiyor", "sent ordet: ");
                         saveObjectsAsSent(completeApi.getOrderBasketList(),completeApi.getVisitObject(), completeApi.getOrderObject());
                         getMvpView().getInfoAction().setSend(true);
                         getDataManager().updateInfoAction(getMvpView().getInfoAction());
                         getMvpView().goBack();
+                        }else {
+                            ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        HttpException exception = (HttpException) e;
+                        ResponseBody responseBody = exception.response().errorBody();
+                        try {
+                            JSONObject array = new JSONObject(responseBody.string()).getJSONObject("meta");
 
+                            Log.d("baxtiyor", "onError: status " + array.getLong("status"));
+                            Log.d("baxtiyor", "onError: " + responseBody.string());
+                            ErrorClass.log(e.getMessage(), (Exception) e, array.getJSONObject("error").getString("error_id"));
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        catch (Exception ee){
+                            ee.printStackTrace();
+                        }
                     }
                 });
 
@@ -154,12 +177,28 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
                         if (apiObeject.getMeta().getStatus() == 200){
                             saveObjectsAsDraft(completeApi);
+                        }else {
+                            ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                         }
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        HttpException exception = (HttpException) e;
+                        ResponseBody responseBody = exception.response().errorBody();
+                        try {
+                            JSONObject array = new JSONObject(responseBody.string()).getJSONObject("meta");
 
+                            Log.d("baxtiyor", "onError: status " + array.getLong("status"));
+                            Log.d("baxtiyor", "onError: " + responseBody.string());
+                            ErrorClass.log(e.getMessage(), (Exception) e, array.getJSONObject("error").getString("error_id"));
+
+                        } catch (IOException e1) {
+                            e1.printStackTrace();
+                        }
+                        catch (Exception ee){
+                            ee.printStackTrace();
+                        }
                     }
                 });
 
@@ -278,6 +317,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
 
                     @Override
                     public void onComplete() {
+                        Log.d("baxtiyor", "onComplete: ");
                     }
 
                     @Override

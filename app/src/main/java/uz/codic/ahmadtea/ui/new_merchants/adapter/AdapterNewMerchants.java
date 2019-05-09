@@ -37,7 +37,7 @@ public class AdapterNewMerchants extends RecyclerView.Adapter<AdapterNewMerchant
             intent.putExtra("click", "onClick");
 
             intent.putExtra("name", merchants.get(holder.getAdapterPosition()).getName());
-            intent.putExtra("id", merchants.get(holder.getAdapterPosition()).getPid());
+            intent.putExtra("id_merchant", merchants.get(holder.getAdapterPosition()).getId());
             intent.putExtra("id_workspace", merchants.get(holder.getAdapterPosition()).getId_workspace());
             holder.itemView.getContext().startActivity(intent);
         });
@@ -46,7 +46,7 @@ public class AdapterNewMerchants extends RecyclerView.Adapter<AdapterNewMerchant
             intent.putExtra("click", "longClick");
 
             intent.putExtra("name", merchants.get(holder.getAdapterPosition()).getName());
-            intent.putExtra("id", merchants.get(holder.getAdapterPosition()).getPid());
+            intent.putExtra("id_merchant", merchants.get(holder.getAdapterPosition()).getId());
             intent.putExtra("id_workspace", merchants.get(holder.getAdapterPosition()).getId_workspace());
             holder.itemView.getContext().startActivity(intent);
             return true;

@@ -28,7 +28,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
     public void updateItem(int quantity, int box, int count, int position) {
-        Log.d(Consts.TEST_TAG, "AdapterPositionUI: " + position);
         products.get(position).setQuantity(quantity);
         products.get(position).setCount(count);
         products.get(position).setCount_boxes(box);
@@ -56,8 +55,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             viewHolder.name.setText(item.getProduct().getLabel());
 
-
-            Log.d("baxtiyor", "onBindViewHolder: " + item.getStocks().getTotal_count());
             viewHolder.remaining.setText(CommonUtils.getFormattedNumber(item.getStocks().getTotal_count()));
 //        viewHolder.remaining.setText(CommonUtils.getFormattedNumber(callback.getRemaing_amount(item.getProduct().getId(), item.getProduct().getCount_in_box())));
 
@@ -106,8 +103,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             });
 
             viewHolder.itemView.setOnClickListener(v -> {
-
-                Log.d("stocks", "onBindViewHolder: " + callback.isOrderBasket(products.get(viewHolder.getAdapterPosition()).getProduct().getId()));
                 callback.onProductClick(products.get(viewHolder.getAdapterPosition()), viewHolder.getAdapterPosition());
             });
 

@@ -267,8 +267,8 @@ public class AppDataManager implements DataManager {
 
     // request add merchant
     @Override
-    public Single<SendResponse> requestAddMerchant(String token, HashMap<String, uz.codic.ahmadtea.data.network.model.Merchant> hashMap) {
-        return apiService.requestAddMerchant(token, hashMap);
+    public Single<ApiObeject<uz.codic.ahmadtea.data.network.model.Merchant>> requestAddMerchant(String token, ApiObeject<uz.codic.ahmadtea.data.network.model.Merchant> apiObeject) {
+        return apiService.requestAddMerchant(token, apiObeject);
     }
 
     @Override
@@ -573,8 +573,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public WorkspaceAndMerchant getWorkspaceAndMerchants(String id_merchant, String id_workspace) {
-        return dbHelper.daoAccess().getWorkspaceAndMerchants(id_merchant, id_workspace);
+    public WorkspaceAndMerchant getWorkspaceAndMerchants(String id_merchant, String id_workspace, String date) {
+        return dbHelper.daoAccess().getWorkspaceAndMerchants(id_merchant, id_workspace, date);
         }
         
     @Override
@@ -639,6 +639,10 @@ public class AppDataManager implements DataManager {
         dbHelper.daoAccess().updateErrorInfo(errorInfo);
     }
 
+    @Override
+    public List<Merchant> getMerchants(Integer... integers) {
+        return dbHelper.daoAccess().getMerchants(integers);
+    }
 
     // query error ^
 

@@ -38,7 +38,8 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final OrderedList item = items.get(holder.getAdapterPosition());
 
-
+        holder.name.setText(item.getMerchant().getLabel());
+        holder.totalCost.setText(CommonUtils.getFormattedNumber(item.getOrder().getTotal_cost()/100));
         holder.itemView.setOnClickListener(v -> {
             Intent orderedActivity = new Intent(holder.itemView.getContext(), BasketActivity.class);
             orderedActivity.putExtra("orderId", item.getOrder().getId());

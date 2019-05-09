@@ -22,6 +22,7 @@ import uz.codic.ahmadtea.data.network.model.DailyMerchants;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.errors.ErrorClass;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
+import uz.codic.ahmadtea.utils.CommonUtils;
 
 public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> implements DailyMvpPresenter<V> {
 
@@ -49,7 +50,6 @@ public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> imp
                     @Override
                     public void onSuccess(ApiObeject<DailyMerchants> apiObeject) {
                         //-
-                        Log.d("error_message", "onSuccess: ");
                         if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
                             getData(apiObeject.getPayload().get(0));
                         } else {
@@ -85,12 +85,12 @@ public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> imp
         List<WorkspaceAndMerchant> merchants = new ArrayList<>();
         if (!dailyMerchants.getPlan().isEmpty()) {
             for (DailyMerchants.Casual plan : dailyMerchants.getPlan()) {
-                merchants.add(getDataManager().getWorkspaceAndMerchants(plan.getMerchant_id(), plan.getWorkspace_id()));
+                merchants.add(getDataManager().getWorkspaceAndMerchants(plan.getMerchant_id(), plan.getWorkspace_id(), CommonUtils.getToday()));
             }
         }
         if (!dailyMerchants.getCasual().isEmpty()) {
             for (DailyMerchants.Casual casual : dailyMerchants.getCasual()) {
-                merchants.add(getDataManager().getWorkspaceAndMerchants(casual.getMerchant_id(), casual.getWorkspace_id()));
+                merchants.add(getDataManager().getWorkspaceAndMerchants(casual.getMerchant_id(), casual.getWorkspace_id(), CommonUtils.getToday()));
             }
         }
         getMvpView().onMerchantsListReady(merchants);
