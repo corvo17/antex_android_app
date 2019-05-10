@@ -55,6 +55,11 @@ public class PaymentTypesAdapter extends RecyclerView.Adapter<PaymentTypesAdapte
                 callback.onItemClick(paymentTypes.get(position).getId());
             }
         });
+        if (paymentTypes.size()==1){
+            paymentTypes.get(position).setChecked(true);
+            lastCheckedPos = position;
+            callback.onItemClick(paymentTypes.get(position).getId());
+        }
     }
 
     @Override

@@ -61,6 +61,12 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
             }
         });
 
+        if (priceList.size()==1){
+            priceList.get(position).setChecked(true);
+            lastCheckedPos = position;
+            callback.onItemClick(priceList.get(position).getId());
+        }
+
     }
 
     @Override

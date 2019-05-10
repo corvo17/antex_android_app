@@ -39,6 +39,7 @@ import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.ui.visit.zakaz.InformationFragment;
+import uz.codic.ahmadtea.ui.visit.zakaz.MerchantPageFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteApi;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteObject;
@@ -165,13 +166,13 @@ public class MerchantActivity extends BaseActivity
 //
 //        });
 
-        if (stringClick.equals("longClick")) {
-            lnrButtons.setVisibility(View.GONE);
-            findViewById(R.id.btn_save_as_pending).setVisibility(View.GONE);
-            transactionFragments(InformationFragment.newInstance(), informationTag);
-        } else if (stringClick.equals("onClick")) {
-            transactionFragments(VisitFragment.newInstance(), visitTag);
-        }
+//        if (stringClick.equals("longClick")) {
+//            lnrButtons.setVisibility(View.GONE);
+//            findViewById(R.id.btn_save_as_pending).setVisibility(View.GONE);
+//            transactionFragments(InformationFragment.newInstance(), informationTag);
+//        } else if (stringClick.equals("onClick")) {
+//            transactionFragments(VisitFragment.newInstance(), visitTag);
+//        }
 
 
         findViewById(R.id.bnt_send).setOnClickListener(v -> {
@@ -227,19 +228,24 @@ public class MerchantActivity extends BaseActivity
     public void onCompleteObjectReady(CompleteObject completeObject) {
         this.completeObject = completeObject;
         infoAction = presenter.getInfoAction(completeObject.getWorkspace().getId(), completeObject.getMerchant().getId());
-        Log.d("baxtiyor", "onCompleteObjectReady: " + infoAction);
         startVisit();
+        if (infoAction.isAction()){
+            transactionFragments(MerchantPageFragment.newInstance(), "Visit Info");
+            lnrButtons.setVisibility(View.GONE);
+        }else if (stringClick.equals("longClick")) {
+            lnrButtons.setVisibility(View.GONE);
+            findViewById(R.id.btn_save_as_pending).setVisibility(View.GONE);
+            transactionFragments(InformationFragment.newInstance(), informationTag);
+        } else if (stringClick.equals("onClick")) {
+            transactionFragments(VisitFragment.newInstance(), visitTag);
+        }else
         if (stringClick.equals("order")) {
             lnrButtons.setVisibility(View.GONE);
             stateProgressBar.setVisibility(View.VISIBLE);
             findViewById(R.id.btn_forward).setVisibility(View.VISIBLE);
             transactionFragments(PricesFragment.newInstance(), pricesTag);
         }
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.merchant_container, MerchantPageFragment.newInstance(), merchantTag)
-//                .commit();
-//        changeToolbarTitle(merchant_name);
+
     }
 
 
