@@ -49,12 +49,15 @@ import uz.codic.ahmadtea.ui.visit.zakaz.product.ProductFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.shippingDate.ShippingDateFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
 import uz.codic.ahmadtea.utils.CommonUtils;
+import uz.codic.ahmadtea.utils.Consts;
 
 import static uz.codic.ahmadtea.utils.Consts.informationTag;
 import static uz.codic.ahmadtea.utils.Consts.paymentTag;
 import static uz.codic.ahmadtea.utils.Consts.pricesTag;
 import static uz.codic.ahmadtea.utils.Consts.productTag;
 import static uz.codic.ahmadtea.utils.Consts.shippingTag;
+import static uz.codic.ahmadtea.utils.Consts.statusPending;
+import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
 
 public class MerchantActivity extends BaseActivity
@@ -151,20 +154,14 @@ public class MerchantActivity extends BaseActivity
         lnrButtons = findViewById(R.id.lnr_buttons);
         btnSaveAsDraft = findViewById(R.id.btn_send_as_draft);
 //
-//        btnSaveAsDraft.setOnClickListener(v -> {
-//            visitObject.setTime_end(CommonUtils.getCurrentTimeMilliseconds());
-//            for (OrderBasket orderBasket : orderBasketList) {
-//                orderBasket.setStatus("draft");
-//                Log.d(Consts.TEST_TAG, "Basket " + orderBasket.toString());
-//            }
-//            orderObject.setStatus("draft");
-//            visitObject.setStatus("draft");
-//            Log.d(Consts.TEST_TAG, "orderObject: " + orderObject.toString());
-//            Log.d(Consts.TEST_TAG, "visitObject: " + visitObject.toString());
-//
-//
-//
-//        });
+        findViewById(R.id.btn_save_as_draft).setOnClickListener(v -> {
+            if (!completeApi.getOrderBasketList().isEmpty() && getCompleteApi().getOrderObject().isOrderComplete()) {
+                completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
+                presenter.saveAsPending(completeApi, statusSaveAsDraft);
+            } else{
+                showMessage("Please complete order");
+            }
+        });
 
 //        if (stringClick.equals("longClick")) {
 //            lnrButtons.setVisibility(View.GONE);
@@ -197,7 +194,7 @@ public class MerchantActivity extends BaseActivity
         findViewById(R.id.btn_save_as_pending).setOnClickListener(v -> {
             if (!completeApi.getOrderBasketList().isEmpty() && getCompleteApi().getOrderObject().isOrderComplete()) {
                 completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
-                presenter.saveAsPending(completeApi);
+                presenter.saveAsPending(completeApi, statusPending);
             } else{
                 showMessage("Please complete order");
             }
@@ -327,6 +324,8 @@ public class MerchantActivity extends BaseActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //TODO SAVE
+                    completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
+                    presenter.saveAsPending(completeApi, statusSaveAsDraft);
                     goBack();
                 }
             });

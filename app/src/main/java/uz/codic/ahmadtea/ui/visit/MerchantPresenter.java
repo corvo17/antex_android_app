@@ -40,6 +40,10 @@ import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteObject;
 import uz.codic.ahmadtea.utils.CommonUtils;
 import uz.codic.ahmadtea.utils.Consts;
 
+import static uz.codic.ahmadtea.utils.Consts.statusPending;
+import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
+import static uz.codic.ahmadtea.utils.Consts.statusSent;
+
 public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<V> implements MerchantMvpPresenter<V> {
 
     public MerchantPresenter(Context context) {
@@ -176,7 +180,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
                     @Override
                     public void onSuccess(ApiObeject<Payload> apiObeject) {
                         if (apiObeject.getMeta().getStatus() == 200){
-                            saveObjectsAsDraft(completeApi);
+                            saveObjectsAsSendDraft(completeApi);
                         }else {
                             ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                         }
@@ -226,7 +230,7 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
 //                });
     }
 
-    private void saveObjectsAsDraft(CompleteApi completeApi){
+    private void saveObjectsAsSendDraft(CompleteApi completeApi){
         Completable.fromAction(()->{
             completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
             for(OrderBasket orderBasket : completeApi.getOrderBasketList()){
@@ -260,15 +264,15 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
     }
 
     @Override
-    public void saveAsPending(CompleteApi completeApi) {
+    public void saveAsPending(CompleteApi completeApi, String status) {
         Completable.fromAction(()->{
             completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
             for(OrderBasket orderBasket : completeApi.getOrderBasketList()){
-                orderBasket.setStatus(Consts.statusPending);
+                orderBasket.setStatus(status);
             }
-            completeApi.getOrderObject().setStatus(Consts.statusPending);
+            completeApi.getOrderObject().setStatus(status);
             completeApi.getOrderObject().setIdEmployee(getDataManager().getId_employee());
-            completeApi.getVisitObject().setStatus(Consts.statusPending);
+            completeApi.getVisitObject().setStatus(status);
             completeApi.getVisitObject().setId_employee(getDataManager().getId_employee());
             getDataManager().insertOrder( completeApi.getOrderObject());
             getDataManager().insertVisit( completeApi.getVisitObject());
@@ -282,7 +286,11 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
 
                     @Override
                     public void onComplete() {
+                        if (status.equals(statusPending)){
                         getMvpView().getInfoAction().setSave_pending(true);
+                        }else  if (status.equals(statusSaveAsDraft)) {
+                            getMvpView().getInfoAction().setSave(true);
+                        }
 
                         getDataManager().updateInfoAction(getMvpView().getInfoAction());
                         getMvpView().goBack();
@@ -299,11 +307,11 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
         Completable.fromAction(()->{
             visit.setTime_end(CommonUtils.getCurrentTimeMilliseconds());
             for(OrderBasket orderBasket : orderBaskets){
-                orderBasket.setStatus(Consts.statusSaveAsDraft);
+                orderBasket.setStatus(statusSent);
             }
-            order.setStatus(Consts.statusSaveAsDraft);
+            order.setStatus(statusSent);
             order.setIdEmployee(getDataManager().getId_employee());
-            visit.setStatus(Consts.statusSaveAsDraft);
+            visit.setStatus(statusSent);
             visit.setId_employee(getDataManager().getId_employee());
             getDataManager().insertOrder(order);
             getDataManager().insertVisit(visit);
