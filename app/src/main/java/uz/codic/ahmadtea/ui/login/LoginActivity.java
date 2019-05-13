@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
@@ -21,6 +22,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.Permission;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,7 +57,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 100);
         }
 
@@ -64,7 +68,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
         presenter = new LoginPresenter<>(this);
         presenter.onAttach(this);
-        presenter.checkErrors();
+        //presenter.checkErrors();
 
         isFirstTime = getIntent().getBooleanExtra("isFirstTime", true);
         error_label = getIntent().getStringExtra("error_label");
@@ -73,7 +77,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             Log.d("baxtiyor", "onCreate: ");
             btn_back.setVisibility(View.GONE);
             presenter.checkUser();
-            generatePrivateHash();
+           // generatePrivateHash();
         } else {
             lnl_code.setVisibility(View.GONE);
         }
@@ -130,7 +134,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         if (error_label == null) {
             Log.d("baxtiyor", "eror null");
             presenter.userCheckFromDb(login);
-        }else {
+        } else {
             presenter.onRequestResetToken(login);
             Log.d("baxtiyor", "eror null emas" + error_label);
         }
@@ -217,8 +221,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Override
     public void onBackPressed() {
-        if (isFirstTime){
+        if (isFirstTime) {
             finishAffinity();
-        }else super.onBackPressed();
+        } else super.onBackPressed();
     }
 }

@@ -39,6 +39,7 @@ public class ErrorActivity extends AppCompatActivity {
        // toolbar.setTitle("Ошибка");
 
         appDataManager = new AppDataManager(this);
+        if (appDataManager.isLogin())
         checkErrors();
 
         String id = getIntent().getStringExtra("id");
