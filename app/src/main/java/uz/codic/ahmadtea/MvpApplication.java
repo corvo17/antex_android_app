@@ -8,7 +8,7 @@ import uz.codic.ahmadtea.errors.ExceptionHandler;
 
 public class MvpApplication extends Application {
 
-    
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -72,9 +72,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
         isFirstTime = getIntent().getBooleanExtra("isFirstTime", true);
         error_label = getIntent().getStringExtra("error_label");
-        Log.d("baxtiyor", "onCreate: " + error_label);
         if (isFirstTime) {
-            Log.d("baxtiyor", "onCreate: ");
             btn_back.setVisibility(View.GONE);
             presenter.checkUser();
            // generatePrivateHash();
@@ -109,7 +107,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     public void onBtnAddClick(View view) {
         if (isAllFieldsFilled()) {
             if (lnl_code.getVisibility() == View.VISIBLE) {
-                Log.d("baxtiyor", "go central");
                 presenter.onRequestBaseUrl(edtxt_code.getText().toString(), generatePrivateHash());
                 //goLogin();
             } else {
@@ -124,7 +121,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         Login login = new Login();
         login.setLogin(edtxt_userName.getText().toString());
         login.setPassword(edtxt_password.getText().toString());
-        Log.d("baxtiyor", "imei" + getImei());
         login.setImei(getImei());
 
         //show loading
@@ -132,11 +128,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         txt_add.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         if (error_label == null) {
-            Log.d("baxtiyor", "eror null");
             presenter.userCheckFromDb(login);
         } else {
             presenter.onRequestResetToken(login);
-            Log.d("baxtiyor", "eror null emas" + error_label);
         }
     }
 
@@ -181,6 +175,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             return telInfo;
         } else
             return "352717092485070";
+        //TODO remove else
 
     }
 
@@ -204,14 +199,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Override
     public void onStay() {
-        Log.d("baxtiyor", "onStay: ");
+
     }
 
     @Override
     public void dontStay() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
-        Log.d("baxtiyor", "dontStay: ");
     }
 
     @Override

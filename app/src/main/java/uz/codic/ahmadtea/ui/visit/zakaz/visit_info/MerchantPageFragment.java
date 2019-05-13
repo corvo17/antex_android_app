@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import uz.codic.ahmadtea.R;
+import uz.codic.ahmadtea.data.AppDataManager;
 import uz.codic.ahmadtea.ui.visit.zakaz.InformationFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
 import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
@@ -35,6 +36,7 @@ public class MerchantPageFragment extends Fragment {
     LinearLayout lnr_information;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
+    AppDataManager dataManager;
     boolean gps_enabled = false;
 
 
@@ -49,7 +51,8 @@ public class MerchantPageFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new VisitInfoAdapter();
         recyclerView.setAdapter(adapter);
-
+        dataManager = new AppDataManager(getContext());
+        getVisits();
         LocationManager locationManager = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
 
         //Back Button
@@ -130,6 +133,9 @@ public class MerchantPageFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_merchant_page, container, false);
     }
 
+    private void getVisits() {
+        //dataManager
+    }
 
 
 }
