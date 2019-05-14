@@ -27,6 +27,7 @@ public class Order implements Serializable {
     String status;
     String delivery_date;
     String idEmployee;
+    String date;
     @Ignore
     boolean orderComplete;
 
@@ -189,5 +190,15 @@ public class Order implements Serializable {
     public void setDelivery_date(String delivery_date) {
         this.delivery_date = delivery_date;
     }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+
 }
 

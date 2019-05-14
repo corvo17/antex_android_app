@@ -133,7 +133,9 @@ public class MerchantActivity extends BaseActivity
 
         completeApi = new CompleteApi();
         completeApi.setOrderObject(new Order());
+        completeApi.getOrderObject().setDate(CommonUtils.getToday());
         completeApi.setVisitObject(new Visit());
+        completeApi.getVisitObject().setDate(CommonUtils.getToday());
         completeApi.setOrderBasketList(new ArrayList<>());
 
         //Presenter

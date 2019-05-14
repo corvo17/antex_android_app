@@ -11,18 +11,30 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.AppDataManager;
+import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.ui.visit.zakaz.InformationFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
 import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
+import uz.codic.ahmadtea.utils.CommonUtils;
 
 import static uz.codic.ahmadtea.utils.Consts.informationTag;
+import static uz.codic.ahmadtea.utils.Consts.statusSendAsDraft;
+import static uz.codic.ahmadtea.utils.Consts.statusSent;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
 
 /**
@@ -35,7 +47,7 @@ public class MerchantPageFragment extends Fragment {
     LinearLayout lnr_visit;
     LinearLayout lnr_information;
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter;
+    VisitInfoAdapter adapter;
     AppDataManager dataManager;
     boolean gps_enabled = false;
 
@@ -134,7 +146,37 @@ public class MerchantPageFragment extends Fragment {
     }
 
     private void getVisits() {
-        //dataManager
+        dataManager.getVisitInfoObjects(listener.getCompleteObject().getMerchant().getId(), listener.getCompleteObject().getWorkspace().getId())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Order>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<Order> orders) {
+                        Log.d("baxtiyor", "onSuccess: " + orders);
+
+                        for (int i = 0; i < orders.size(); i++) {
+                            if (orders.get(i).getStatus().equals(statusSent) && !orders.get(i).getDate().equals(CommonUtils.getToday())){
+                                orders.remove(i);
+                                i--;
+                            }
+                            if (orders.get(i).getStatus().equals(statusSendAsDraft) && !orders.get(i).getDate().equals(CommonUtils.getToday())){
+                                orders.remove(i);
+                                i--;
+                            }
+                        }
+                        adapter.setOrders(orders);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
     }
 
 

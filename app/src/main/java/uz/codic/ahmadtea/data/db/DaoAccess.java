@@ -3,7 +3,6 @@ package uz.codic.ahmadtea.data.db;
 
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
-import android.arch.persistence.room.Index;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
@@ -41,6 +40,7 @@ import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
 import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
 import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
+
 
 @Dao
 public interface DaoAccess {
@@ -434,6 +434,9 @@ public interface DaoAccess {
 
     @Query("select * from merchant where pid in(:integers)")
     List<Merchant> getMerchants(Integer... integers);
+
+    @Query("SELECT  `order`.* FROM `Order`  where `Order`.id_merchant=:merchant_id and `Order`.id_workspace=:workspace_id")
+    Single<List<Order>> getVisitInfoObjects(String merchant_id, String workspace_id);
 
 
 }

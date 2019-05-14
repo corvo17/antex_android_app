@@ -44,21 +44,16 @@ import uz.codic.ahmadtea.data.network.ApiCentral;
 import uz.codic.ahmadtea.data.network.ApiClient;
 import uz.codic.ahmadtea.data.network.ApiEndPoint;
 import uz.codic.ahmadtea.data.network.ApiService;
-import uz.codic.ahmadtea.data.network.model.ApiOrder;
 import uz.codic.ahmadtea.data.network.model.BeforeSyncObject;
 import uz.codic.ahmadtea.data.network.model.CentralObject;
-import uz.codic.ahmadtea.data.network.model.DailyBody;
 import uz.codic.ahmadtea.data.network.model.DailyMerchants;
 import uz.codic.ahmadtea.data.network.model.Employee;
 import uz.codic.ahmadtea.data.network.model.EmployeeLocation;
 import uz.codic.ahmadtea.data.network.model.ErrorObject;
 import uz.codic.ahmadtea.data.network.model.LocationResponse;
 import uz.codic.ahmadtea.data.network.model.Login;
-import uz.codic.ahmadtea.data.network.model.Message;
-import uz.codic.ahmadtea.data.network.model.ObjectsForEmployee;
 import uz.codic.ahmadtea.data.network.model.Send;
 import uz.codic.ahmadtea.data.network.model.SendResponse;
-import uz.codic.ahmadtea.data.network.model.SharedObject;
 import uz.codic.ahmadtea.data.network.model.Synchronisation;
 import uz.codic.ahmadtea.data.network.model.Token;
 import uz.codic.ahmadtea.data.network.model.WorkspaceRelations;
@@ -642,6 +637,11 @@ public class AppDataManager implements DataManager {
     @Override
     public List<Merchant> getMerchants(Integer... integers) {
         return dbHelper.daoAccess().getMerchants(integers);
+    }
+
+    @Override
+    public Single<List<Order>> getVisitInfoObjects(String merchant_id, String workspace_id) {
+        return dbHelper.daoAccess().getVisitInfoObjects(merchant_id, workspace_id);
     }
 
     // query error ^

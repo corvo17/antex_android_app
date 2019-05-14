@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
@@ -107,8 +108,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     public void onBtnAddClick(View view) {
         if (isAllFieldsFilled()) {
             if (lnl_code.getVisibility() == View.VISIBLE) {
-                presenter.onRequestBaseUrl(edtxt_code.getText().toString(), generatePrivateHash());
-                //goLogin();
+                hideKeyboard(this);
+                txt_add.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                new MyTask().execute();
             } else {
                 goLogin();
             }
@@ -219,4 +222,21 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             finishAffinity();
         } else super.onBackPressed();
     }
+
+    private class MyTask extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String dateString = format.format(new Date());
+            String password = Consts.KEY + dateString;
+            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            presenter.onRequestBaseUrl(edtxt_code.getText().toString(), s);
+        }
+    }
+
 }
