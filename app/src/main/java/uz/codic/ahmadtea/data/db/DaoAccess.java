@@ -335,8 +335,8 @@ public interface DaoAccess {
     Single<List<OrderedList>> getOrderedList();
 
 
-    @Query("SELECT  OrderBasket.*,p.label as p_label ,ProductPrice.value as pp_value FROM orderbasket INNER JOIN productprice, product as p ON orderbasket.id_product = ProductPrice.product_id and p.id= orderbasket.id_product where ProductPrice.price_id = :priceId and orderId = :orderId")
-    Single<List<BasketProduct>> getBasketList(int priceId, String orderId);
+    @Query("SELECT  OrderBasket.*,p.label as p_label ,ProductPrice.value as pp_value, PaymentType.label as pt_label FROM orderbasket INNER JOIN productprice, product as p ON orderbasket.id_product = ProductPrice.product_id and p.id= orderbasket.id_product inner join PaymentType on PaymentType.id =:id_payment_type where ProductPrice.price_id = :priceId and orderId = :orderId")
+    Single<List<BasketProduct>> getBasketList(int priceId, String orderId, Integer id_payment_type);
 
     @Query("SELECT Workspace.id as w_id, Workspace.label as w_name, Workspace.pid as w_pid, Workspace.status_id as w_id_status, InfoAction.*,  Merchant.* from WorkspaceMerchant INNER JOIN merchant on Merchant.id = WorkspaceMerchant.merchant_id INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id left JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.merchant_id and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.workspace_id where workspace_id in (:id_workspaces) ORDER BY Merchant.id")
     Single<List<WorkspaceAndMerchant>> getWorkspaceAndMerchants(List<String > id_workspaces, String date);
@@ -434,6 +434,8 @@ public interface DaoAccess {
 
     @Query("select * from merchant where pid in(:integers)")
     List<Merchant> getMerchants(Integer... integers);
+    @Query("select * from comment where id in (:comment_ids)")
+    List<Comment> getComments(List<Integer> comment_ids);
 
 
 }

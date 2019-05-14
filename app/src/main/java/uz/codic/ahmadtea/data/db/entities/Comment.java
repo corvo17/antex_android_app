@@ -2,9 +2,13 @@ package uz.codic.ahmadtea.data.db.entities;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.io.Serializable;
 
 @Entity
-public class Comment {
+public class Comment implements Parcelable {
 
     @PrimaryKey(autoGenerate = true)
     long pid;
@@ -19,6 +23,27 @@ public class Comment {
     public Comment(){
 
     }
+
+    protected Comment(Parcel in) {
+        pid = in.readLong();
+        id = in.readInt();
+        label = in.readString();
+        status_id = in.readInt();
+        status_label = in.readString();
+        link_id = in.readString();
+    }
+
+    public static final Creator<Comment> CREATOR = new Creator<Comment>() {
+        @Override
+        public Comment createFromParcel(Parcel in) {
+            return new Comment(in);
+        }
+
+        @Override
+        public Comment[] newArray(int size) {
+            return new Comment[size];
+        }
+    };
 
     public long getPid() {
         return pid;
@@ -78,5 +103,20 @@ public class Comment {
                 ", status_label='" + status_label + '\'' +
                 ", link_id='" + link_id + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(pid);
+        dest.writeInt(id);
+        dest.writeString(label);
+        dest.writeInt(status_id);
+        dest.writeString(status_label);
+        dest.writeString(link_id);
     }
 }

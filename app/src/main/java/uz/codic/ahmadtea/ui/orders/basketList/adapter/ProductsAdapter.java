@@ -11,7 +11,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 
-public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.ViewHolder>{
+public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ViewHolder>{
 
     List<BasketProduct> list;
     public void updateList(List<BasketProduct> list){
@@ -21,13 +21,13 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.ViewHolder
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_basket, viewGroup, false);
-        return new ViewHolder(view);
+    public ProductsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_saved_product, viewGroup, false);
+        return new ProductsAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(@NonNull ProductsAdapter.ViewHolder viewHolder, int i) {
         BasketProduct item = list.get(viewHolder.getAdapterPosition());
 
         viewHolder.name.setText(item.getProduct().getLabel());
@@ -46,12 +46,14 @@ public class BasketAdapter extends RecyclerView.Adapter<BasketAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, price,count;
+        TextView number, name, price,count, total;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name= itemView.findViewById(R.id.basket_name);
-            price = itemView.findViewById(R.id.basket_price);
-            count = itemView.findViewById(R.id.basket_count);
+            number = itemView.findViewById(R.id.number);
+            name= itemView.findViewById(R.id.name);
+            price = itemView.findViewById(R.id.price);
+            count = itemView.findViewById(R.id.count);
+            total = itemView.findViewById(R.id.total);
         }
     }
 }

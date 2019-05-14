@@ -428,8 +428,8 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public Single<List<BasketProduct>> getBasketList(int priceId, String orderId) {
-        return dbHelper.daoAccess().getBasketList(priceId, orderId);
+    public Single<List<BasketProduct>> getBasketList(int priceId, String orderId, Integer id_payment_type) {
+        return dbHelper.daoAccess().getBasketList(priceId, orderId, id_payment_type);
     }
 
     //insert Stocks to db
@@ -642,6 +642,11 @@ public class AppDataManager implements DataManager {
     @Override
     public List<Merchant> getMerchants(Integer... integers) {
         return dbHelper.daoAccess().getMerchants(integers);
+    }
+
+    @Override
+    public List<Comment> getComments(List<Integer> comment_ids) {
+        return dbHelper.daoAccess().getComments(comment_ids);
     }
 
     // query error ^

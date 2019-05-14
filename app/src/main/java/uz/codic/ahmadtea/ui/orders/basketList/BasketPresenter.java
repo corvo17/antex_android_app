@@ -9,6 +9,8 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import uz.codic.ahmadtea.data.db.entities.Comment;
+import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
 import uz.codic.ahmadtea.utils.Consts;
@@ -20,8 +22,8 @@ public class BasketPresenter<V extends BasketMvpView> extends BasePresenter<V> i
     }
 
     @Override
-    public void getBasketList(int priceId, String orderId) {
-        getDataManager().getBasketList(priceId, orderId)
+    public void getBasketList(int priceId, String orderId, Integer id_payment_type) {
+        getDataManager().getBasketList(priceId, orderId, id_payment_type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<BasketProduct>>() {
@@ -44,5 +46,15 @@ public class BasketPresenter<V extends BasketMvpView> extends BasePresenter<V> i
 
                     }
                 });
+    }
+
+    @Override
+    public Visit getVisit(String id) {
+        return getDataManager().getVisitByIdOrder(id);
+    }
+
+    @Override
+    public List<Comment> getComments(List<Integer> ids) {
+        return getDataManager().getComments(ids);
     }
 }

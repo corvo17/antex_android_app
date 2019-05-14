@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
@@ -45,6 +46,7 @@ public class AdapterSavedVisits extends RecyclerView.Adapter<AdapterSavedVisits.
             Intent orderedActivity = new Intent(holder.itemView.getContext(), BasketActivity.class);
             orderedActivity.putExtra("orderId", item.getOrder().getId());
             orderedActivity.putExtra("priceId", item.getOrder().getId_price());
+            orderedActivity.putExtra("order", items.get(position).getOrder());
             holder.itemView.getContext().startActivity(orderedActivity);
         });
     }
