@@ -34,4 +34,8 @@ public interface PrefHelper {
 
     void setIslogin(boolean islogin);
 
+    void setDate(String date);
+
+    String getDate();
+
 }

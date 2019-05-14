@@ -17,7 +17,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -39,6 +38,7 @@ import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.ui.visit.zakaz.InformationFragment;
+import uz.codic.ahmadtea.ui.visit.zakaz.visit_info.MerchantPageFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteApi;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteObject;
@@ -54,6 +54,8 @@ import static uz.codic.ahmadtea.utils.Consts.paymentTag;
 import static uz.codic.ahmadtea.utils.Consts.pricesTag;
 import static uz.codic.ahmadtea.utils.Consts.productTag;
 import static uz.codic.ahmadtea.utils.Consts.shippingTag;
+import static uz.codic.ahmadtea.utils.Consts.statusPending;
+import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
 
 public class MerchantActivity extends BaseActivity
@@ -131,7 +133,9 @@ public class MerchantActivity extends BaseActivity
 
         completeApi = new CompleteApi();
         completeApi.setOrderObject(new Order());
+        completeApi.getOrderObject().setDate(CommonUtils.getToday());
         completeApi.setVisitObject(new Visit());
+        completeApi.getVisitObject().setDate(CommonUtils.getToday());
         completeApi.setOrderBasketList(new ArrayList<>());
 
         //Presenter
@@ -150,28 +154,22 @@ public class MerchantActivity extends BaseActivity
         lnrButtons = findViewById(R.id.lnr_buttons);
         btnSaveAsDraft = findViewById(R.id.btn_send_as_draft);
 //
-//        btnSaveAsDraft.setOnClickListener(v -> {
-//            visitObject.setTime_end(CommonUtils.getCurrentTimeMilliseconds());
-//            for (OrderBasket orderBasket : orderBasketList) {
-//                orderBasket.setStatus("draft");
-//                Log.d(Consts.TEST_TAG, "Basket " + orderBasket.toString());
-//            }
-//            orderObject.setStatus("draft");
-//            visitObject.setStatus("draft");
-//            Log.d(Consts.TEST_TAG, "orderObject: " + orderObject.toString());
-//            Log.d(Consts.TEST_TAG, "visitObject: " + visitObject.toString());
-//
-//
-//
-//        });
+        findViewById(R.id.btn_save_as_draft).setOnClickListener(v -> {
+            if (!completeApi.getOrderBasketList().isEmpty() && getCompleteApi().getOrderObject().isOrderComplete()) {
+                completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
+                presenter.saveAsPending(completeApi, statusSaveAsDraft);
+            } else{
+                showMessage("Please complete order");
+            }
+        });
 
-        if (stringClick.equals("longClick")) {
-            lnrButtons.setVisibility(View.GONE);
-            findViewById(R.id.btn_save_as_pending).setVisibility(View.GONE);
-            transactionFragments(InformationFragment.newInstance(), informationTag);
-        } else if (stringClick.equals("onClick")) {
-            transactionFragments(VisitFragment.newInstance(), visitTag);
-        }
+//        if (stringClick.equals("longClick")) {
+//            lnrButtons.setVisibility(View.GONE);
+//            findViewById(R.id.btn_save_as_pending).setVisibility(View.GONE);
+//            transactionFragments(InformationFragment.newInstance(), informationTag);
+//        } else if (stringClick.equals("onClick")) {
+//            transactionFragments(VisitFragment.newInstance(), visitTag);
+//        }
 
 
         findViewById(R.id.bnt_send).setOnClickListener(v -> {
@@ -196,7 +194,7 @@ public class MerchantActivity extends BaseActivity
         findViewById(R.id.btn_save_as_pending).setOnClickListener(v -> {
             if (!completeApi.getOrderBasketList().isEmpty() && getCompleteApi().getOrderObject().isOrderComplete()) {
                 completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
-                presenter.saveAsPending(completeApi);
+                presenter.saveAsPending(completeApi, statusPending);
             } else{
                 showMessage("Please complete order");
             }
@@ -227,19 +225,24 @@ public class MerchantActivity extends BaseActivity
     public void onCompleteObjectReady(CompleteObject completeObject) {
         this.completeObject = completeObject;
         infoAction = presenter.getInfoAction(completeObject.getWorkspace().getId(), completeObject.getMerchant().getId());
-        Log.d("baxtiyor", "onCompleteObjectReady: " + infoAction);
         startVisit();
+        if (infoAction.isAction()){
+            transactionFragments(MerchantPageFragment.newInstance(), "Visit Info");
+            lnrButtons.setVisibility(View.GONE);
+        }else if (stringClick.equals("longClick")) {
+            lnrButtons.setVisibility(View.GONE);
+            findViewById(R.id.btn_save_as_pending).setVisibility(View.GONE);
+            transactionFragments(InformationFragment.newInstance(), informationTag);
+        } else if (stringClick.equals("onClick")) {
+            transactionFragments(VisitFragment.newInstance(), visitTag);
+        }else
         if (stringClick.equals("order")) {
             lnrButtons.setVisibility(View.GONE);
             stateProgressBar.setVisibility(View.VISIBLE);
             findViewById(R.id.btn_forward).setVisibility(View.VISIBLE);
             transactionFragments(PricesFragment.newInstance(), pricesTag);
         }
-//        getSupportFragmentManager()
-//                .beginTransaction()
-//                .add(R.id.merchant_container, MerchantPageFragment.newInstance(), merchantTag)
-//                .commit();
-//        changeToolbarTitle(merchant_name);
+
     }
 
 
@@ -321,6 +324,8 @@ public class MerchantActivity extends BaseActivity
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     //TODO SAVE
+                    completeApi.getVisitObject().setTime_end(CommonUtils.getCurrentTimeMilliseconds());
+                    presenter.saveAsPending(completeApi, statusSaveAsDraft);
                     goBack();
                 }
             });

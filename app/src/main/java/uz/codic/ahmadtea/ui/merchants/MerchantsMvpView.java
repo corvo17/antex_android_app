@@ -14,4 +14,6 @@ public interface MerchantsMvpView extends MvpView {
     void onReadyMyWorkspaces(List<Workspace> workspaces);
 
     void onReadyMerchantsInWorkspace(List<MerchantListWorspaces> merchantInWorkspace);
+
+    void onResultInfoActionUpdate();
 }

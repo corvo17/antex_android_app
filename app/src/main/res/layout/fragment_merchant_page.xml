@@ -1,105 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.visit.zakaz.MerchantPageFragment">
+    tools:context=".ui.visit.zakaz.visit_info.MerchantPageFragment">
 
 
-    <android.support.v7.widget.CardView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardElevation="4dp"
-        app:cardCornerRadius="4dp"
-        app:cardBackgroundColor="@color/backgroundWhitesh"
-        android:layout_margin="24dp"
-        >
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            app:cardBackgroundColor="@color/backgroundWhitesh"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:id="@+id/lnr_visit"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/visit_tick" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="9"
+                        android:text="Визит"
+                        android:textColor="@color/textMainColor"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnr_order"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/visit_order" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="9"
+                        android:text="Дистанционный заказ"
+                        android:textColor="@color/textMainColor"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/lnr_information"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:src="@drawable/visit_info" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginLeft="16dp"
+                        android:layout_weight="9"
+                        android:text="Информация"
+                        android:textColor="@color/textMainColor"
+                        android:textSize="18sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp">
+            android:layout_margin="16dp"
+            android:layout_below="@id/cardview"
+            app:cardBackgroundColor="@color/backgroundWhitesh"
+            app:cardCornerRadius="4dp"
+            app:cardElevation="4dp">
 
-            <LinearLayout
-                android:id="@+id/lnr_visit"
-                android:orientation="horizontal"
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/info_action_recycler"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                >
+                android:layout_height="match_parent">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/visit_tick"/>
+            </android.support.v7.widget.RecyclerView>
 
-                <TextView
-                    android:layout_weight="9"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Визит"
-                    android:layout_gravity="center"
-                    android:textSize="18sp"
-                    android:layout_marginStart="16dp"
-                    android:textColor="@color/textMainColor"
-                    android:layout_marginLeft="16dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lnr_order"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_marginTop="12dp">
-
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/visit_order"/>
-
-                <TextView
-                    android:layout_weight="9"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Дистанционный заказ"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:textColor="@color/textMainColor"
-                    android:layout_marginLeft="16dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lnr_information"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp">
-
-                <ImageView
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/visit_info"/>
-
-                <TextView
-                    android:layout_weight="9"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:text="Информация"
-                    android:textSize="18sp"
-                    android:layout_gravity="center"
-                    android:layout_marginStart="16dp"
-                    android:textColor="@color/textMainColor"
-                    android:layout_marginLeft="16dp" />
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.CardView>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
 
 </FrameLayout>

@@ -10,7 +10,7 @@ public interface MerchantMvpPresenter<V extends MerchantMvpView> extends MvpPres
 
     void requestSendDraft(CompleteApi completeApi);
 
-    void saveAsPending(CompleteApi completeApi);
+    void saveAsPending(CompleteApi completeApi, String status);
 
     void requestCompleteObject(int merchantId, String workspaceId);
 

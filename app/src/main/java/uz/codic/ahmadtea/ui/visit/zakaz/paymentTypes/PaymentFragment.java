@@ -45,8 +45,10 @@ public class PaymentFragment extends BaseFragment implements Callback {
 
     @Override
     public void onItemClick(int priceId) {
-        listener.getCompleteApi().getOrderObject().setId_payment_type(priceId);
-        listener.transactionFragments(ShippingDateFragment.newInstance(), shippingTag);
+        if (listener.getCompleteApi().getOrderObject().getId_payment_type() == null) {
+            listener.getCompleteApi().getOrderObject().setId_payment_type(priceId);
+            listener.transactionFragments(ShippingDateFragment.newInstance(), shippingTag);
+        }
     }
 
 

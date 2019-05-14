@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
@@ -21,6 +23,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.security.Permission;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -55,7 +58,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        if (!ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.READ_PHONE_STATE)) {
+
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 100);
         }
 
@@ -64,16 +69,14 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
         presenter = new LoginPresenter<>(this);
         presenter.onAttach(this);
-        presenter.checkErrors();
+        //presenter.checkErrors();
 
         isFirstTime = getIntent().getBooleanExtra("isFirstTime", true);
         error_label = getIntent().getStringExtra("error_label");
-        Log.d("baxtiyor", "onCreate: " + error_label);
         if (isFirstTime) {
-            Log.d("baxtiyor", "onCreate: ");
             btn_back.setVisibility(View.GONE);
             presenter.checkUser();
-            generatePrivateHash();
+           // generatePrivateHash();
         } else {
             lnl_code.setVisibility(View.GONE);
         }
@@ -105,9 +108,10 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     public void onBtnAddClick(View view) {
         if (isAllFieldsFilled()) {
             if (lnl_code.getVisibility() == View.VISIBLE) {
-                Log.d("baxtiyor", "go central");
-                presenter.onRequestBaseUrl(edtxt_code.getText().toString(), generatePrivateHash());
-                //goLogin();
+                hideKeyboard(this);
+                txt_add.setVisibility(View.GONE);
+                progressBar.setVisibility(View.VISIBLE);
+                new MyTask().execute();
             } else {
                 goLogin();
             }
@@ -120,7 +124,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         Login login = new Login();
         login.setLogin(edtxt_userName.getText().toString());
         login.setPassword(edtxt_password.getText().toString());
-        Log.d("baxtiyor", "imei" + getImei());
         login.setImei(getImei());
 
         //show loading
@@ -128,11 +131,9 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         txt_add.setVisibility(View.GONE);
         progressBar.setVisibility(View.VISIBLE);
         if (error_label == null) {
-            Log.d("baxtiyor", "eror null");
             presenter.userCheckFromDb(login);
-        }else {
+        } else {
             presenter.onRequestResetToken(login);
-            Log.d("baxtiyor", "eror null emas" + error_label);
         }
     }
 
@@ -177,6 +178,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             return telInfo;
         } else
             return "352717092485070";
+        //TODO remove else
 
     }
 
@@ -200,14 +202,13 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Override
     public void onStay() {
-        Log.d("baxtiyor", "onStay: ");
+
     }
 
     @Override
     public void dontStay() {
         startActivity(new Intent(this, MainActivity.class));
         finish();
-        Log.d("baxtiyor", "dontStay: ");
     }
 
     @Override
@@ -217,8 +218,25 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
 
     @Override
     public void onBackPressed() {
-        if (isFirstTime){
+        if (isFirstTime) {
             finishAffinity();
-        }else super.onBackPressed();
+        } else super.onBackPressed();
     }
+
+    private class MyTask extends AsyncTask<String, Void, String>{
+        @Override
+        protected String doInBackground(String... strings) {
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            String dateString = format.format(new Date());
+            String password = Consts.KEY + dateString;
+            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            presenter.onRequestBaseUrl(edtxt_code.getText().toString(), s);
+        }
+    }
+
 }

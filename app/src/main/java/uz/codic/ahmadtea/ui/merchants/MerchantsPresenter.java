@@ -1,6 +1,7 @@
 package uz.codic.ahmadtea.ui.merchants;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -10,6 +11,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
@@ -88,9 +90,10 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
             for (int i = 1; i < merchant.size(); i++) {
                 if (merchant.get(key).getMerchant().getId().equals(merchant.get(i).getMerchant().getId())) {
                     merchants1.setWorkspace(merchant.get(i).getWorkspace());
-                    if (merchant.get(i).getInfoAction() != null){
-                    merchants1.setInfos(merchant.get(i).getInfoAction());
-                    merchants1.setIsinfos(merchant.get(i).getInfoAction().isAction());}
+                    if (merchant.get(i).getInfoAction() != null) {
+                        merchants1.setInfos(merchant.get(i).getInfoAction());
+                        merchants1.setIsinfos(merchant.get(i).getInfoAction().isAction());
+                    }
                     merchants.add(merchants1);
 
                 } else {
@@ -169,9 +172,9 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
             MerchantListWorspaces list = new MerchantListWorspaces();
             list.setMerchant(workspaceAndMerchants.get(i).getMerchant());
             list.setWorkspace(workspaceAndMerchants.get(i).getWorkspace());
-            if (workspaceAndMerchants.get(i).getInfoAction() != null){
-            list.setInfos(workspaceAndMerchants.get(i).getInfoAction());
-            list.setIsinfos(workspaceAndMerchants.get(i).getInfoAction().isAction());
+            if (workspaceAndMerchants.get(i).getInfoAction() != null) {
+                list.setInfos(workspaceAndMerchants.get(i).getInfoAction());
+                list.setIsinfos(workspaceAndMerchants.get(i).getInfoAction().isAction());
             }
 
             merchantInWorkspaces.add(list);
@@ -182,5 +185,55 @@ public class MerchantsPresenter<V extends MerchantsMvpView> extends BasePresente
     @Override
     public boolean isAdmin() {
         return getDataManager().isAdmin();
+    }
+
+    @Override
+    public void getOldIndoActions() {
+        if (!getDataManager().getDate().equals(CommonUtils.getToday())) {
+            getDataManager().getInfoActionByPerdingAndSave(true, true)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new SingleObserver<List<InfoAction>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onSuccess(List<InfoAction> infoActions) {
+                            new MyTask().execute(infoActions);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+                    });
+        }
+    }
+
+    private class MyTask extends AsyncTask<List<InfoAction>, Void, List<InfoAction>> {
+
+
+        @Override
+        protected List<InfoAction> doInBackground(List<InfoAction>... lists) {
+            List<InfoAction> actions = lists[0];
+            for (int i = 0; i < actions.size(); i++) {
+                actions.get(i).setSend(false);
+                actions.get(i).setSend_draft(false);
+                actions.get(i).setDate(CommonUtils.getToday());
+            }
+
+
+            return actions;
+        }
+
+        @Override
+        protected void onPostExecute(List<InfoAction> infoActions) {
+            super.onPostExecute(infoActions);
+            getDataManager().updateInfoActions(infoActions);
+            getDataManager().setDate(CommonUtils.getToday());
+            getMvpView().onResultInfoActionUpdate();
+        }
     }
 }

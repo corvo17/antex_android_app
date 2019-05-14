@@ -306,6 +306,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
         if (true) {
             if (getDataManager().isLogin()){
                 Log.d("baxtiyor", "checkUser: dontStay");
+                checkErrors();
                 getMvpView().dontStay();
             }else {
                 Log.d("baxtiyor", "checkUser: onStay");

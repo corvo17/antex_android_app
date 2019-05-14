@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
+import uz.codic.ahmadtea.utils.CommonUtils;
+
 public class AppPrefHelper implements PrefHelper{
 
     private final static String API_KEY = "key";
@@ -91,5 +93,15 @@ public class AppPrefHelper implements PrefHelper{
     @Override
     public void setIslogin(boolean islogin) {
         mPref.edit().putBoolean("islogin", islogin).apply();
+    }
+
+    @Override
+    public void setDate(String date) {
+        mPref.edit().putString("date", date).apply();
+    }
+
+    @Override
+    public String getDate() {
+        return mPref.getString("date", CommonUtils.getToday());
     }
 }

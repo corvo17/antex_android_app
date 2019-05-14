@@ -17,4 +17,5 @@ public interface MerchantsMvpPresenter<V extends MerchantsMvpView> extends MvpPr
 
     void getMerchantListWorkspaces(List<WorkspaceAndMerchant> merchant);
 
+    void getOldIndoActions();
 }
