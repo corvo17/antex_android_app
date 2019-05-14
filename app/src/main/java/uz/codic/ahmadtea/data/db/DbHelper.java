@@ -34,7 +34,6 @@ import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
-import uz.codic.ahmadtea.errors.error_activity.ErrorActivity;
 
 
 //Need to have singleton instance of the DbHelper class

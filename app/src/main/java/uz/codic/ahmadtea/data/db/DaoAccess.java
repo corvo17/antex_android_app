@@ -438,5 +438,12 @@ public interface DaoAccess {
     @Query("SELECT  `order`.* FROM `Order`  where `Order`.id_merchant=:merchant_id and `Order`.id_workspace=:workspace_id")
     Single<List<Order>> getVisitInfoObjects(String merchant_id, String workspace_id);
 
+    @Query("select * from InfoAction where save_pending =:save and save =:pedding")
+    Single<List<InfoAction>> getInfoActionByPerdingAndSave(boolean save, boolean pedding);
+
+    @Update
+    void updateInfoActions(List<InfoAction> actions);
+
+
 
 }

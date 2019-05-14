@@ -107,7 +107,7 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
             add_merchant_bn.setVisibility(View.GONE);
             presenter.getWorkspaceAndMerchants();
         }
-
+        presenter.getOldIndoActions();
         add_merchant_bn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -294,6 +294,18 @@ public class MerchantsFragment extends BaseFragment implements MerchantsMvpView,
         } else if (position < 20 /*&& go_to_top.getVisibility() == View.VISIBLE*/) {
             go_to_top.animate().translationY(500).setInterpolator(new AccelerateDecelerateInterpolator()).setDuration(600);
             //go_to_top.setVisibility(View.GONE);
+        }
+    }
+
+    @SuppressLint("RestrictedApi")
+    @Override
+    public void onResultInfoActionUpdate() {
+        if (presenter.isAdmin()) {
+            add_merchant_bn.setVisibility(View.VISIBLE);
+            presenter.getWorkspaceAndMerchants();
+        } else {
+            add_merchant_bn.setVisibility(View.GONE);
+            presenter.getWorkspaceAndMerchants();
         }
     }
 }

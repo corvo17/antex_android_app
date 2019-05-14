@@ -182,6 +182,16 @@ public class AppDataManager implements DataManager {
         prefHelper.setIslogin(islogin);
     }
 
+    @Override
+    public void setDate(String date) {
+        prefHelper.setDate(date);
+    }
+
+    @Override
+    public String getDate() {
+        return prefHelper.getDate();
+    }
+
     /***
      Api calls
      **/
@@ -642,6 +652,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<List<Order>> getVisitInfoObjects(String merchant_id, String workspace_id) {
         return dbHelper.daoAccess().getVisitInfoObjects(merchant_id, workspace_id);
+    }
+
+    @Override
+    public Single<List<InfoAction>> getInfoActionByPerdingAndSave(boolean save, boolean pedding) {
+        return dbHelper.daoAccess().getInfoActionByPerdingAndSave(save, pedding);
+    }
+
+    @Override
+    public void updateInfoActions(List<InfoAction> actions) {
+        dbHelper.daoAccess().updateInfoActions(actions);
     }
 
     // query error ^
