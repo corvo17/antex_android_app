@@ -12,6 +12,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Order;
+import uz.codic.ahmadtea.utils.CommonUtils;
 
 import static uz.codic.ahmadtea.utils.Consts.statusPending;
 import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
@@ -38,15 +39,19 @@ class VisitInfoAdapter extends RecyclerView.Adapter<VisitInfoAdapter.Holder> {
     public void onBindViewHolder(@NonNull Holder holder, int i) {
         int position = holder.getAdapterPosition();
         if (orders.get(position).getStatus().equals(statusSent)){
+            holder.info.setText("Send\n");
             holder.itemView.setBackgroundColor(Color.parseColor("#4CAF50"));
         } else if (orders.get(position).getStatus().equals(statusSendAsDraft)){
+            holder.info.setText("Send as draft\n");
             holder.itemView.setBackgroundColor(Color.parseColor("#2DF3E1"));
         } else if (orders.get(position).getStatus().equals(statusPending)){
+            holder.info.setText("Save as pending\n");
             holder.itemView.setBackgroundColor(Color.parseColor("#FF9800"));
         } else if (orders.get(position).getStatus().equals(statusSaveAsDraft)){
+            holder.info.setText("Save Locally\n");
             holder.itemView.setBackgroundColor(Color.parseColor("#9FA8DA"));
         }
-        holder.info.setText(orders.get(position).getTotal_cost() + "");
+        holder.info.append(CommonUtils.getFormattedNumber(orders.get(position).getTotal_cost()) + "");
 
     }
 

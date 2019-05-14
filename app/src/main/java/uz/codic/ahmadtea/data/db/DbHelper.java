@@ -95,7 +95,6 @@ public abstract class DbHelper extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             DbHelper.class, "AhmadTea")
                             .allowMainThreadQueries()
-                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
