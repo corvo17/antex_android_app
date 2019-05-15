@@ -652,6 +652,7 @@ public class AppDataManager implements DataManager {
     @Override
     public List<Comment> getComments(List<Integer> comment_ids) {
         return dbHelper.daoAccess().getComments(comment_ids);
+    }
     public Single<List<Order>> getVisitInfoObjects(String merchant_id, String workspace_id) {
         return dbHelper.daoAccess().getVisitInfoObjects(merchant_id, workspace_id);
     }

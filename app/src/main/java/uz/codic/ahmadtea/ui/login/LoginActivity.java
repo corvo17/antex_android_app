@@ -59,7 +59,6 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         setContentView(R.layout.activity_login);
 
 
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_PHONE_STATE, android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA}, 100);
         }
@@ -76,7 +75,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         if (isFirstTime) {
             btn_back.setVisibility(View.GONE);
             presenter.checkUser();
-           // generatePrivateHash();
+            // generatePrivateHash();
         } else {
             lnl_code.setVisibility(View.GONE);
         }
@@ -223,13 +222,17 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         } else super.onBackPressed();
     }
 
-    private class MyTask extends AsyncTask<String, Void, String>{
+    private class MyTask extends AsyncTask<String, Void, String> {
         @Override
         protected String doInBackground(String... strings) {
+            long a = System.currentTimeMillis();
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             String dateString = format.format(new Date());
             String password = Consts.KEY + dateString;
-            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+            String code = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+            long b = System.currentTimeMillis();
+            Log.d("GGG", "vaqt " + (b - a));
+            return code;
         }
 
         @Override

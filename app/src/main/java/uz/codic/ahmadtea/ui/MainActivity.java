@@ -85,6 +85,7 @@ public class MainActivity extends BaseActivity
     public static final String TAG = "AhmadTeaLogLocation";
     private static final int REQUEST_PERMISSIONS_REQUEST_CODE = 34;
     private boolean mAlreadyStartedService = false;
+
     //endregion
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,10 +96,10 @@ public class MainActivity extends BaseActivity
         adapter = new LeftUsersAdapter(this);
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
-        nav_item_new_merchants =  navigationView.getMenu().findItem(R.id.nav_new_merchants);
-        if (presenter.getDataManager().isAdmin()){
+        nav_item_new_merchants = navigationView.getMenu().findItem(R.id.nav_new_merchants);
+        if (presenter.getDataManager().isAdmin()) {
             nav_item_new_merchants.setVisible(true);
-        }else {
+        } else {
             nav_item_new_merchants.setVisible(false);
         }
 
@@ -235,7 +236,12 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.app_bar_filter) {
             Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-            ((MerchantsFragment) f).filter();
+            if (f instanceof MerchantsFragment) {
+                ((MerchantsFragment) f).filter();
+            }
+            if (f instanceof DailyFragment){
+                ((DailyFragment) f).filter();
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -271,7 +277,9 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_daily_plan) {
             search_item.setVisible(true);
             closeSearchField();
-            closeFilter();
+            if (!filter_item.isVisible()) {
+                filter_item.setVisible(true);
+            }
             if (!map_item.isVisible()) {
                 map_item.setVisible(true);
             }
@@ -286,12 +294,8 @@ public class MainActivity extends BaseActivity
                 map_item.setVisible(true);
             }
 
-            if (presenter.getDataManager().isAdmin()) {
-                if (!filter_item.isVisible()) {
-                    filter_item.setVisible(true);
-                }
-            } else {
-                closeFilter();
+            if (!filter_item.isVisible()) {
+                filter_item.setVisible(true);
             }
             closeCalendarItem();
             fragmentClass = MerchantsFragment.class;
@@ -302,7 +306,7 @@ public class MainActivity extends BaseActivity
             closeMapItem();
             closeCalendarItem();
             fragmentClass = OrderFragment.class;
-        }else if (id == R.id.nav_saved){
+        } else if (id == R.id.nav_saved) {
             search_item.setVisible(true);
             closeSearchField();
             closeFilter();
@@ -310,7 +314,7 @@ public class MainActivity extends BaseActivity
             closeCalendarItem();
             fragmentClass = SavedVisits.class;
         }
-        if (id == R.id.sittings){
+        if (id == R.id.sittings) {
             startActivity(new Intent(MainActivity.this, VersionInfoActivity.class));
             return true;
         }
@@ -323,7 +327,7 @@ public class MainActivity extends BaseActivity
             closeCalendarItem();
             fragmentClass = NewMerchantsFragment.class;
         }
-        if (id ==R.id.logout){
+        if (id == R.id.logout) {
             presenter.logOut();
             return true;
         }
@@ -535,13 +539,13 @@ public class MainActivity extends BaseActivity
         presenter.getDataManager().putToken(user.getToken());
         presenter.getDataManager().setId_employee(user.getId());
         if (!user.getRole_label().isEmpty())
-        if (user.getRole_label().equals("admin")) {
-            presenter.getDataManager().changeIsAdmin(true);
-            nav_item_new_merchants.setVisible(true);
-        } else {
-            presenter.getDataManager().changeIsAdmin(false);
-            nav_item_new_merchants.setVisible(false);
-        }
+            if (user.getRole_label().equals("admin")) {
+                presenter.getDataManager().changeIsAdmin(true);
+                nav_item_new_merchants.setVisible(true);
+            } else {
+                presenter.getDataManager().changeIsAdmin(false);
+                nav_item_new_merchants.setVisible(false);
+            }
     }
 
     @Override
@@ -569,16 +573,16 @@ public class MainActivity extends BaseActivity
     private void updateFragment() {
 
         Fragment f = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
-        if (f instanceof NewMerchantsFragment && !presenter.getDataManager().isAdmin())
-        {
-        try {
-            fragment = (Fragment) DashboardFragment.class.newInstance();
-            setTitle("AntEx");
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }}else{
+        if (f instanceof NewMerchantsFragment && !presenter.getDataManager().isAdmin()) {
+            try {
+                fragment = (Fragment) DashboardFragment.class.newInstance();
+                setTitle("AntEx");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+        } else {
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
             } catch (IllegalAccessException e) {
@@ -602,10 +606,10 @@ public class MainActivity extends BaseActivity
     @Override
     public void functionBeforeLogOut(boolean isLogin) {
         Intent login = new Intent(MainActivity.this, LoginActivity.class);
-        if (isLogin){
+        if (isLogin) {
             login.putExtra("isFirstTime", false);
             startActivity(login);
-        }else {
+        } else {
             login.putExtra("isFirstTime", true);
             startActivity(login);
             finish();

@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,6 +46,8 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     DailyAdapter adapter;
 
     RecyclerView recyclerView;
+
+    TextView merchants_size;
 
     DailyMvpPresenter<DailyMvpView> presenter;
 
@@ -73,6 +76,7 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.daily_planning_recycler);
+        merchants_size = view.findViewById(R.id.id_tv_merchant_size);
 
         id_employee = getActivity().getIntent().getStringExtra("id_employee");
 
@@ -93,6 +97,7 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
 
     @Override
     public void onMerchantsListReady(List<WorkspaceAndMerchant> merchants) {
+        merchants_size.setText("Merchants: " + merchants.size());
         dailyMerchants = merchants;
         adapter.updateList(merchants);
         merchantListWorspaces = new ArrayList<>();
@@ -138,6 +143,10 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
         },mYear, mMonth, mDay);
         dialog.show();
 
+
+    }
+
+    public void filter(){
 
     }
 
