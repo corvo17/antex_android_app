@@ -29,6 +29,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
+import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
 import uz.codic.ahmadtea.ui.dailyPlan.Adapter.DailyCallBack;
@@ -147,7 +148,42 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     }
 
     public void filter(){
+        presenter.getMyWorkspaces();
+    }
 
+    @Override
+    public void onReadyMyWorkspaces(List<Workspace> workspaces) {
+        Workspace allworkspace = new Workspace();
+        allworkspace.setLabel("All Workspaces");
+        workspaces.add(0, allworkspace);
+        List<String> nameWorkspaces = new ArrayList<>();
+        for (int i = 0; i < workspaces.size(); i++) {
+            nameWorkspaces.add(workspaces.get(i).getLabel());
+        }
+        CharSequence[] items = nameWorkspaces.toArray(new CharSequence[0]);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    adapter.updateList(dailyMerchants);
+                    merchants_size.setText("Merchants: " + dailyMerchants.size());
+                }else getMerchatsInWorkspace(workspaces.get(which));
+            }
+        });
+        builder.show();
+    }
+
+    private void getMerchatsInWorkspace(Workspace workspace) {
+        List<WorkspaceAndMerchant> andMerchants = new ArrayList<>();
+        for (WorkspaceAndMerchant merchant :dailyMerchants) {
+            if (merchant.getWorkspace().getId().equals(workspace.getId())){
+                andMerchants.add(merchant);
+            }
+        }
+        adapter.updateList(andMerchants);
+        merchants_size.setText("Merchants: " + andMerchants.size());
     }
 
     @Override

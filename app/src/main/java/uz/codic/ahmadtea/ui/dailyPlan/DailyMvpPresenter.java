@@ -9,4 +9,6 @@ public interface DailyMvpPresenter<V extends DailyMvpView> extends MvpPresenter<
 
     void requestDailyMerchants(String date);
 
+    void getMyWorkspaces();
+
 }

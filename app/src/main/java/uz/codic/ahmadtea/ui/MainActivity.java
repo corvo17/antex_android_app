@@ -239,7 +239,7 @@ public class MainActivity extends BaseActivity
             if (f instanceof MerchantsFragment) {
                 ((MerchantsFragment) f).filter();
             }
-            if (f instanceof DailyFragment){
+            if (f instanceof DailyFragment) {
                 ((DailyFragment) f).filter();
             }
         }
@@ -277,9 +277,11 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_daily_plan) {
             search_item.setVisible(true);
             closeSearchField();
-            if (!filter_item.isVisible()) {
-                filter_item.setVisible(true);
-            }
+            if (presenter.getDataManager().getMyWorkspaceIds(presenter.getDataManager().getId_employee()).size() > 1) {
+                if (!filter_item.isVisible()) {
+                    filter_item.setVisible(true);
+                }
+            }else closeFilter();
             if (!map_item.isVisible()) {
                 map_item.setVisible(true);
             }
@@ -293,10 +295,11 @@ public class MainActivity extends BaseActivity
             if (!map_item.isVisible()) {
                 map_item.setVisible(true);
             }
-
-            if (!filter_item.isVisible()) {
-                filter_item.setVisible(true);
-            }
+            if (presenter.getDataManager().getMyWorkspaceIds(presenter.getDataManager().getId_employee()).size() > 1) {
+                if (!filter_item.isVisible()) {
+                    filter_item.setVisible(true);
+                }
+            }else closeFilter();
             closeCalendarItem();
             fragmentClass = MerchantsFragment.class;
         } else if (id == R.id.nav_orders) {
