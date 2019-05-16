@@ -1,12 +1,10 @@
 package uz.codic.ahmadtea.ui.login;
 
 import android.content.Context;
-import android.os.Build;
 import android.util.Log;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -16,15 +14,11 @@ import io.reactivex.schedulers.Schedulers;
 import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
 import uz.codic.ahmadtea.data.db.entities.MyWorkspace;
 import uz.codic.ahmadtea.data.db.entities.User;
-import uz.codic.ahmadtea.data.network.model.ApiOrder;
 import uz.codic.ahmadtea.data.network.model.CentralObject;
 import uz.codic.ahmadtea.data.network.model.Employee;
 import uz.codic.ahmadtea.data.network.model.ErrorBody;
 import uz.codic.ahmadtea.data.network.model.ErrorObject;
 import uz.codic.ahmadtea.data.network.model.Login;
-import uz.codic.ahmadtea.data.network.model.Message;
-import uz.codic.ahmadtea.data.network.model.ObjectsForEmployee;
-import uz.codic.ahmadtea.data.network.model.SharedObject;
 import uz.codic.ahmadtea.data.network.model.Token;
 import uz.codic.ahmadtea.data.network.model.WorkspaceRelations;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
@@ -65,14 +59,16 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onSuccess(Integer integer) {
-                        Log.d("baxtiyor", "onSuccess: "  + integer);
+                        Log.d("baxtiyor", "onSuccess: " + integer);
                         if (integer == 0) {
+                            //       getMvpView().changeProgressStatus("Loading..." , 30);
                             onRequestLogin(login);
                         } else {
                             getMvpView().showMessage("User already logged in");
                             ErrorClass.log("User already logged in", new Exception());
-                            getMvpView().hideLoading();
+                            getMvpView().hideProgress();
                         }
+                        //getMvpView().hideLoading();
                     }
 
                     @Override
@@ -81,7 +77,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         e.printStackTrace();
                         ErrorClass.log(e.getMessage(), (Exception) e);
                         getMvpView().showMessage(e.getMessage());
-                        getMvpView().hideLoading();
+                        getMvpView().hideProgress();
+                        //getMvpView().hideLoading();
                     }
                 });
 
@@ -109,6 +106,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         user.setLogin(login.getLogin());
                         getDataManager().putKey(token.getKey());
                         user.setId(token.getId_employee());
+                        getMvpView().changeProgressStatus("Sing in...", 0);
                         onRequestLoginInfo(user);
                     }
 
@@ -117,7 +115,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                         e.printStackTrace();
                         ErrorClass.log(e.getMessage(), (Exception) e);
                         getMvpView().showMessage(e.getMessage());
-                        getMvpView().hideLoading();
+                        getMvpView().hideProgress();
+                        // getMvpView().hideLoading();
                     }
                 });
 
@@ -140,11 +139,13 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().insertUser(user);
                                     getDataManager().setIslogin(true);
                                     getDataManager().setId_employee(user.getId());
+                                    getMvpView().changeProgressStatus("Please wait... Getting date from server", 30);
                                     onRequestWorkspace(apiObeject.getPayload().get(0).getId(), user.getToken());
                                 } else {
                                     ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
-                                    getMvpView().hideLoading();
+                                    //getMvpView().hideLoading();
+                                    getMvpView().hideProgress();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
                                 }
                             }
@@ -154,7 +155,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                 ErrorClass.log(e.getMessage(), (Exception) e);
                                 e.printStackTrace();
                                 getMvpView().showMessage(e.getMessage());
-                                getMvpView().hideLoading();
+                                //getMvpView().hideLoading();
+                                getMvpView().hideProgress();
                                 Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
                             }
                         })
@@ -172,13 +174,15 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             @Override
                             public void onSuccess(ApiObeject<MyWorkspace> apiObeject) {
                                 if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
-                                    Log.d("p", "onSuccess: "+ apiObeject.getPayload());
+                                    Log.d("p", "onSuccess: " + apiObeject.getPayload());
                                     getDataManager().insertMyWorkspaces(apiObeject.getPayload());
+                                    getMvpView().changeProgressStatus("Please wait... Writing date to database", 50);
                                     requestSharedObjectsList(token);
                                 } else {
                                     ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
-                                    getMvpView().hideLoading();
+                                    //getMvpView().hideLoading();
+                                    getMvpView().hideProgress();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
                                 }
                             }
@@ -188,7 +192,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                 ErrorClass.log(e.getMessage(), (Exception) e);
                                 e.printStackTrace();
                                 getMvpView().showMessage(e.getMessage());
-                                getMvpView().hideLoading();
+                                //getMvpView().hideLoading();
+                                getMvpView().hideProgress();
                                 Log.d(Consts.TEST_TAG, "onError: " + e.getMessage());
                             }
                         })
@@ -215,6 +220,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
             getMvpView().showMessage("Already got shared objects");
             getMvpView().hideLoading();
             getMvpView().dontStay();
+            getMvpView().hideProgress();
         } else {
             getDisposable().add(
                     getDataManager().requestAllSharedObjects("Bearer " + token)
@@ -237,10 +243,13 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                         getDataManager().insertMmds(apiObeject.getPayload().get(0).getMmds());
                                         getDataManager().insertStocks(apiObeject.getPayload().get(0).getWorkspaces_product_stocks());
                                         getDataManager().insertFileReportType(apiObeject.getPayload().get(0).getFile_report_types());
+
+                                        getMvpView().changeProgressStatus("Please wait... Writing date to database", 75);
                                         //go insert Workspace relations to db
                                     } else {
                                         getMvpView().showMessage(apiObeject.getMeta().getMessage());
-                                        getMvpView().hideLoading();
+                                        //getMvpView().hideLoading();
+                                        getMvpView().hideProgress();
                                         Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
                                         ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     }
@@ -253,7 +262,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     e.printStackTrace();
                                     Log.d("baxtiyor", "onError: " + e.getMessage());
                                     getMvpView().showMessage(e.getMessage());
-                                    getMvpView().hideLoading();
+                                    //getMvpView().hideLoading();
+                                    getMvpView().hideProgress();
                                     getMvpView().showMessage(e.getMessage());
                                 }
                             })
@@ -277,12 +287,15 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().insertWorkspace(apiObeject.getPayload().get(0).getAll_workspaces());
                                     getDataManager().insertWorkspaceMerchant(apiObeject.getPayload().get(0).getWorkspaces_merchants());
                                     getDataManager().insertWorkspacePaymentType(apiObeject.getPayload().get(0).getWorkspaces_payment_types());
-                                    getMvpView().hideLoading();
+                                    //getMvpView().hideLoading();
+                                    getMvpView().changeProgressStatus("Please wait... Writing date to database", 100);
+                                    getMvpView().hideProgress();
                                     getMvpView().dontStay();
                                 } else {
                                     ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
-                                    getMvpView().hideLoading();
+                                    //getMvpView().hideLoading();
+                                    getMvpView().hideProgress();
                                     Log.d(Consts.TEST_TAG, "onError: " + apiObeject.getMeta().getMessage());
                                 }
                             }
@@ -304,11 +317,11 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
     public void checkUser() {
 
         if (true) {
-            if (getDataManager().isLogin()){
+            if (getDataManager().isLogin()) {
                 Log.d("baxtiyor", "checkUser: dontStay");
                 checkErrors();
                 getMvpView().dontStay();
-            }else {
+            } else {
                 Log.d("baxtiyor", "checkUser: onStay");
                 getMvpView().onStay();
             }
@@ -354,6 +367,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                     public void onError(Throwable e) {
                         ErrorClass.log(e.getMessage(), (Exception) e);
                         e.printStackTrace();
+                        getMvpView().hideProgress();
                         Log.d("baxtiyor", "onError: ");
                     }
                 });
@@ -411,7 +425,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                     @Override
                     public void onSuccess(List<ErrorInfo> errorInfos) {
-                        if (errorInfos.size() > 0){
+                        if (errorInfos.size() > 0) {
                             sendErrors(errorInfos);
                         }
                     }
@@ -424,11 +438,11 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
     }
 
-    void sendErrors(List<ErrorInfo> errorInfos){
+    void sendErrors(List<ErrorInfo> errorInfos) {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                for (ErrorInfo info:errorInfos) {
+                for (ErrorInfo info : errorInfos) {
                     ErrorObject errorObject = new ErrorObject();
                     ErrorBody body = new ErrorBody();
                     body.setAPI_version(info.getApi_version());
@@ -452,10 +466,10 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
 
                                 @Override
                                 public void onSuccess(ApiObeject<ErrorObject> apiObeject) {
-                                    if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count()>0){
+                                    if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
                                         info.setSent(true);
                                         getDataManager().updateErrorInfo(info);
-                                    }else {
+                                    } else {
                                         ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     }
 
