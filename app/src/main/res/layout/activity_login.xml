@@ -250,7 +250,6 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="4dp"
                 android:onClick="onBtnAddClick"
-
                 android:background="@drawable/bg_add_bt"
                 android:textColor="@color/white"
                 />
