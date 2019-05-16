@@ -16,6 +16,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
+import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.network.model.DailyBody;
 import uz.codic.ahmadtea.data.network.model.DailyMerchants;
@@ -108,6 +109,29 @@ public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> imp
                     @Override
                     public void onSuccess(List<WorkspaceAndMerchant> workspaceAndMerchants) {
                         getMvpView().onMerchantsListReady(dailyMerchants, workspaceAndMerchants);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void getMyWorkspaces() {
+        getDataManager().getMyWorkspaces(getDataManager().getId_employee())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Workspace>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<Workspace> workspaces) {
+                        getMvpView().onReadyMyWorkspaces(workspaces);
                     }
 
                     @Override

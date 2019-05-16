@@ -1,5 +1,6 @@
 package uz.codic.ahmadtea.ui.visit.zakaz.visit_info;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Order;
+import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
 import uz.codic.ahmadtea.utils.CommonUtils;
 
 import static uz.codic.ahmadtea.utils.Consts.statusPending;
@@ -53,6 +55,14 @@ class VisitInfoAdapter extends RecyclerView.Adapter<VisitInfoAdapter.Holder> {
         }
         holder.info.append(CommonUtils.getFormattedNumber(orders.get(position).getTotal_cost()) + "");
 
+        holder.itemView.setOnClickListener(v -> {
+            Intent orderedActivity = new Intent(holder.itemView.getContext(), BasketActivity.class);
+            orderedActivity.putExtra("orderId", orders.get(position).getId());
+            orderedActivity.putExtra("priceId", orders.get(position).getId_price());
+            orderedActivity.putExtra("order", orders.get(position));
+            holder.itemView.getContext().startActivity(orderedActivity);
+
+        });
     }
 
     @Override

@@ -19,6 +19,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,6 +29,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
+import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
 import uz.codic.ahmadtea.ui.dailyPlan.Adapter.DailyCallBack;
@@ -45,6 +47,8 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     DailyAdapter adapter;
 
     RecyclerView recyclerView;
+
+    TextView merchants_size;
 
     DailyMvpPresenter<DailyMvpView> presenter;
 
@@ -73,6 +77,7 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         recyclerView = view.findViewById(R.id.daily_planning_recycler);
+        merchants_size = view.findViewById(R.id.id_tv_merchant_size);
 
         id_employee = getActivity().getIntent().getStringExtra("id_employee");
 
@@ -94,6 +99,7 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     @Override
     public void onMerchantsListReady(List<WorkspaceAndMerchant> dailyMerchants,List<WorkspaceAndMerchant> outOfDailyMerchants) {
         dailyMerchants = dailyMerchants;
+        merchants_size.setText("Merchants: " + merchants.size());
         adapter.updateList(dailyMerchants);
         merchantListWorspaces = new ArrayList<>();
         for (WorkspaceAndMerchant merchant:dailyMerchants) {
@@ -139,6 +145,45 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
         dialog.show();
 
 
+    }
+
+    public void filter(){
+        presenter.getMyWorkspaces();
+    }
+
+    @Override
+    public void onReadyMyWorkspaces(List<Workspace> workspaces) {
+        Workspace allworkspace = new Workspace();
+        allworkspace.setLabel("All Workspaces");
+        workspaces.add(0, allworkspace);
+        List<String> nameWorkspaces = new ArrayList<>();
+        for (int i = 0; i < workspaces.size(); i++) {
+            nameWorkspaces.add(workspaces.get(i).getLabel());
+        }
+        CharSequence[] items = nameWorkspaces.toArray(new CharSequence[0]);
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(getActivity());
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (which == 0){
+                    adapter.updateList(dailyMerchants);
+                    merchants_size.setText("Merchants: " + dailyMerchants.size());
+                }else getMerchatsInWorkspace(workspaces.get(which));
+            }
+        });
+        builder.show();
+    }
+
+    private void getMerchatsInWorkspace(Workspace workspace) {
+        List<WorkspaceAndMerchant> andMerchants = new ArrayList<>();
+        for (WorkspaceAndMerchant merchant :dailyMerchants) {
+            if (merchant.getWorkspace().getId().equals(workspace.getId())){
+                andMerchants.add(merchant);
+            }
+        }
+        adapter.updateList(andMerchants);
+        merchants_size.setText("Merchants: " + andMerchants.size());
     }
 
     @Override

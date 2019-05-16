@@ -43,6 +43,16 @@ public class PricesFragment extends BaseFragment implements Callback {
         getActivity().findViewById(R.id.btn_search).setVisibility(View.VISIBLE);
         listener.getCompleteApi().getOrderObject().setId_price(id);
         listener.transactionFragments(ProductFragment.newInstance(), productTag);
+        }else if (id != listener.getCompleteApi().getOrderObject().getId_price()){
+            getActivity().findViewById(R.id.btn_filter).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.btn_search).setVisibility(View.VISIBLE);
+            listener.getCompleteApi().getOrderObject().setId_price(id);
+            listener.transactionFragments(ProductFragment.newInstanceWithNewPrice(), productTag);
+        } else {
+            getActivity().findViewById(R.id.btn_filter).setVisibility(View.VISIBLE);
+            getActivity().findViewById(R.id.btn_search).setVisibility(View.VISIBLE);
+            listener.getCompleteApi().getOrderObject().setId_price(id);
+            listener.transactionFragments(ProductFragment.newInstance(), productTag);
         }
     }
 

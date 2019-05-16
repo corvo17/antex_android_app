@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.TelephonyManager;
 import android.text.InputType;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -20,16 +21,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.security.Permission;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.network.model.Login;
+import uz.codic.ahmadtea.ui.Dialog;
 import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.utils.Consts;
@@ -51,13 +51,14 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     boolean isFirstTime;
 
     LoginPresenter<LoginMvpView> presenter;
-
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        dialog = new Dialog();
 
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
@@ -76,7 +77,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         if (isFirstTime) {
             btn_back.setVisibility(View.GONE);
             presenter.checkUser();
-           // generatePrivateHash();
+            // generatePrivateHash();
         } else {
             lnl_code.setVisibility(View.GONE);
         }
@@ -110,7 +111,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
             if (lnl_code.getVisibility() == View.VISIBLE) {
                 hideKeyboard(this);
                 txt_add.setVisibility(View.GONE);
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
                 new MyTask().execute();
             } else {
                 goLogin();
@@ -129,7 +130,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         //show loading
         hideKeyboard(this);
         txt_add.setVisibility(View.GONE);
-        progressBar.setVisibility(View.VISIBLE);
+        //progressBar.setVisibility(View.VISIBLE);
         if (error_label == null) {
             presenter.userCheckFromDb(login);
         } else {
@@ -217,19 +218,45 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     }
 
     @Override
+    public void showProgress() {
+        dialog.showProgress(this);
+    }
+
+    @Override
+    public void hideProgress() {
+        dialog.dismissProgress();
+    }
+
+    @Override
+    public void changeProgressStatus(String label, int status) {
+        dialog.changeStatus(label, status);
+    }
+
+    @Override
     public void onBackPressed() {
         if (isFirstTime) {
             finishAffinity();
         } else super.onBackPressed();
     }
 
-    private class MyTask extends AsyncTask<String, Void, String>{
+    private class MyTask extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            showProgress();
+        }
+
         @Override
         protected String doInBackground(String... strings) {
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            //            String code = BCrypt.withDefaults().hashToString(12, password.toCharArray());
+            long a = System.currentTimeMillis();
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String dateString = format.format(new Date());
             String password = Consts.KEY + dateString;
-            return BCrypt.withDefaults().hashToString(12, password.toCharArray());
+            long b = System.currentTimeMillis();
+            Log.d("GGG", "vaqt " + (b - a));
+            return Base64.encodeToString(password.getBytes(), Base64.NO_WRAP);
         }
 
         @Override

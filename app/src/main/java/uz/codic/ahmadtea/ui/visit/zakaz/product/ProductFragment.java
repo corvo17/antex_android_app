@@ -1,7 +1,9 @@
 package uz.codic.ahmadtea.ui.visit.zakaz.product;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.NonNull;
@@ -83,6 +85,12 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
     List<OrderBasket> orderBaskets;
     List<ProductAndProductPrice> productList;
     private ImageButton go_to_top;
+    boolean isNewPrice = false;
+
+    @SuppressLint("ValidFragment")
+    public ProductFragment(boolean isNewPrice) {
+        this.isNewPrice = isNewPrice;
+    }
 
     @Override
     public void onProductClick(ProductAndProductPrice products, int position) {
@@ -195,7 +203,7 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(adapter);
 
-            if (listener.getCompleteApi().getOrderObject().getId_price() != null) {
+            if (listener.getCompleteApi().getOrderObject().getId_price() != null && !isNewPrice) {
                 if (listener.getCompleteObject().getProductList() == null || (listener.getCompleteApi().getOrderObject().getId_price() != oldPriceId)) {
                     listener.getCompleteApi().getOrderObject().setTotal_cost(null);
                     listener.getCompleteApi().getOrderBasketList().clear();
@@ -363,6 +371,13 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
         this.productList = products;
         listener.getCompleteObject().setProductList(productList);
         adapter.updateList(products);
+        updateDate();
+    }
+
+    private void updateDate() {
+        if (listener.getCompleteApi().getOrderBasketList().size() > 0){
+            //new MyTask().execute(listener.getCompleteApi().getOrderBasketList());
+        }
     }
 
     public ProductFragment() {
@@ -371,6 +386,13 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
 
     public static ProductFragment newInstance() {
         ProductFragment fragment = new ProductFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
+
+    public static ProductFragment newInstanceWithNewPrice() {
+        ProductFragment fragment = new ProductFragment(true);
         Bundle bundle = new Bundle();
         fragment.setArguments(bundle);
         return fragment;
@@ -518,4 +540,20 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
         }
 
     }
+
+    private class MyTask extends AsyncTask<List<OrderBasket>, Void, List<OrderBasket>>{
+
+        @Override
+        protected List<OrderBasket> doInBackground(List<OrderBasket>... lists) {
+
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<OrderBasket> baskets) {
+            super.onPostExecute(baskets);
+        }
+    }
+
 }

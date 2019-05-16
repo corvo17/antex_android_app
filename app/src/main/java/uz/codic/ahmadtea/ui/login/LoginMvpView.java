@@ -11,4 +11,10 @@ public interface LoginMvpView extends MvpView {
     void dontStay();
 
     void onResponseCentral();
+
+    void showProgress();
+
+    void hideProgress();
+
+    void changeProgressStatus(String label , int status);
 }

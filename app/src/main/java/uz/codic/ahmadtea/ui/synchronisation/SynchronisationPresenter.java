@@ -1,6 +1,7 @@
 package uz.codic.ahmadtea.ui.synchronisation;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
@@ -129,12 +130,7 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
             getMvpView().hideLoading();
         } else {
             getMvpView().relustSync("Yes data");
-            getData(synchronisation).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
-            if (pendingList != null) {
-                startSendPending();
-            }
-            requestBeforeSync();
-            getMvpView().hideLoading();
+            new MyTaskGetData().execute(synchronisation);
         }
 
     }
@@ -301,6 +297,8 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
             }
         };
     }
+
+
 
     private boolean isEmpty(Synchronisation synchronisation) {
         boolean b = false;
@@ -598,5 +596,177 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
     @Override
     public OrderedList getOrder(int which) {
         return pendingList.get(which);
+    }
+
+    private class MyTaskGetData extends AsyncTask<Synchronisation, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Synchronisation... synchronisations) {
+                Synchronisation synchronisation = synchronisations[0];
+            if (!synchronisation.getComments().isEmpty()) {
+                for (int i = 0; i < synchronisation.getComments().size(); i++) {
+                    Comment newComment = synchronisation.getComments().get(i);
+                    if (getDataManager().geComment(newComment.getId()) != null) {
+                        Comment comment = getDataManager().geComment(newComment.getId());
+                        newComment.setPid(comment.getPid());
+                        getDataManager().updateCommets(newComment);
+                    } else {
+                        getDataManager().insertComment(newComment);
+                    }
+                }
+            }
+
+            //currencies
+            if (!synchronisation.getCurrencies().isEmpty()) {
+                for (Currencies currencies : synchronisation.getCurrencies()) {
+                    if (getDataManager().getCurrencies(currencies.getId()) != null) {
+                        currencies.setPid(getDataManager().getCurrencies(currencies.getId()).getPid());
+                        getDataManager().uptadeCurrencies(currencies);
+                    } else {
+                        getDataManager().insertCurrencies(currencies);
+                    }
+                }
+            }
+
+            //measurements
+            if (!synchronisation.getMeasurements().isEmpty()) {
+                for (Measurement measurement : synchronisation.getMeasurements()) {
+                    if (getDataManager().getMeasurement(measurement.getId()) != null) {
+                        measurement.setPid(getDataManager().getMeasurement(measurement.getId()).getPid());
+                        getDataManager().updateMeasurment(measurement);
+                    } else {
+                        getDataManager().insertMeasurmuent(measurement);
+                    }
+                }
+            }
+
+            //merchants
+            if (!synchronisation.getMerchants().isEmpty()) {
+                for (Merchant merchant : synchronisation.getMerchants()) {
+                    if (getDataManager().getMerchant(merchant.getId()) != null) {
+                        merchant.setPid(getDataManager().getMerchant(merchant.getId()).getPid());
+                        getDataManager().updateMerchant(merchant);
+                    } else {
+                        getDataManager().insertMerchant(merchant);
+                    }
+                }
+            }
+
+            //mmds
+            if (!synchronisation.getMmds().isEmpty()) {
+                for (Mmd mmd : synchronisation.getMmds()) {
+                    if (getDataManager().getMmd(mmd.getId()) != null) {
+                        mmd.setPid(getDataManager().getMmd(mmd.getId()).getPid());
+                        getDataManager().updateMmd(mmd);
+                    } else {
+                        getDataManager().insertMmd(mmd);
+                    }
+                }
+            }
+
+            //mmdType
+            if (!synchronisation.getMmdTypes().isEmpty()) {
+                for (MmdType mmdType : synchronisation.getMmdTypes()) {
+                    if (getDataManager().getMmdType(mmdType.getId()) != null) {
+                        mmdType.setPid(getDataManager().getMmdType(mmdType.getId()).getPid());
+                        getDataManager().updateMmdType(mmdType);
+                    } else {
+                        getDataManager().insertMmdType(mmdType);
+                    }
+                }
+            }
+
+            //paymentType
+            if (!synchronisation.getPaymentTypes().isEmpty()) {
+                for (PaymentType paymentType : synchronisation.getPaymentTypes()) {
+                    if (getDataManager().getPaymentType(paymentType.getId()) != null) {
+                        paymentType.setPid(getDataManager().getPaymentType(paymentType.getId()).getPid());
+                        getDataManager().updatePaymentType(paymentType);
+                    } else {
+                        getDataManager().insertPaymentType(paymentType);
+                    }
+                }
+            }
+
+            //price
+            if (!synchronisation.getPrices().isEmpty()) {
+                for (Price price : synchronisation.getPrices()) {
+                    if (getDataManager().getPrice(price.getId()) != null) {
+                        price.setPid(getDataManager().getPrice(price.getId()).getPid());
+                        getDataManager().updatePrice(price);
+                    } else {
+                        getDataManager().insertPrice(price);
+                    }
+                }
+            }
+
+            //stocks
+            if (!synchronisation.getWorkspaces_product_stocks().isEmpty()) {
+                for (Stocks stocks : synchronisation.getWorkspaces_product_stocks()) {
+                    Stocks oldStocks = getDataManager().getStocks(stocks.getId());
+                    if (oldStocks != null) {
+                        stocks.setPid(oldStocks.getPid());
+                        if (pendingList != null) {
+                            checkOrderTotalCount(stocks).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                        }
+                        getDataManager().updateStocks(stocks);
+                    } else {
+                        getDataManager().insertStocks(stocks);
+                    }
+                }
+            }
+
+            //workspace
+            if (!synchronisation.getWorkspaces().isEmpty()) {
+                for (Workspace workspace : synchronisation.getWorkspaces()) {
+                    if (getDataManager().getWorkspace(workspace.getId()) != null) {
+                        workspace.setPid(getDataManager().getWorkspace(workspace.getId()).getPid());
+                        getDataManager().updateWorkspace(workspace);
+                    } else {
+                        getDataManager().insertWorkspace(workspace);
+                    }
+                }
+            }
+
+            //product
+            if (!synchronisation.getProducts().isEmpty()) {
+                for (Product product : synchronisation.getProducts()) {
+                    if (getDataManager().getProduct(product.getId()) != null) {
+                        product.setPid(getDataManager().getProduct(product.getId()).getPid());
+                        getDataManager().updateProduct(product);
+                    } else {
+                        getDataManager().insertProduct(product);
+                    }
+                }
+            }
+
+            //product_price
+            if (!synchronisation.getProductPrices().isEmpty()) {
+                for (ProductPrice productPrice : synchronisation.getProductPrices()) {
+                    ProductPrice oldProductPrice = getDataManager().getProductPrice(productPrice.getId());
+                    if (oldProductPrice != null) {
+                        productPrice.setPid(oldProductPrice.getPid());
+                        if (pendingList != null) {
+                            checkPrice(productPrice).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe();
+                        }
+                        getDataManager().updateProductPrice(productPrice);
+                    } else {
+                        getDataManager().insertProductPrice(productPrice);
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            if (pendingList != null) {
+                startSendPending();
+            }
+            requestBeforeSync();
+            getMvpView().hideLoading();
+        }
     }
 }
