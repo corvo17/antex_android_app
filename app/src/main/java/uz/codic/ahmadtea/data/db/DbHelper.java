@@ -29,6 +29,7 @@ import uz.codic.ahmadtea.data.db.entities.ProductPrice;
 import uz.codic.ahmadtea.data.db.entities.Stocks;
 import uz.codic.ahmadtea.data.db.entities.User;
 import uz.codic.ahmadtea.data.db.entities.Visit;
+import uz.codic.ahmadtea.data.db.entities.VisitPhoto;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
@@ -74,7 +75,8 @@ import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
                 ActiveActivity.class,
                 ActivityError.class,
                 ErrorAction.class,
-                ErrorInfo.class
+                ErrorInfo.class,
+                VisitPhoto.class
 
 
 

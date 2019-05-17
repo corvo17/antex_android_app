@@ -32,6 +32,7 @@ import uz.codic.ahmadtea.data.db.entities.ProductPrice;
 import uz.codic.ahmadtea.data.db.entities.Stocks;
 import uz.codic.ahmadtea.data.db.entities.User;
 import uz.codic.ahmadtea.data.db.entities.Visit;
+import uz.codic.ahmadtea.data.db.entities.VisitPhoto;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
@@ -456,6 +457,12 @@ public interface DaoAccess {
             "and InfoAction.send =:issend or  InfoAction.send_draft =:issend " +
             "where workspace_id in (:id_workspaces)  ORDER BY Merchant.id")
     Single<List<WorkspaceAndMerchant>> getMerchantsIsActionForDAshboard(List<String > id_workspaces, String date , boolean issend);
+
+    @Insert
+    void insertVisitPhoto(VisitPhoto... visitPhotos);
+
+    @Query("select * from visitphoto where merchant_id=:merchant_id and workspace_id=:workspace_id and isSend = 0")
+    Single<List<VisitPhoto>> getVisitPhotos(String merchant_id, String workspace_id);
 
 
 

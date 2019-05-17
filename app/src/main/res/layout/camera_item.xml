@@ -20,8 +20,16 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/start_icon2"
                 android:scaleType="fitXY"
+                android:visibility="gone"
                 android:background="#C05050"
                 />
+            <ImageView
+                android:id="@+id/visit_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                />
+
             <TextView
                 android:id="@+id/titleImage"
                 android:layout_width="match_parent"

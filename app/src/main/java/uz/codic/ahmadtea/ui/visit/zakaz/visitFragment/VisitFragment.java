@@ -311,7 +311,7 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
 
             }
             //mListener.getCompleteApi().getVisitObject().setId_comment(null);
-            mListener.transactionFragments(PhotoFragment.newInstance(file_report_type_id), items.get(file_report_type_id).getLabel());
+            mListener.transactionFragments(PhotoFragment.newInstance(file_report_type_id,items.get(file_report_type_id).getLabel() ), items.get(file_report_type_id).getLabel());
             getActivity().findViewById(R.id.lnr_buttons).setVisibility(View.GONE);
 
         });

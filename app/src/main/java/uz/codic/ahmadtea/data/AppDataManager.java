@@ -34,6 +34,7 @@ import uz.codic.ahmadtea.data.db.entities.ProductPrice;
 import uz.codic.ahmadtea.data.db.entities.Stocks;
 import uz.codic.ahmadtea.data.db.entities.User;
 import uz.codic.ahmadtea.data.db.entities.Visit;
+import uz.codic.ahmadtea.data.db.entities.VisitPhoto;
 import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
@@ -670,6 +671,16 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<List<WorkspaceAndMerchant>> getMerchantsIsActionForDAshboard(List<String> id_workspaces, String date, boolean issend) {
         return dbHelper.daoAccess().getMerchantsIsActionForDAshboard(id_workspaces, date, issend);
+    }
+
+    @Override
+    public void insertVisitPhoto(VisitPhoto... visitPhotos) {
+        dbHelper.daoAccess().insertVisitPhoto(visitPhotos);
+    }
+
+    @Override
+    public Single<List<VisitPhoto>> getVisitPhotos(String merchant_id, String workspace_id) {
+        return dbHelper.daoAccess().getVisitPhotos(merchant_id, workspace_id);
     }
 
     // query error ^
