@@ -224,7 +224,7 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
             orderObject.setId(UUID.randomUUID().toString());//id
             //Filter logic
             filterLogic();
-
+            updateTotalCalculationUi();
             //Search logic
             searchLogic(view);
 
@@ -375,9 +375,20 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
     }
 
     private void updateDate() {
+        orderBaskets = listener.getCompleteApi().getOrderBasketList() ;
         if (listener.getCompleteApi().getOrderBasketList().size() > 0){
-            //new MyTask().execute(listener.getCompleteApi().getOrderBasketList());
+            for (int i = 0, k = 0; i < productList.size() && k < orderBaskets.size(); i++) {
+                if (orderBaskets.get(k).getId_product().equals(productList.get(i).getProduct().getId())){
+                    orderBaskets.get(k).setPrice(productList.get(i).getProductPrices().getValue());
+                    orderBaskets.get(k).setPrice_value(productList.get(i).getProductPrices().getValue());
+                    productList.get(i).setCount(orderBaskets.get(k).getCount());
+                    productList.get(i).setCount_boxes(orderBaskets.get(k).getCount_boxes());
+                    adapter.notifyDataSetChanged();
+                    k++;
+                }
+            }
         }
+        updateTotalCalculationUi();
     }
 
     public ProductFragment() {
@@ -545,7 +556,6 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
 
         @Override
         protected List<OrderBasket> doInBackground(List<OrderBasket>... lists) {
-
 
             return null;
         }

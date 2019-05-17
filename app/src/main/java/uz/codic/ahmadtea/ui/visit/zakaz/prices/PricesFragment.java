@@ -48,7 +48,7 @@ public class PricesFragment extends BaseFragment implements Callback {
             getActivity().findViewById(R.id.btn_search).setVisibility(View.VISIBLE);
             listener.getCompleteApi().getOrderObject().setId_price(id);
             listener.transactionFragments(ProductFragment.newInstanceWithNewPrice(), productTag);
-        } else {
+        } else if (listener.getCompleteObject().getPriceList().size() >1){
             getActivity().findViewById(R.id.btn_filter).setVisibility(View.VISIBLE);
             getActivity().findViewById(R.id.btn_search).setVisibility(View.VISIBLE);
             listener.getCompleteApi().getOrderObject().setId_price(id);

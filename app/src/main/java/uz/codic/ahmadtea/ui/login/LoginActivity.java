@@ -114,6 +114,7 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
                 //progressBar.setVisibility(View.VISIBLE);
                 new MyTask().execute();
             } else {
+                showProgress();
                 goLogin();
             }
         } else {
