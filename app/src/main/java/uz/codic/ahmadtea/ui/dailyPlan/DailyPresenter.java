@@ -94,7 +94,28 @@ public class DailyPresenter<V extends DailyMvpView> extends BasePresenter<V> imp
                 merchants.add(getDataManager().getWorkspaceAndMerchants(casual.getMerchant_id(), casual.getWorkspace_id(), CommonUtils.getToday()));
             }
         }
-        getMvpView().onMerchantsListReady(merchants);
+        getIsActionMerchantsForDAshboard(merchants);
+    }
+    private void getIsActionMerchantsForDAshboard(List<WorkspaceAndMerchant> dailyMerchants) {
+        getDataManager().getMerchantsIsActionForDAshboard(getDataManager().getMyWorkspaceIds(getDataManager().getId_employee()), CommonUtils.getToday(), true)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<WorkspaceAndMerchant>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<WorkspaceAndMerchant> workspaceAndMerchants) {
+                        getMvpView().onMerchantsListReady(dailyMerchants, workspaceAndMerchants);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
     }
 
     @Override

@@ -446,6 +446,17 @@ public interface DaoAccess {
     @Update
     void updateInfoActions(List<InfoAction> actions);
 
+    @Query("SELECT Workspace.id as w_id, Workspace.label as w_name," +
+            " Workspace.pid as w_pid, Workspace.status_id as w_id_status, InfoAction.*, " +
+            " Merchant.* from WorkspaceMerchant" +
+            " INNER JOIN merchant on Merchant.id = WorkspaceMerchant.merchant_id " +
+            "INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id " +
+            "Inner JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.merchant_id " +
+            "and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.workspace_id " +
+            "and InfoAction.send =:issend or  InfoAction.send_draft =:issend " +
+            "where workspace_id in (:id_workspaces)  ORDER BY Merchant.id")
+    Single<List<WorkspaceAndMerchant>> getMerchantsIsActionForDAshboard(List<String > id_workspaces, String date , boolean issend);
+
 
 
 }

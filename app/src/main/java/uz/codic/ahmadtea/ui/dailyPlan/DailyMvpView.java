@@ -11,7 +11,7 @@ import uz.codic.ahmadtea.ui.base.MvpView;
 
 public interface DailyMvpView extends MvpView {
 
-    void onMerchantsListReady(List<WorkspaceAndMerchant> merchants);
+    void onMerchantsListReady(List<WorkspaceAndMerchant> merchants, List<WorkspaceAndMerchant> outOfDailyMerchants);
 
     void goLoginActivity(String error_label);
 

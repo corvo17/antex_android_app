@@ -61,7 +61,7 @@ import uz.codic.ahmadtea.ui.synchronisation.SynchronisationFragment;
 import uz.codic.ahmadtea.utils.Consts;
 
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainActivityView, FragmentsListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainActivityView, FragmentsListener, DashboardFragment.IUpdateDashboard {
 
     //region Old Staffs
     String id_employee;
@@ -129,6 +129,7 @@ public class MainActivity extends BaseActivity
         fragmentClass = DashboardFragment.class;
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragment_container, new DashboardFragment()).commit();
+        DashboardFragment.setUpdater(this);
         //startStep1();
         //endregion
 
@@ -267,6 +268,7 @@ public class MainActivity extends BaseActivity
             closeCalendarItem();
             closeFilter();
             fragmentClass = DashboardFragment.class;
+            DashboardFragment.setUpdater(this);
         } else if (id == R.id.nav_synch) {
             search_item.setVisible(false);
             closeSearchField();
@@ -617,6 +619,39 @@ public class MainActivity extends BaseActivity
             startActivity(login);
             finish();
         }
+
+    }
+
+    @Override
+    public void updateDailyPlan() {
+        search_item.setVisible(true);
+        closeSearchField();
+        closeFilter();
+        if (!map_item.isVisible()) {
+            map_item.setVisible(true);
+        }
+        if (!calendar_item.isVisible()) {
+            calendar_item.setVisible(true);
+        }
+        fragmentClass = DailyFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+    }
+
+    @Override
+    public void updateDailyOutOfDaily() {
+
+    }
+
+    @Override
+    public void updateAllDoneVisits() {
 
     }
 }

@@ -667,6 +667,11 @@ public class AppDataManager implements DataManager {
         dbHelper.daoAccess().updateInfoActions(actions);
     }
 
+    @Override
+    public Single<List<WorkspaceAndMerchant>> getMerchantsIsActionForDAshboard(List<String> id_workspaces, String date, boolean issend) {
+        return dbHelper.daoAccess().getMerchantsIsActionForDAshboard(id_workspaces, date, issend);
+    }
+
     // query error ^
 
 

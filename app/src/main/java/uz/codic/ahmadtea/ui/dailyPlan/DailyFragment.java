@@ -97,12 +97,12 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     }
 
     @Override
-    public void onMerchantsListReady(List<WorkspaceAndMerchant> merchants) {
+    public void onMerchantsListReady(List<WorkspaceAndMerchant> dailyMerchants,List<WorkspaceAndMerchant> outOfDailyMerchants) {
+        dailyMerchants = dailyMerchants;
         merchants_size.setText("Merchants: " + merchants.size());
-        dailyMerchants = merchants;
-        adapter.updateList(merchants);
+        adapter.updateList(dailyMerchants);
         merchantListWorspaces = new ArrayList<>();
-        for (WorkspaceAndMerchant merchant:merchants) {
+        for (WorkspaceAndMerchant merchant:dailyMerchants) {
             MerchantListWorspaces newMerchantListWorspaces  = new MerchantListWorspaces();
             newMerchantListWorspaces.setMerchant(merchant.getMerchant());
             newMerchantListWorspaces.setWorkspace(merchant.getWorkspace());
