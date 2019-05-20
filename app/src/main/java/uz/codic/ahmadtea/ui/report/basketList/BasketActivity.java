@@ -1,20 +1,13 @@
-package uz.codic.ahmadtea.ui.orders.basketList;
+package uz.codic.ahmadtea.ui.report.basketList;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
@@ -22,8 +15,8 @@ import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.PagerAdapter;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.PagerAdapter;
 
 public class BasketActivity extends BaseActivity implements BasketMvpView {
 

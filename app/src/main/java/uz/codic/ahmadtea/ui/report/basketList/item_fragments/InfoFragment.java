@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList.item_fragments;
+package uz.codic.ahmadtea.ui.report.basketList.item_fragments;
 
 
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Order;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -39,8 +39,8 @@ import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
 
 
 @Dao

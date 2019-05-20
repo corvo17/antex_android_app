@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList.adapter;
+package uz.codic.ahmadtea.ui.report.basketList.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,7 +9,6 @@ import android.widget.TextView;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
-import uz.codic.ahmadtea.data.db.entities.Comment;
 
 public class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.MyViewHolder> {
 

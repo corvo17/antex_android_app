@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList.adapter;
+package uz.codic.ahmadtea.ui.report.basketList.adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,10 +8,9 @@ import java.util.List;
 
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Order;
-import uz.codic.ahmadtea.data.db.entities.Visit;
-import uz.codic.ahmadtea.ui.orders.basketList.item_fragments.ProductsFragment;
-import uz.codic.ahmadtea.ui.orders.basketList.item_fragments.AdditionFragment;
-import uz.codic.ahmadtea.ui.orders.basketList.item_fragments.InfoFragment;
+import uz.codic.ahmadtea.ui.report.basketList.item_fragments.ProductsFragment;
+import uz.codic.ahmadtea.ui.report.basketList.item_fragments.AdditionFragment;
+import uz.codic.ahmadtea.ui.report.basketList.item_fragments.InfoFragment;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     private List<BasketProduct> basketProducts;

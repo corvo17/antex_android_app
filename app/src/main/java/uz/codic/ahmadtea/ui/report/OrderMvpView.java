@@ -1,9 +1,9 @@
-package uz.codic.ahmadtea.ui.orders;
+package uz.codic.ahmadtea.ui.report;
 
 import java.util.List;
 
 import uz.codic.ahmadtea.ui.base.MvpView;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 
 public interface OrderMvpView extends MvpView {
 

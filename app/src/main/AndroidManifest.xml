@@ -16,8 +16,6 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="${applicationId}.fileprovider.READ_DATABASE" />
     <uses-permission android:name="${applicationId}.fileprovider.WRITE_DATABASE" />
-
-
     <uses-permission
         android:name="android.hardware.camera2"
         android:required="true" />
@@ -72,7 +70,7 @@
             android:label="@string/title_activity_merchants_map"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.orders.basketList.BasketActivity"
+            android:name=".ui.report.basketList.BasketActivity"
             android:screenOrientation="portrait" />
 
         <service android:name=".service.news.LocationMonitoringService" />
@@ -101,7 +99,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.sittings.VersionInfoActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.MapsActivity"
             android:screenOrientation="portrait" />
@@ -109,6 +107,8 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
+
+        <activity android:name=".ui.report.report_activities.ReportFilterActivity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,8 @@
 package uz.codic.ahmadtea.ui.synchronisation;
 
-import java.util.List;
-
 
 import uz.codic.ahmadtea.ui.base.MvpPresenter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 
 public interface SynchronisationMvpPresenter<V extends SynchronisationMvpView> extends MvpPresenter<V> {
     void startSynchronisation();

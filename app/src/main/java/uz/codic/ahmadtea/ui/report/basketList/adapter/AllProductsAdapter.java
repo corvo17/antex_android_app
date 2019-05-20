@@ -1,24 +1,14 @@
-package uz.codic.ahmadtea.ui.orders.basketList.adapter;
+package uz.codic.ahmadtea.ui.report.basketList.adapter;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import uz.codic.ahmadtea.R;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
-import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
-import uz.codic.ahmadtea.ui.saved_visits.AdapterSavedVisits;
 
 public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.ViewHolder>{
 

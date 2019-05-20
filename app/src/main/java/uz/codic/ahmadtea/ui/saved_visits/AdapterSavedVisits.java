@@ -9,12 +9,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
-import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.basketList.BasketActivity;
 public class AdapterSavedVisits extends RecyclerView.Adapter<AdapterSavedVisits.ViewHolder>{
 
     private List<OrderedList> items;

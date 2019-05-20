@@ -63,8 +63,8 @@ import uz.codic.ahmadtea.data.network.model.api_objects.Payload;
 import uz.codic.ahmadtea.data.prefs.AppPrefHelper;
 import uz.codic.ahmadtea.data.prefs.PrefHelper;
 import uz.codic.ahmadtea.di.ApplicationContext;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
 
 
 public class AppDataManager implements DataManager {

@@ -1,7 +1,6 @@
-package uz.codic.ahmadtea.ui.orders.basketList;
+package uz.codic.ahmadtea.ui.report.basketList;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
 
@@ -12,8 +11,7 @@ import io.reactivex.schedulers.Schedulers;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
-import uz.codic.ahmadtea.utils.Consts;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
 
 public class BasketPresenter<V extends BasketMvpView> extends BasePresenter<V> implements BasketMvpPresenter<V> {
 

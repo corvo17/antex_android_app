@@ -16,11 +16,10 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
-import uz.codic.ahmadtea.ui.orders.OrderMvpPresenter;
-import uz.codic.ahmadtea.ui.orders.OrderMvpView;
-import uz.codic.ahmadtea.ui.orders.OrderPresenter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderAdapter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.OrderMvpPresenter;
+import uz.codic.ahmadtea.ui.report.OrderMvpView;
+import uz.codic.ahmadtea.ui.report.OrderPresenter;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 import uz.codic.ahmadtea.utils.Consts;
 
 /**

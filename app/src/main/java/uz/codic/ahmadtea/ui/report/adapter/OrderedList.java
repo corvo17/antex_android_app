@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.adapter;
+package uz.codic.ahmadtea.ui.report.adapter;
 
 import android.arch.persistence.room.Embedded;
 

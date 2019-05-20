@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders;
+package uz.codic.ahmadtea.ui.report;
 
 
 import android.os.Bundle;
@@ -15,8 +15,8 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderAdapter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.adapter.OrderAdapter;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +50,7 @@ public class OrderFragment extends BaseFragment implements OrderMvpView {
         merchantRecyler.setLayoutManager(new LinearLayoutManager(getContext()));
         merchantRecyler.setAdapter(adapter);
 
-        presenter.getOrderedList();
+        //presenter.getOrderedList();
     }
 
     public static OrderFragment newInstance(){
