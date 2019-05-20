@@ -39,12 +39,16 @@ import uz.codic.ahmadtea.ui.map.MerchantsMapActivity;
 import uz.codic.ahmadtea.ui.merchants.MerchantListWorspaces;
 import uz.codic.ahmadtea.utils.Consts;
 
+import static uz.codic.ahmadtea.ui.MainActivity.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCallBack {
 
     DailyAdapter adapter;
+    DailyAdapter outOfDailyAdapter;
+    DailyAdapter allMerchantsAdapter;
 
     RecyclerView recyclerView;
 
@@ -54,14 +58,27 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
 
     String id_employee;
     List<WorkspaceAndMerchant> dailyMerchants;
+    List<WorkspaceAndMerchant> outOfDailyMerchants;
+    List<WorkspaceAndMerchant> allDailyMerchants;
+
     List<MerchantListWorspaces> merchantListWorspaces;
+    List<MerchantListWorspaces> outOfmerchantsWorkspace;
+    List<MerchantListWorspaces> allDailyMerchantListWorspaces;
     private int mYear, mMonth, mDay;
     String date;
+    private int whichPage = 0;
 
     public DailyFragment() {
         // Required empty public constructor
     }
 
+    public static DailyFragment newInstance(int whichPage){
+        DailyFragment dailyFragment = new DailyFragment();
+        Bundle args = new Bundle();
+        args.putInt("page",whichPage);
+        dailyFragment.setArguments(args);
+        return dailyFragment;
+    }
     public static DailyFragment newInstance(){
         return new DailyFragment();
     }
@@ -69,7 +86,7 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+        if (getArguments()!=null)whichPage = getArguments().getInt("page");
         return inflater.inflate(R.layout.fragment_daily_planning, container, false);
     }
 
@@ -84,12 +101,22 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
         Log.d(Consts.TEST_TAG, "onViewCreated: " + id_employee);
 
         adapter = new DailyAdapter(getContext());
+        outOfDailyAdapter = new DailyAdapter(getContext());
+        allMerchantsAdapter = new DailyAdapter(getContext());
         adapter.setCallBack(this);
+        outOfDailyAdapter.setCallBack(this);
+        allMerchantsAdapter.setCallBack(this);
         presenter = new DailyPresenter<>(getContext());
         presenter.onAttach( this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(adapter);
+        if (whichPage == 1 || whichPage == 0){
+            recyclerView.setAdapter(adapter);
+        }else if(whichPage == 2){
+            recyclerView.setAdapter(outOfDailyAdapter);
+        }else if (whichPage == 3){
+            recyclerView.setAdapter(allMerchantsAdapter);
+        }
 //        presenter.getMerchantsInWorkspace(id_employee);
         android.text.format.DateFormat df = new android.text.format.DateFormat();
         date = df.format("yyyy-MM-dd", new java.util.Date()).toString();
@@ -97,16 +124,50 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     }
 
     @Override
-    public void onMerchantsListReady(List<WorkspaceAndMerchant> dailyMerchants,List<WorkspaceAndMerchant> outOfDailyMerchants) {
-        dailyMerchants = dailyMerchants;
-        merchants_size.setText("Merchants: " + merchants.size());
+    public void onMerchantsListReady(List<WorkspaceAndMerchant> dailyMerchants,List<WorkspaceAndMerchant> outOfDailyMerchants1) {
+       // Log.d(TAG, "onMerchantsListReady: OKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOK " + dailyMerchants.size() + " ______ " + outOfDailyMerchants.size());
+        this.dailyMerchants = dailyMerchants;
+        allDailyMerchants = new ArrayList<>();
+        allDailyMerchants.addAll(outOfDailyMerchants1);
+        this.outOfDailyMerchants = outOfDailyMerchants1;
+        for (int i = 0; i < outOfDailyMerchants1.size(); i++) {
+            for (int j = 0; j < dailyMerchants.size(); j++) {
+                if (outOfDailyMerchants1.get(i).getMerchant().getId().equals(dailyMerchants.get(j).getMerchant().getId())){
+                    this.outOfDailyMerchants.remove(i); //7a303b56-114b-4db1-9a73-4c83855e889b
+                    break;
+                }
+
+            }
+        }
+//        allDailyMerchants.addAll(dailyMerchants);
+//        allDailyMerchants.addAll(this.outOfDailyMerchants);
+        if (whichPage == 1 || whichPage == 0 )merchants_size.setText("Merchants: " + dailyMerchants.size());
+        else if (whichPage == 2)merchants_size.setText("Merchants: " + outOfDailyMerchants.size());
+        else if (whichPage == 3) merchants_size.setText("Merchants: " + allDailyMerchants.size());
         adapter.updateList(dailyMerchants);
+        outOfDailyAdapter.updateList(outOfDailyMerchants);
+        allMerchantsAdapter.updateList(allDailyMerchants);
         merchantListWorspaces = new ArrayList<>();
+        outOfmerchantsWorkspace = new ArrayList<>();
+        allDailyMerchantListWorspaces = new ArrayList<>();
+
         for (WorkspaceAndMerchant merchant:dailyMerchants) {
             MerchantListWorspaces newMerchantListWorspaces  = new MerchantListWorspaces();
             newMerchantListWorspaces.setMerchant(merchant.getMerchant());
             newMerchantListWorspaces.setWorkspace(merchant.getWorkspace());
             merchantListWorspaces.add(newMerchantListWorspaces);
+        }
+        for (WorkspaceAndMerchant merchant:outOfDailyMerchants) {
+            MerchantListWorspaces newMerchantListWorspaces  = new MerchantListWorspaces();
+            newMerchantListWorspaces.setMerchant(merchant.getMerchant());
+            newMerchantListWorspaces.setWorkspace(merchant.getWorkspace());
+            outOfmerchantsWorkspace.add(newMerchantListWorspaces);
+        }
+        for (WorkspaceAndMerchant merchant:allDailyMerchants) {
+            MerchantListWorspaces newMerchantListWorspaces  = new MerchantListWorspaces();
+            newMerchantListWorspaces.setMerchant(merchant.getMerchant());
+            newMerchantListWorspaces.setWorkspace(merchant.getWorkspace());
+            allDailyMerchantListWorspaces.add(newMerchantListWorspaces);
         }
     }
 
@@ -122,10 +183,16 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     }
 
     public void openMap(){
-
         Intent intent = new Intent(getActivity(), MerchantsMapActivity.class);
         intent.putExtra("isPlan", true);
-        intent.putExtra("dailyMerchant", (Serializable) merchantListWorspaces);
+        if (whichPage == 0 || whichPage == 1){
+            intent.putExtra("dailyMerchant", (Serializable) merchantListWorspaces);
+        }else if (whichPage == 2){
+            intent.putExtra("dailyMerchant", (Serializable) outOfmerchantsWorkspace);
+        }else if (whichPage == 3){
+            intent.putExtra("dailyMerchant", (Serializable) allDailyMerchantListWorspaces);
+        }
+
         startActivity(intent);
     }
 
@@ -168,6 +235,8 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
             public void onClick(DialogInterface dialog, int which) {
                 if (which == 0){
                     adapter.updateList(dailyMerchants);
+                    outOfDailyAdapter.updateList(outOfDailyMerchants);
+                    allMerchantsAdapter.updateList(allDailyMerchants);
                     merchants_size.setText("Merchants: " + dailyMerchants.size());
                 }else getMerchatsInWorkspace(workspaces.get(which));
             }
@@ -183,6 +252,8 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
             }
         }
         adapter.updateList(andMerchants);
+        outOfDailyAdapter.updateList(outOfDailyMerchants);
+        allMerchantsAdapter.updateList(allDailyMerchants);
         merchants_size.setText("Merchants: " + andMerchants.size());
     }
 

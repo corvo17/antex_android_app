@@ -39,9 +39,9 @@ public class AllProductsAdapter extends RecyclerView.Adapter<AllProductsAdapter.
     public void onBindViewHolder(final AllProductsAdapter.ViewHolder holder, int position) {
         holder.number.setText((1+position)+".");
         holder.name.setText(items.get(position).getProduct().getLabel());
-        holder.price.setText(items.get(position).getProductPrice().getValue() + "");
+        holder.price.setText(items.get(position).getProductPrice().getValue()/100 + "");
         holder.count.setText(items.get(position).getOrderBasket().getTotal_count()+ "");
-        holder.total.setText((items.get(position).getOrderBasket().getTotal_count() *items.get(position).getProductPrice().getValue()) + "");
+        holder.total.setText((items.get(position).getOrderBasket().getTotal_count() *items.get(position).getProductPrice().getValue())/100 + "");
 
     }
 

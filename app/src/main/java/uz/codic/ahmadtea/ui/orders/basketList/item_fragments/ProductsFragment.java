@@ -66,6 +66,6 @@ public class ProductsFragment extends Fragment {
         totalCount = view.findViewById(R.id.count);
         totalSum = view.findViewById(R.id.total);
         totalCount.setText(allCount + "");
-        totalSum.setText(allSum + "");
+        totalSum.setText(allSum/100 + "");
     }
 }

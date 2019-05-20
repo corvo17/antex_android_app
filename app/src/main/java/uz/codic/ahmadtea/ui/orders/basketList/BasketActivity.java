@@ -56,6 +56,7 @@ public class BasketActivity extends BaseActivity implements BasketMvpView {
         order = (Order)getIntent().getSerializableExtra("order");
 
         visit = presenter.getVisit(order.getVisitId());
+        list = new ArrayList<>();
         if (visit.getId_comment() != null){
             List<Integer> ids = new ArrayList<>();
             String commentsIds = visit.getId_comment().substring(1,(visit.getId_comment().length() - 1));
@@ -63,7 +64,9 @@ public class BasketActivity extends BaseActivity implements BasketMvpView {
             for (String str : myList ) {
                 ids.add(Integer.parseInt(str));
             }
-            list = presenter.getComments(ids);
+            if (presenter.getComments(ids) != null){
+                list.addAll(presenter.getComments(ids));
+            }
         }
 
         presenter.getBasketList(priceId, orderId, order.getId_payment_type());
