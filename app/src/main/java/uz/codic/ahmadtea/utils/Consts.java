@@ -20,6 +20,7 @@ public class Consts {
     public static final String informationTag = "Information";
     public static final String paymentTag = "Payment";
     public static final String pricesTag = "Prices";
+    public static final String warehouseTag = "Warehouse";
     public static final String shippingTag = "Shipping";
     public static final String cameraTag = "Camera";
 

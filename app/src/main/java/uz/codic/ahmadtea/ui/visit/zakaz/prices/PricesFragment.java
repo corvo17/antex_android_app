@@ -68,7 +68,7 @@ public class PricesFragment extends BaseFragment implements Callback {
 
         if (getActivity() != null) {
             StateProgressBar progressBar = getActivity().findViewById(R.id.progress_state);
-            progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
+            progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
             getActivity().findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

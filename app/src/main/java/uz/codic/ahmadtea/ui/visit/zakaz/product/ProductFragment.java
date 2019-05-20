@@ -167,7 +167,7 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
         try {
 
             StateProgressBar progressBar = getActivity().findViewById(R.id.progress_state);
-            progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
+            progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
 
             recyclerView = view.findViewById(R.id.order_recycler_view);
             total_price = view.findViewById(R.id.product_total_price);
