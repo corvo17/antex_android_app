@@ -626,28 +626,49 @@ public class MainActivity extends BaseActivity
         if (!map_item.isVisible()) {
             map_item.setVisible(true);
         }
-        if (!calendar_item.isVisible()) {
-            calendar_item.setVisible(true);
-        }
-        fragmentClass = DailyFragment.class;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        }
+        closeCalendarItem();
+//        if (!calendar_item.isVisible()) {
+//            calendar_item.setVisible(true);
+//        }
+            fragment = DailyFragment.newInstance(1);
+
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
     @Override
     public void updateDailyOutOfDaily() {
+        search_item.setVisible(true);
+        closeSearchField();
+        closeFilter();
+        if (!map_item.isVisible()) {
+            map_item.setVisible(true);
+        }
+        closeCalendarItem();
+//        if (!calendar_item.isVisible()) {
+//            calendar_item.setVisible(true);
+//        }
+        fragment = DailyFragment.newInstance(2);
 
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
     @Override
     public void updateAllDoneVisits() {
+        search_item.setVisible(true);
+        closeSearchField();
+        closeFilter();
+        if (!map_item.isVisible()) {
+            map_item.setVisible(true);
+        }
+        closeCalendarItem();
+//        if (!calendar_item.isVisible()) {
+//            calendar_item.setVisible(true);
+//        }
+        fragment = DailyFragment.newInstance(3);
 
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 }

@@ -73,7 +73,7 @@ public class DashboardFragment extends BaseFragment implements DashboardMvpView 
         tv_count2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDashboard.updateDailyOutOfDaily();
+                updateDashboard.updateAllDoneVisits();
             }
         });
 
