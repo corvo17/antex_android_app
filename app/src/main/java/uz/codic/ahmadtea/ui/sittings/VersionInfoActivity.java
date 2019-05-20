@@ -97,7 +97,7 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
 
     @Override
     public void onResponseCurrentVersion(HashMap<String, HashMap<String, String>> map) {
-        if (map.get("payload").get("version_name").equals(BuildConfig.VERSION_NAME)) {
+        if (!map.get("payload").get("version_name").equals(BuildConfig.VERSION_NAME)) {
             dialog.changeStatus("Please wait... Getting data from server", 10);
             String path = Environment.getExternalStorageDirectory() + File.separator + "antex.apk";
             new MyTask().execute(path, (Objects.requireNonNull(map.get("payload")).get("absolute_path_apk")));
