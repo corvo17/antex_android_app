@@ -81,6 +81,7 @@ public class MerchantPageFragment extends Fragment {
 //            }
 //            if (gps_enabled) {
 //                listener.getLocation();
+            getActivity().findViewById(R.id.lnr_buttons).setVisibility(View.VISIBLE);
                 listener.transactionFragments(VisitFragment.newInstance(), visitTag);
 //            }
 //            else {

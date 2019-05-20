@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="140dp"
-    android:layout_height="200dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <android.support.design.card.MaterialCardView
         android:layout_margin="10dp"
@@ -20,8 +20,16 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/start_icon2"
                 android:scaleType="fitXY"
+                android:visibility="gone"
                 android:background="#C05050"
                 />
+            <ImageView
+                android:id="@+id/visit_photo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                />
+
             <TextView
                 android:id="@+id/titleImage"
                 android:layout_width="match_parent"

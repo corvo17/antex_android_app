@@ -1,5 +1,6 @@
 package uz.codic.ahmadtea.ui.sittings;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 import uz.codic.ahmadtea.BuildConfig;
 import uz.codic.ahmadtea.R;
+import uz.codic.ahmadtea.ui.Dialog;
 import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 
@@ -36,6 +38,7 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
     TextView info_text;
     Button check_but;
     ProgressBar progressBar;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,12 +55,14 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
         progressBar = findViewById(R.id.progress_bar);
         presenter = new VersionInfoPresenter<>(this);
         presenter.onAttach(this);
+        dialog = new Dialog();
+
         info_text.append("Version Name: " + BuildConfig.VERSION_NAME + "\n");
         info_text.append("Version Code: " + BuildConfig.VERSION_CODE + "\n");
 
         check_but.setOnClickListener(v -> {
             presenter.onRequestCheckVersion();
-            progressBar.setVisibility(View.VISIBLE);
+            dialog.showProgress(this);
         });
     }
     private void updateVersion(File apk) {
@@ -93,21 +98,24 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
     @Override
     public void onResponseCurrentVersion(HashMap<String, HashMap<String, String>> map) {
         if (!map.get("payload").get("version_name").equals(BuildConfig.VERSION_NAME)) {
+            dialog.changeStatus("Please wait... Getting data from server", 10);
             String path = Environment.getExternalStorageDirectory() + File.separator + "antex.apk";
             new MyTask().execute(path, (Objects.requireNonNull(map.get("payload")).get("absolute_path_apk")));
         } else {
             info_text.append("\n\nNo Update required");
             progressBar.setVisibility(View.GONE);
+            dialog.dismissProgress();
         }
     }
 
     private void closeProgresBar() {
-        progressBar.setVisibility(View.GONE);
+        dialog.dismissProgress();
     }
 
 
-    private class MyTask extends AsyncTask<String, Void, String> {
+    private class MyTask extends AsyncTask<String, Integer, String> {
 
+        @SuppressLint("NewApi")
         @Override
         protected String doInBackground(String... strings) {
             try {
@@ -121,8 +129,12 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
                 InputStream in = c.getInputStream();
                 byte[] buffer = new byte[1024];
                 int len1;
+                long data_length = c.getContentLengthLong();
+                long gotbyte = 0;
                 while ((len1 = in.read(buffer)) > 0) {
                     f.write(buffer, 0, len1);
+                    gotbyte += len1;
+                    publishProgress((int)gotbyte, (int)data_length);
                 }
                 f.close();
                 c.disconnect();
@@ -135,6 +147,7 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
             return strings[0];
         }
 
+
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
@@ -142,8 +155,25 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
             closeProgresBar();
             updateVersion(new File(result));
         }
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+            Log.d("baxtiyor", "onProgressUpdate: " + values[0]);
+            int value = values[0]*100/values[1];
+            dialog.changeStatus("Please wait... Getting data from server " + (values[1]/1024) +"/" + (values[0]/1024) + " MB", value);
+        }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
 
 

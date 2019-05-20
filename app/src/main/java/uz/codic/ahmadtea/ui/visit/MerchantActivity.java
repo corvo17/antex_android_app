@@ -47,6 +47,7 @@ import uz.codic.ahmadtea.ui.visit.zakaz.prices.PricesFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.product.ProductFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.shippingDate.ShippingDateFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
+import uz.codic.ahmadtea.ui.visit.zakaz.warehouse.WareHouseFragment;
 import uz.codic.ahmadtea.utils.CommonUtils;
 
 import static uz.codic.ahmadtea.utils.Consts.informationTag;
@@ -57,6 +58,7 @@ import static uz.codic.ahmadtea.utils.Consts.shippingTag;
 import static uz.codic.ahmadtea.utils.Consts.statusPending;
 import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
+import static uz.codic.ahmadtea.utils.Consts.warehouseTag;
 
 public class MerchantActivity extends BaseActivity
         implements OnFragmentInteractionListener, MerchantMvpView {
@@ -85,7 +87,7 @@ public class MerchantActivity extends BaseActivity
     InfoAction infoAction;
 
     StateProgressBar stateProgressBar;
-    String[] descriptionData = {"Price", "Products", "Payment", "Shipping"};
+    String[] descriptionData = {"Warehouse", "Price", "Products", "Payment", "Shipping"};
     private int REQUEST_PERMISSION_CODE = 101;
 
     @Override
@@ -104,19 +106,22 @@ public class MerchantActivity extends BaseActivity
             public void onStateItemClick(StateProgressBar stateProgressBar, StateItem stateItem, int stateNumber, boolean isCurrentState) {
                 switch (stateNumber) {
                     case 1:
-                        transactionFragments(PricesFragment.newInstance(), pricesTag);
+                        transactionFragments(WareHouseFragment.newInstance(), warehouseTag);
                         break;
                     case 2:
+                        transactionFragments(PricesFragment.newInstance(), pricesTag);
+                        break;
+                    case 3:
                         if (getCompleteApi().getOrderObject().getId_price() != null) {
                             transactionFragments(ProductFragment.newInstance(), productTag);
                         } else {
                             showMessage("Please select price first");
                         }
                         break;
-                    case 3:
+                    case 4:
                         transactionFragments(PaymentFragment.newInstance(), paymentTag);
                         break;
-                    case 4:
+                    case 5:
                         transactionFragments(ShippingDateFragment.newInstance(), shippingTag);
                         break;
                 }

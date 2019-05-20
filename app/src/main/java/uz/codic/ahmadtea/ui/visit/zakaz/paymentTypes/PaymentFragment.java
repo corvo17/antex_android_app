@@ -57,7 +57,7 @@ public class PaymentFragment extends BaseFragment implements Callback {
         super.onViewCreated(view, savedInstanceState);
 
         StateProgressBar progressBar = getActivity().findViewById(R.id.progress_state);
-        progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.THREE);
+        progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR);
 
         recyclerView = view.findViewById(R.id.payment_recycler);
 

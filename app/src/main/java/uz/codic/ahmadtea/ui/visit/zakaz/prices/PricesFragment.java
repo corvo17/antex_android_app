@@ -48,7 +48,7 @@ public class PricesFragment extends BaseFragment implements Callback {
             getActivity().findViewById(R.id.btn_search).setVisibility(View.VISIBLE);
             listener.getCompleteApi().getOrderObject().setId_price(id);
             listener.transactionFragments(ProductFragment.newInstanceWithNewPrice(), productTag);
-        } else {
+        } else if (listener.getCompleteObject().getPriceList().size() >1){
             getActivity().findViewById(R.id.btn_filter).setVisibility(View.VISIBLE);
             getActivity().findViewById(R.id.btn_search).setVisibility(View.VISIBLE);
             listener.getCompleteApi().getOrderObject().setId_price(id);
@@ -68,7 +68,7 @@ public class PricesFragment extends BaseFragment implements Callback {
 
         if (getActivity() != null) {
             StateProgressBar progressBar = getActivity().findViewById(R.id.progress_state);
-            progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.ONE);
+            progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.TWO);
             getActivity().findViewById(R.id.btn_back).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

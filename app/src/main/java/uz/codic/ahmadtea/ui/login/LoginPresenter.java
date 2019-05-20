@@ -139,7 +139,7 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().insertUser(user);
                                     getDataManager().setIslogin(true);
                                     getDataManager().setId_employee(user.getId());
-                                    getMvpView().changeProgressStatus("Please wait... Getting date from server", 30);
+                                    getMvpView().changeProgressStatus("Please wait... Getting data from server", 30);
                                     onRequestWorkspace(apiObeject.getPayload().get(0).getId(), user.getToken());
                                 } else {
                                     ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());

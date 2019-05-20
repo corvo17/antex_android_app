@@ -127,6 +127,7 @@ public class DailyFragment extends BaseFragment implements DailyMvpView, DailyCa
     public void onMerchantsListReady(List<WorkspaceAndMerchant> dailyMerchants,List<WorkspaceAndMerchant> outOfDailyMerchants1) {
        // Log.d(TAG, "onMerchantsListReady: OKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOKOK " + dailyMerchants.size() + " ______ " + outOfDailyMerchants.size());
         this.dailyMerchants = dailyMerchants;
+        merchants_size.setText("Merchants: " + dailyMerchants.size());
         allDailyMerchants = new ArrayList<>();
         allDailyMerchants.addAll(outOfDailyMerchants1);
         this.outOfDailyMerchants = outOfDailyMerchants1;

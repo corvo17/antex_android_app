@@ -67,7 +67,7 @@ public class ShippingDateFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         progressBar = getActivity().findViewById(R.id.progress_state);
-        progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.FOUR);
+        progressBar.setCurrentStateNumber(StateProgressBar.StateNumber.FIVE);
 
         getActivity().findViewById(R.id.btn_filter).setVisibility(View.GONE);
         getActivity().findViewById(R.id.btn_search).setVisibility(View.GONE);

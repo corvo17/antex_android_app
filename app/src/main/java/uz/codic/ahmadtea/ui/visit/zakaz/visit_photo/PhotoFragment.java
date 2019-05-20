@@ -15,46 +15,56 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import uz.codic.ahmadtea.R;
+import uz.codic.ahmadtea.data.db.entities.VisitPhoto;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
+import uz.codic.ahmadtea.ui.orders.basketList.adapter.PhotosAdapter;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
+import uz.codic.ahmadtea.ui.visit.zakaz.camera.imageAdapter.CameraAdapter;
 import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
 
-import static android.app.Activity.RESULT_OK;
+import static uz.codic.ahmadtea.utils.Consts.paymentTag;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
 
 @SuppressLint("ValidFragment")
 public class PhotoFragment extends BaseFragment implements PhotoFragmentView {
 
     Integer id;
+    String photo_title;
     private OnFragmentInteractionListener mListener;
     File file;
     int TAKE_PHOTO_CODE = 14;
     private String destinationDirectoryPath;
+    PhotoFragmentPresenterView<PhotoFragmentView> presenter;
+    RecyclerView recyclerView;
+    VisitPhotoAdapter adapter;
 
 
-    public static PhotoFragment newInstance(Integer id) {
+    public static PhotoFragment newInstance(Integer id, String photo_title) {
 
-        PhotoFragment photoFragment = new PhotoFragment(id);
+        PhotoFragment photoFragment = new PhotoFragment(id, photo_title);
 
         return photoFragment;
     }
 
     @SuppressLint("ValidFragment")
-    public PhotoFragment(Integer id) {
+    public PhotoFragment(Integer id, String photo_title) {
         this.id = id;
+        this.photo_title = photo_title;
     }
 
     @Nullable
@@ -67,20 +77,29 @@ public class PhotoFragment extends BaseFragment implements PhotoFragmentView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        TextView textView = view.findViewById(R.id.id_text);
-        textView.setText(String.valueOf(id));
         ImageView cameraBtn = getActivity().findViewById(R.id.cameraBtn);
         getActivity().findViewById(R.id.btn_back).setOnClickListener(v -> {
             mListener.transactionFragments(VisitFragment.newInstance(), visitTag);
             getActivity().findViewById(R.id.lnr_buttons).setVisibility(View.GONE);
+            getActivity().findViewById(R.id.lnr_buttons).setVisibility(View.VISIBLE);
             cameraBtn.setVisibility(View.GONE);
         });
         checkFolder();
 
+        presenter = new PhotoFragmentPresenter<>(getContext());
+        presenter.onAttach(this);
         cameraBtn.setVisibility(View.VISIBLE);
         cameraBtn.setOnClickListener(v ->{
             openCamera();
         });
+
+        recyclerView = view.findViewById(R.id.recycler_view_visit_photo);
+        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        adapter = new VisitPhotoAdapter();
+        recyclerView.setAdapter(adapter);
+        presenter.getVisitPhotos(mListener.getCompleteObject().getMerchant().getId(), mListener.getCompleteObject().getWorkspace().getId());
+
+
     }
 
 
@@ -93,6 +112,11 @@ public class PhotoFragment extends BaseFragment implements PhotoFragmentView {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+    }
+
+    @Override
+    public void onResponseAllVisitPhotos(List<VisitPhoto> visitPhotos) {
+        adapter.setPhotos(visitPhotos);
     }
 
     private void checkFolder() {
@@ -146,7 +170,7 @@ public class PhotoFragment extends BaseFragment implements PhotoFragmentView {
             //compressPhoto();
             Log.d("baxtiyor", "onActivityResult: ");
             try {
-                testCompress();
+                goPhotoCompress();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -154,11 +178,20 @@ public class PhotoFragment extends BaseFragment implements PhotoFragmentView {
         }
     }
 
-    private void testCompress() throws IOException {
+    private void goPhotoCompress() throws IOException {
         FileOutputStream fileOutputStream = null;
         destinationDirectoryPath = "sdcard/AntEx/new Photos/" + File.separator + file.getName();
 
         File compressFile = new File("sdcard/AntEx/new Photos/").getParentFile();
+        VisitPhoto visitPhoto = new VisitPhoto();
+        visitPhoto.setPhoto_url(destinationDirectoryPath);
+        visitPhoto.setPhoto_path(compressFile.getPath());
+        visitPhoto.setMerchant_id(mListener.getCompleteObject().getMerchant().getId());
+        visitPhoto.setWorkspace_id(mListener.getCompleteObject().getWorkspace().getId());
+        visitPhoto.setVisit_id(mListener.getCompleteApi().getVisitObject().getId());
+        visitPhoto.setPhoto_title(photo_title);
+        visitPhoto.setPhoto_title_id(id);
+        presenter.insertVisitPhoto(visitPhoto);
         if (!compressFile.exists()){
             compressFile.mkdir();
         }
@@ -166,6 +199,7 @@ public class PhotoFragment extends BaseFragment implements PhotoFragmentView {
             fileOutputStream = new FileOutputStream(destinationDirectoryPath);
             Bitmap bitmap =   decodeSampledBitmapFromFile();
             bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fileOutputStream);
+            presenter.getVisitPhotos(mListener.getCompleteObject().getMerchant().getId(), mListener.getCompleteObject().getWorkspace().getId());
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

@@ -189,7 +189,7 @@
         app:spb_checkStateCompleted="true"
         app:spb_currentStateDescriptionColor="#009688"
         app:spb_currentStateNumber="three"
-        app:spb_maxStateNumber="four"
+        app:spb_maxStateNumber="five"
         app:spb_stateBackgroundColor="#BDBDBD"
         app:spb_stateDescriptionColor="#808080"
         app:spb_stateForegroundColor="#009688"
