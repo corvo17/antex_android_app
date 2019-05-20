@@ -165,6 +165,15 @@ public class VersionInfoActivity extends BaseActivity implements VersionInfoMvpV
         }
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
 }
 
 
