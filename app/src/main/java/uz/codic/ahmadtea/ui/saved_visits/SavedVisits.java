@@ -16,21 +16,21 @@ import java.util.List;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
-import uz.codic.ahmadtea.ui.report.OrderMvpPresenter;
-import uz.codic.ahmadtea.ui.report.OrderMvpView;
-import uz.codic.ahmadtea.ui.report.OrderPresenter;
+import uz.codic.ahmadtea.ui.report.ReportMvpPresenter;
+import uz.codic.ahmadtea.ui.report.ReportMvpView;
+import uz.codic.ahmadtea.ui.report.ReportPresenter;
 import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 import uz.codic.ahmadtea.utils.Consts;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SavedVisits extends BaseFragment implements OrderMvpView {
+public class SavedVisits extends BaseFragment implements ReportMvpView {
 
 
     RecyclerView merchantRecyler;
 
-    OrderMvpPresenter<OrderMvpView> presenter;
+    ReportMvpPresenter<ReportMvpView> presenter;
 
     AdapterSavedVisits adapter;
 
@@ -50,7 +50,7 @@ public class SavedVisits extends BaseFragment implements OrderMvpView {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         merchantRecyler = view.findViewById(R.id.saved_visits_r_v);
-        presenter = new OrderPresenter<>(getContext());
+        presenter = new ReportPresenter<>(getContext());
         presenter.onAttach(this);
 
         adapter = new AdapterSavedVisits();

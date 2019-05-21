@@ -108,7 +108,11 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <activity android:name=".ui.report.report_activities.ReportFilterActivity"></activity>
+        <activity
+            android:name=".ui.report.report_activities.ReportFilterActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeWithToolbar"
+            ></activity>
     </application>
 
 </manifest>

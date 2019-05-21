@@ -683,6 +683,11 @@ public class AppDataManager implements DataManager {
         return dbHelper.daoAccess().getVisitPhotos(merchant_id, workspace_id);
     }
 
+    @Override
+    public Single<List<Merchant>> getMerchantsForReport(List<String> id_workspace) {
+        return dbHelper.daoAccess().getMerchantsForReport(id_workspace);
+    }
+
     // query error ^
 
 

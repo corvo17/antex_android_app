@@ -464,6 +464,9 @@ public interface DaoAccess {
     @Query("select * from visitphoto where merchant_id=:merchant_id and workspace_id=:workspace_id and isSend = 0")
     Single<List<VisitPhoto>> getVisitPhotos(String merchant_id, String workspace_id);
 
+    @Query("select Merchant.* from workspacemerchant inner Join Merchant on Merchant.id=merchant_id where workspace_id in(:id_workspaces)")
+    Single<List<Merchant>> getMerchantsForReport(List<String> id_workspaces);
+
 
 
 }

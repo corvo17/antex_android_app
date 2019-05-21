@@ -50,7 +50,7 @@ import uz.codic.ahmadtea.ui.mainpage.MainActivityView;
 import uz.codic.ahmadtea.ui.mainpage.leftusers.LeftUsersAdapter;
 import uz.codic.ahmadtea.ui.merchants.MerchantsFragment;
 import uz.codic.ahmadtea.ui.new_merchants.NewMerchantsFragment;
-import uz.codic.ahmadtea.ui.report.OrderFragment;
+import uz.codic.ahmadtea.ui.report.ReportFragment;
 import uz.codic.ahmadtea.ui.saved_visits.SavedVisits;
 import uz.codic.ahmadtea.ui.sittings.VersionInfoActivity;
 import uz.codic.ahmadtea.ui.synchronisation.SynchronisationFragment;
@@ -306,7 +306,7 @@ public class MainActivity extends BaseActivity
             closeFilter();
             closeMapItem();
             closeCalendarItem();
-            fragmentClass = OrderFragment.class;
+            fragmentClass = ReportFragment.class;
         } else if (id == R.id.nav_saved) {
             search_item.setVisible(true);
             closeSearchField();

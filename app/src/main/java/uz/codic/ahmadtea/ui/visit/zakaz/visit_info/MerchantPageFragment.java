@@ -163,10 +163,7 @@ public class MerchantPageFragment extends Fragment {
                         Log.d("baxtiyor", "onSuccess: " + orders);
                         List<Order> filterOrders = new ArrayList<>();
                         for (Order order :orders) {
-                            if (order.getDate().equals(CommonUtils.getToday())){
-                                filterOrders.add(order);
-                            }
-                            if (order.getStatus().equals(statusPending) || order.getStatus().equals(statusSaveAsDraft)){
+                            if (order.getDate().equals(CommonUtils.getToday()) || order.getStatus().equals(statusPending) || order.getStatus().equals(statusSaveAsDraft)){
                                 filterOrders.add(order);
                             }
                         }

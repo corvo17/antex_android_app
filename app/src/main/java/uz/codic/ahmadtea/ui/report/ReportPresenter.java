@@ -13,9 +13,9 @@ import uz.codic.ahmadtea.ui.base.BasePresenter;
 import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 import uz.codic.ahmadtea.utils.Consts;
 
-public class OrderPresenter<V extends OrderMvpView> extends BasePresenter<V> implements OrderMvpPresenter<V>  {
+public class ReportPresenter<V extends ReportMvpView> extends BasePresenter<V> implements ReportMvpPresenter<V> {
 
-    public OrderPresenter(Context context) {
+    public ReportPresenter(Context context) {
         super(context);
     }
 
