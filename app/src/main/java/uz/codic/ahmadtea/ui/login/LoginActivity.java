@@ -9,10 +9,13 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.widget.Toolbar;
 import android.telephony.TelephonyManager;
 import android.text.InputType;
 import android.util.Base64;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,6 +35,7 @@ import uz.codic.ahmadtea.data.network.model.Login;
 import uz.codic.ahmadtea.ui.Dialog;
 import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
+import uz.codic.ahmadtea.ui.sittings.VersionInfoActivity;
 import uz.codic.ahmadtea.utils.Consts;
 
 public class LoginActivity extends BaseActivity implements LoginMvpView {
@@ -57,6 +61,8 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Toolbar toolbar = findViewById(R.id.login_toolbar);
+        setSupportActionBar(toolbar);
 
         dialog = new Dialog();
 
@@ -267,4 +273,18 @@ public class LoginActivity extends BaseActivity implements LoginMvpView {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.update_app){
+            startActivity(new Intent(this, VersionInfoActivity.class));
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
