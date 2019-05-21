@@ -454,7 +454,7 @@ public interface DaoAccess {
             "INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id " +
             "Inner JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.merchant_id " +
             "and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.workspace_id " +
-            "and InfoAction.send =:issend or  InfoAction.send_draft =:issend " +
+            "and (InfoAction.send =:issend or  InfoAction.send_draft =:issend) " +
             "where workspace_id in (:id_workspaces)  ORDER BY Merchant.id")
     Single<List<WorkspaceAndMerchant>> getMerchantsIsActionForDAshboard(List<String > id_workspaces, String date , boolean issend);
 
