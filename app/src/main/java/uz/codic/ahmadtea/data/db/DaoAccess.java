@@ -476,7 +476,9 @@ public interface DaoAccess {
     void insertWorkspaceWareHouse(List<WorkspacePhysicalWareHouse> workspacePhysicalWareHouses);
 
     @Query("select PhysicalWareHouse.* from WorkspacePhysicalWareHouse inner join PhysicalWareHouse on PhysicalWareHouse.id = warehouse_id where workspace_id=:workspace_id")
-    List<PhysicalWareHouse> getPhysicalWareHouses(String workspace_id);
+    List<PhysicalWareHouse> getPhysicalWareHousesByWorkspaceId(String workspace_id);
 
+    @Query("select * from physicalwarehouse")
+    List<PhysicalWareHouse> getPhysicalWareHouses();
 
 }

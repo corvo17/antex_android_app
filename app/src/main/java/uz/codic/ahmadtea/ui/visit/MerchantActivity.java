@@ -437,6 +437,6 @@ public class MerchantActivity extends BaseActivity
 
     @Override
     public List<PhysicalWareHouse> getPhysicalWareHouse() {
-        return presenter.getDataManager().getPhysicalWareHouses(completeObject.getWorkspace().getId());
+        return presenter.getDataManager().getPhysicalWareHousesByWorkspaceId(completeObject.getWorkspace().getId());
     }
 }

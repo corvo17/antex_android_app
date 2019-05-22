@@ -701,8 +701,13 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
-    public List<PhysicalWareHouse> getPhysicalWareHouses(String workspace_id) {
-        return dbHelper.daoAccess().getPhysicalWareHouses(workspace_id);
+    public List<PhysicalWareHouse> getPhysicalWareHousesByWorkspaceId(String workspace_id) {
+        return dbHelper.daoAccess().getPhysicalWareHousesByWorkspaceId(workspace_id);
+    }
+
+    @Override
+    public List<PhysicalWareHouse> getPhysicalWareHouses() {
+        return dbHelper.daoAccess().getPhysicalWareHouses();
     }
 
     // query error ^

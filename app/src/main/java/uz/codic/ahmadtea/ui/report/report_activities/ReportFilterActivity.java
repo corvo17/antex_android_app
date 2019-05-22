@@ -20,6 +20,7 @@ import java.util.List;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.PaymentType;
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.utils.CommonUtils;
@@ -31,6 +32,7 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
     List<Merchant> merchants;
     List<Price> prices;
     List<PaymentType> paymentTypes;
+    List<PhysicalWareHouse> wareHouses;
     CharSequence[] merchant_items;
     CharSequence[] price_items;
     CharSequence[] payment_items;
@@ -118,6 +120,11 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
                 createMultiChoiceDialog("Выберите Тип Оплата", payment_items);
             }
         });
+        select_warehouse.setOnClickListener(v->{
+            if (wareHouses != null && warehouse_items != null){
+                createMultiChoiceDialog("Выберите Склад", warehouse_items);
+            }
+        });
     }
 
     //Общая сумма по продуктам
@@ -139,6 +146,11 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
                 createMultiChoiceDialog("Выберите Тип Оплата", payment_items);
             }
         });
+        select_warehouse.setOnClickListener(v->{
+            if (wareHouses != null && warehouse_items != null){
+                createMultiChoiceDialog("Выберите Склад", warehouse_items);
+            }
+        });
     }
 
     //Общая сумма по контрагентам
@@ -153,6 +165,11 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
         select_payment_type.setOnClickListener(v -> {
             if (paymentTypes != null && payment_items != null) {
                 createMultiChoiceDialog("Выберите Тип Оплата", payment_items);
+            }
+        });
+        select_warehouse.setOnClickListener(v->{
+            if (wareHouses != null && warehouse_items != null){
+                createMultiChoiceDialog("Выберите Склад", warehouse_items);
             }
         });
 
@@ -264,14 +281,16 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
     }
 
     @Override
-    public void responseData(List<Merchant> merchants, List<Price> prices, List<PaymentType> paymentTypes) {
+    public void responseData(List<Merchant> merchants, List<Price> prices, List<PaymentType> paymentTypes, List<PhysicalWareHouse> wareHouses) {
         this.merchants = merchants;
         this.prices = prices;
         this.paymentTypes = paymentTypes;
+        this.wareHouses = wareHouses;
         merchant_items = new CharSequence[merchants.size()];
         price_items = new CharSequence[prices.size()];
         payment_items = new CharSequence[paymentTypes.size()];
-        for (int i = 0, j = 0, k = 0; i < merchants.size() || j < prices.size() || k < paymentTypes.size(); i++, j++, k++) {
+        warehouse_items = new CharSequence[wareHouses.size()];
+        for (int i = 0, j = 0, k = 0, l=0; i < merchants.size() || j < prices.size() || k < paymentTypes.size() || l<wareHouses.size(); i++, j++, k++, l++) {
             if (i < merchants.size()) {
                 merchant_items[i] = merchants.get(i).getLabel();
             }
@@ -280,6 +299,9 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
             }
             if (k < paymentTypes.size()) {
                 payment_items[i] = paymentTypes.get(i).getLabel();
+            }
+            if (l< wareHouses.size()){
+                warehouse_items[l] = wareHouses.get(l).getLabel();
             }
         }
     }

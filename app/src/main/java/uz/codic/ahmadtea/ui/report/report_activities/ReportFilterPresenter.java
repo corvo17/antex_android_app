@@ -40,6 +40,6 @@ public class ReportFilterPresenter<V extends ReportFilterMvpView> extends BasePr
     }
 
     private void getPrices(List<Merchant> merchants) {
-        getMvpView().responseData(merchants, getDataManager().getPrices(), getDataManager().getPaymentTypes());
+        getMvpView().responseData(merchants, getDataManager().getPrices(), getDataManager().getPaymentTypes(), getDataManager().getPhysicalWareHouses());
     }
 }
