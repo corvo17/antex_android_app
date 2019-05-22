@@ -10,11 +10,13 @@ import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.Mmd;
 import uz.codic.ahmadtea.data.db.entities.MmdType;
 import uz.codic.ahmadtea.data.db.entities.PaymentType;
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.data.db.entities.Product;
 import uz.codic.ahmadtea.data.db.entities.ProductPrice;
 import uz.codic.ahmadtea.data.db.entities.Stocks;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
+import uz.codic.ahmadtea.data.db.entities.WorkspacePhysicalWareHouse;
 
 public class Payload {
 
@@ -32,6 +34,8 @@ public class Payload {
     List<Currencies> currencies;
     List<WorkspaceMmd> workspaces_mmds;
     List<FileReportType> file_report_types;
+    List<PhysicalWareHouse> physical_warehouse;
+    List<WorkspacePhysicalWareHouse> physical_warehouse_workspace;
 
     public Payload() {
     }
@@ -140,6 +144,22 @@ public class Payload {
         this.file_report_types = file_report_types;
     }
 
+    public List<PhysicalWareHouse> getPhysical_warehouse() {
+        return physical_warehouse;
+    }
+
+    public void setPhysical_warehouse(List<PhysicalWareHouse> physical_warehouse) {
+        this.physical_warehouse = physical_warehouse;
+    }
+
+    public List<WorkspacePhysicalWareHouse> getPhysical_warehouse_workspace() {
+        return physical_warehouse_workspace;
+    }
+
+    public void setPhysical_warehouse_workspace(List<WorkspacePhysicalWareHouse> physical_warehouse_workspace) {
+        this.physical_warehouse_workspace = physical_warehouse_workspace;
+    }
+
     @Override
     public String toString() {
         return "Payload{" +
@@ -147,13 +167,17 @@ public class Payload {
                 ", mmd_types=" + mmd_types +
                 ", payment_types=" + payment_types +
                 ", merchants=" + merchants +
+                ", prices=" + prices +
+                ", mmds=" + mmds +
+                ", workspaces_product_stocks=" + workspaces_product_stocks +
                 ", product_prices=" + product_prices +
                 ", products=" + products +
                 ", measurements=" + measurements +
                 ", currencies=" + currencies +
-                ", prices=" + prices +
-                ", mmds=" + mmds +
-                ", workspaces_product_stocks=" + workspaces_product_stocks +
+                ", workspaces_mmds=" + workspaces_mmds +
+                ", file_report_types=" + file_report_types +
+                ", physical_warehouse=" + physical_warehouse +
+                ", physical_warehouse_workspace=" + physical_warehouse_workspace +
                 '}';
     }
 }

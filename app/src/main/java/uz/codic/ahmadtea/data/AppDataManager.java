@@ -27,6 +27,7 @@ import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.OrderBasket;
 import uz.codic.ahmadtea.data.db.entities.PaymentType;
 import uz.codic.ahmadtea.data.db.entities.PhotoG;
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.data.db.entities.Product;
 import uz.codic.ahmadtea.data.db.entities.ProductAndProductPrice;
@@ -40,6 +41,7 @@ import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
+import uz.codic.ahmadtea.data.db.entities.WorkspacePhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
 import uz.codic.ahmadtea.data.network.ApiCentral;
 import uz.codic.ahmadtea.data.network.ApiClient;
@@ -686,6 +688,21 @@ public class AppDataManager implements DataManager {
     @Override
     public Single<List<Merchant>> getMerchantsForReport(List<String> id_workspace) {
         return dbHelper.daoAccess().getMerchantsForReport(id_workspace);
+    }
+
+    @Override
+    public void insertPhysicalWareHouse(List<PhysicalWareHouse> houses) {
+        dbHelper.daoAccess().insertPhysicalWareHouse(houses);
+    }
+
+    @Override
+    public void insertWorkspaceWareHouse(List<WorkspacePhysicalWareHouse> workspacePhysicalWareHouses) {
+        dbHelper.daoAccess().insertWorkspaceWareHouse(workspacePhysicalWareHouses);
+    }
+
+    @Override
+    public List<PhysicalWareHouse> getPhysicalWareHouses(String workspace_id) {
+        return dbHelper.daoAccess().getPhysicalWareHouses(workspace_id);
     }
 
     // query error ^

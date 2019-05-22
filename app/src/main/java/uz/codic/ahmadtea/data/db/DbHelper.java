@@ -23,6 +23,7 @@ import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.OrderBasket;
 import uz.codic.ahmadtea.data.db.entities.PaymentType;
 import uz.codic.ahmadtea.data.db.entities.PhotoG;
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.data.db.entities.Product;
 import uz.codic.ahmadtea.data.db.entities.ProductPrice;
@@ -34,6 +35,7 @@ import uz.codic.ahmadtea.data.db.entities.Workspace;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
+import uz.codic.ahmadtea.data.db.entities.WorkspacePhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
 
 
@@ -76,7 +78,9 @@ import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
                 ActivityError.class,
                 ErrorAction.class,
                 ErrorInfo.class,
-                VisitPhoto.class
+                VisitPhoto.class,
+                PhysicalWareHouse.class,
+                WorkspacePhysicalWareHouse.class
 
 
 
