@@ -4,9 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,16 +12,19 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import ir.mirrajabi.searchdialog.SimpleSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.BaseSearchDialogCompat;
+import ir.mirrajabi.searchdialog.core.SearchResultListener;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.PaymentType;
 import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
-import uz.codic.ahmadtea.utils.CommonUtils;
 
 public class ReportFilterActivity extends BaseActivity implements ReportFilterMvpView {
 
@@ -85,9 +86,7 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
         select_payment_type.setVisibility(View.GONE);
         select_agent.setVisibility(View.GONE);
         select_merchant.setOnClickListener(v -> {
-            if (merchants != null && merchant_items != null) {
-                creatSingleChoiceDialog("Выберите Контрагент", merchant_items);
-            }
+            openSearchDialog();
         });
 
     }
@@ -106,7 +105,8 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
 
         select_merchant.setOnClickListener(v -> {
             if (merchants != null && merchant_items != null) {
-                creatSingleChoiceDialog("Выберите Контрагент", merchant_items);
+//                creatSingleChoiceDialog("Выберите Контрагент", merchant_items);
+                openSearchDialog();
             }
         });
 
@@ -120,8 +120,8 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
                 createMultiChoiceDialog("Выберите Тип Оплата", payment_items);
             }
         });
-        select_warehouse.setOnClickListener(v->{
-            if (wareHouses != null && warehouse_items != null){
+        select_warehouse.setOnClickListener(v -> {
+            if (wareHouses != null && warehouse_items != null) {
                 createMultiChoiceDialog("Выберите Склад", warehouse_items);
             }
         });
@@ -132,7 +132,8 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
 
         select_merchant.setOnClickListener(v -> {
             if (merchants != null && merchant_items != null) {
-                creatSingleChoiceDialog("Выберите Контрагент", merchant_items);
+                //creatSingleChoiceDialog("Выберите Контрагент", merchant_items);
+                openSearchDialog();
             }
         });
 
@@ -146,8 +147,8 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
                 createMultiChoiceDialog("Выберите Тип Оплата", payment_items);
             }
         });
-        select_warehouse.setOnClickListener(v->{
-            if (wareHouses != null && warehouse_items != null){
+        select_warehouse.setOnClickListener(v -> {
+            if (wareHouses != null && warehouse_items != null) {
                 createMultiChoiceDialog("Выберите Склад", warehouse_items);
             }
         });
@@ -167,8 +168,8 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
                 createMultiChoiceDialog("Выберите Тип Оплата", payment_items);
             }
         });
-        select_warehouse.setOnClickListener(v->{
-            if (wareHouses != null && warehouse_items != null){
+        select_warehouse.setOnClickListener(v -> {
+            if (wareHouses != null && warehouse_items != null) {
                 createMultiChoiceDialog("Выберите Склад", warehouse_items);
             }
         });
@@ -221,9 +222,24 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
         }
     }
 
+    private void openSearchDialog() {
+
+        SimpleSearchDialogCompat<Merchant> searchDialogCompat = new SimpleSearchDialogCompat<Merchant>(this, "Search...", "What are you looking for...?", null, (ArrayList<Merchant>) merchants, new SearchResultListener<Merchant>() {
+            @Override
+            public void onSelected(BaseSearchDialogCompat baseSearchDialogCompat, Merchant merchant, int i) {
+                showMessage(merchant.getLabel() + " " + merchant.getId());
+                baseSearchDialogCompat.dismiss();
+            }
+        });
+        searchDialogCompat.show();
+    }
+
+
     private void creatSingleChoiceDialog(String title, CharSequence[] items) {
         boolean[] choicesInitial = new boolean[items.length];
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+
+        //SearchDialogAd
         dialog.setTitle(title);
         dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -290,7 +306,7 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
         price_items = new CharSequence[prices.size()];
         payment_items = new CharSequence[paymentTypes.size()];
         warehouse_items = new CharSequence[wareHouses.size()];
-        for (int i = 0, j = 0, k = 0, l=0; i < merchants.size() || j < prices.size() || k < paymentTypes.size() || l<wareHouses.size(); i++, j++, k++, l++) {
+        for (int i = 0, j = 0, k = 0, l = 0; i < merchants.size() || j < prices.size() || k < paymentTypes.size() || l < wareHouses.size(); i++, j++, k++, l++) {
             if (i < merchants.size()) {
                 merchant_items[i] = merchants.get(i).getLabel();
             }
@@ -300,7 +316,7 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
             if (k < paymentTypes.size()) {
                 payment_items[i] = paymentTypes.get(i).getLabel();
             }
-            if (l< wareHouses.size()){
+            if (l < wareHouses.size()) {
                 warehouse_items[l] = wareHouses.get(l).getLabel();
             }
         }
@@ -321,11 +337,13 @@ public class ReportFilterActivity extends BaseActivity implements ReportFilterMv
                 } else {
                     date = year + "-0" + (month + 1) + "-" + dayOfMonth;
                 }
-                if (which == 1){
+                if (which == 1) {
                     start_period.setText(date);
-                }else end_period.setText(date);
+                } else end_period.setText(date);
 
             }
         }, mYear, mMonth, mDay);
     }
+
+
 }
