@@ -1,6 +1,7 @@
 package uz.codic.ahmadtea.ui;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -54,7 +55,10 @@ import uz.codic.ahmadtea.ui.report.ReportFragment;
 import uz.codic.ahmadtea.ui.saved_visits.SavedVisits;
 import uz.codic.ahmadtea.ui.sittings.VersionInfoActivity;
 import uz.codic.ahmadtea.ui.synchronisation.SynchronisationFragment;
+import uz.codic.ahmadtea.utils.CommonUtils;
 import uz.codic.ahmadtea.utils.Consts;
+
+import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainActivityView, FragmentsListener, DashboardFragment.IUpdateDashboard {
@@ -145,8 +149,30 @@ public class MainActivity extends BaseActivity
         } else {
             if (!mSearchView.isIconified())
                 mSearchView.onActionViewCollapsed();
-            else super.onBackPressed();
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Вы хотите выйти из приложение?");
+                builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+
+                });
+                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       exit();
+                    }
+                });
+                builder.show();
+            }
+
         }
+    }
+
+    private void exit(){
+        super.onBackPressed();
     }
 
     @Override

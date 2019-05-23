@@ -48,7 +48,7 @@
             android:id="@+id/button4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Мой Фактуры по Дате"
+            android:text="Мои Фактуры по Дате"
             android:textColor="@color/white"
             android:layout_below="@id/button3"
             android:layout_margin="16dp"
