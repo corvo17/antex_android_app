@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList;
+package uz.codic.ahmadtea.ui.report.basketList;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,22 +13,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
-
-import com.google.gson.Gson;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,8 +33,8 @@ import uz.codic.ahmadtea.data.db.entities.OrderBasket;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.data.network.model.Merchant;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.PagerAdapter;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.PagerAdapter;
 import uz.codic.ahmadtea.ui.visit.MerchantActivity;
 import uz.codic.ahmadtea.ui.visit.MerchantMvpView;
 import uz.codic.ahmadtea.ui.visit.MerchantPresenter;

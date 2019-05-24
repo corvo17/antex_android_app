@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList.adapter;
+package uz.codic.ahmadtea.ui.report.basketList.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;

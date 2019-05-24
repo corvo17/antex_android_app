@@ -30,12 +30,14 @@ import com.kofigyan.stateprogressbar.listeners.OnStateItemClickListener;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.PaymentType;
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.MainActivity;
@@ -451,5 +453,10 @@ public class MerchantActivity extends BaseActivity
     @Override
     public InfoAction getInfoAction() {
         return infoAction;
+    }
+
+    @Override
+    public List<PhysicalWareHouse> getPhysicalWareHouse() {
+        return presenter.getDataManager().getPhysicalWareHousesByWorkspaceId(completeObject.getWorkspace().getId());
     }
 }

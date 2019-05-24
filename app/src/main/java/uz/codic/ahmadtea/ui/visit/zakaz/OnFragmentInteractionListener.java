@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment;
 import android.widget.LinearLayout;
 
 import java.io.File;
+import java.util.List;
 
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteObject;
 import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteApi;
 
@@ -27,5 +29,7 @@ public interface OnFragmentInteractionListener {
     void getLocation();
 
     LinearLayout getLinearButtons();
+
+    List<PhysicalWareHouse> getPhysicalWareHouse();
 
 }

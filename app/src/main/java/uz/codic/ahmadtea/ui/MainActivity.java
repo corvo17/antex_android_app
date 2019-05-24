@@ -1,6 +1,7 @@
 package uz.codic.ahmadtea.ui;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -8,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -24,8 +24,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,7 +40,6 @@ import java.util.Random;
 import uz.codic.ahmadtea.BuildConfig;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.User;
-import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.service.news.LocationMonitoringService;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.ui.dailyPlan.DailyFragment;
@@ -54,13 +51,15 @@ import uz.codic.ahmadtea.ui.mainpage.MainActivityView;
 import uz.codic.ahmadtea.ui.mainpage.leftusers.LeftUsersAdapter;
 import uz.codic.ahmadtea.ui.merchants.MerchantsFragment;
 import uz.codic.ahmadtea.ui.new_merchants.NewMerchantsFragment;
-import uz.codic.ahmadtea.ui.orders.OrderFragment;
+import uz.codic.ahmadtea.ui.report.ReportFragment;
 import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
 import uz.codic.ahmadtea.ui.saved_visits.SavedVisits;
 import uz.codic.ahmadtea.ui.sittings.VersionInfoActivity;
 import uz.codic.ahmadtea.ui.synchronisation.SynchronisationFragment;
+import uz.codic.ahmadtea.utils.CommonUtils;
 import uz.codic.ahmadtea.utils.Consts;
 
+import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -154,8 +153,30 @@ public class MainActivity extends BaseActivity
         } else {
             if (!mSearchView.isIconified())
                 mSearchView.onActionViewCollapsed();
-            else super.onBackPressed();
+            else{
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Вы хотите выйти из приложение?");
+                builder.setNegativeButton("Нет", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+
+                });
+                builder.setPositiveButton("Да", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       exit();
+                    }
+                });
+                builder.show();
+            }
+
         }
+    }
+
+    private void exit(){
+        super.onBackPressed();
     }
 
     @Override
@@ -315,7 +336,7 @@ public class MainActivity extends BaseActivity
             closeFilter();
             closeMapItem();
             closeCalendarItem();
-            fragmentClass = OrderFragment.class;
+            fragmentClass = ReportFragment.class;
         } else if (id == R.id.nav_saved) {
             search_item.setVisible(true);
             closeSearchField();

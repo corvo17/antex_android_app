@@ -25,6 +25,7 @@ import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.OrderBasket;
 import uz.codic.ahmadtea.data.db.entities.PaymentType;
 import uz.codic.ahmadtea.data.db.entities.PhotoG;
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.data.db.entities.Product;
 import uz.codic.ahmadtea.data.db.entities.ProductAndProductPrice;
@@ -38,9 +39,10 @@ import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMerchant;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceMmd;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePaymentType;
+import uz.codic.ahmadtea.data.db.entities.WorkspacePhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
 
 
 @Dao
@@ -458,7 +460,7 @@ public interface DaoAccess {
             "INNER JOIN Workspace ON Workspace.id=WorkspaceMerchant.workspace_id " +
             "Inner JOIN InfoAction ON InfoAction.i_id_merchant=WorkspaceMerchant.merchant_id " +
             "and InfoAction.i_date =:date and InfoAction.i_id_workspace = WorkspaceMerchant.workspace_id " +
-            "and InfoAction.send =:issend or  InfoAction.send_draft =:issend " +
+            "and (InfoAction.send =:issend or  InfoAction.send_draft =:issend) " +
             "where workspace_id in (:id_workspaces)  ORDER BY Merchant.id")
     Single<List<WorkspaceAndMerchant>> getMerchantsIsActionForDAshboard(List<String > id_workspaces, String date , boolean issend);
 
@@ -468,6 +470,19 @@ public interface DaoAccess {
     @Query("select * from visitphoto where merchant_id=:merchant_id and workspace_id=:workspace_id and isSend = 0")
     Single<List<VisitPhoto>> getVisitPhotos(String merchant_id, String workspace_id);
 
+    @Query("select Merchant.* from workspacemerchant inner Join Merchant on Merchant.id=merchant_id where workspace_id in(:id_workspaces) order by label")
+    Single<List<Merchant>> getMerchantsForReport(List<String> id_workspaces);
 
+    @Insert
+    void insertPhysicalWareHouse(List<PhysicalWareHouse > houses);
+
+    @Insert
+    void insertWorkspaceWareHouse(List<WorkspacePhysicalWareHouse> workspacePhysicalWareHouses);
+
+    @Query("select PhysicalWareHouse.* from WorkspacePhysicalWareHouse inner join PhysicalWareHouse on PhysicalWareHouse.id = warehouse_id where workspace_id=:workspace_id")
+    List<PhysicalWareHouse> getPhysicalWareHousesByWorkspaceId(String workspace_id);
+
+    @Query("select * from physicalwarehouse")
+    List<PhysicalWareHouse> getPhysicalWareHouses();
 
 }

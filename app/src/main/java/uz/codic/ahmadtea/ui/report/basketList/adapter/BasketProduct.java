@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList.adapter;
+package uz.codic.ahmadtea.ui.report.basketList.adapter;
 
 import android.arch.persistence.room.Embedded;
 import android.os.Parcel;

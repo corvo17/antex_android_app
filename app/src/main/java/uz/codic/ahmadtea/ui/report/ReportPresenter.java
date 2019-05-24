@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders;
+package uz.codic.ahmadtea.ui.report;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,12 +10,12 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 import uz.codic.ahmadtea.utils.Consts;
 
-public class OrderPresenter<V extends OrderMvpView> extends BasePresenter<V> implements OrderMvpPresenter<V>  {
+public class ReportPresenter<V extends ReportMvpView> extends BasePresenter<V> implements ReportMvpPresenter<V> {
 
-    public OrderPresenter(Context context) {
+    public ReportPresenter(Context context) {
         super(context);
     }
 

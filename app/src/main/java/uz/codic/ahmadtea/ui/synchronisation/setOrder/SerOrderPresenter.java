@@ -164,6 +164,7 @@ public class SerOrderPresenter<V extends SetOrderMvpView> extends BasePresenter<
         apiOrder.setPrice_id(order.getId_price());
         apiOrder.setWorkspace_id(order.getId_workspace());
         apiOrder.setDelivery_date(order.getDelivery_date());
+        apiOrder.setWarehouse_id(order.getId_warehouse());
 
 
         if (visit != null) {

@@ -20,23 +20,22 @@ import java.util.List;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
-import uz.codic.ahmadtea.ui.orders.OrderMvpPresenter;
-import uz.codic.ahmadtea.ui.orders.OrderMvpView;
-import uz.codic.ahmadtea.ui.orders.OrderPresenter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderAdapter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.ReportMvpPresenter;
+import uz.codic.ahmadtea.ui.report.ReportMvpView;
+import uz.codic.ahmadtea.ui.report.ReportPresenter;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
 import uz.codic.ahmadtea.utils.Consts;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SavedVisits extends BaseFragment implements OrderMvpView {
+public class SavedVisits extends BaseFragment implements ReportMvpView {
 
 
     RecyclerView merchantRecyler;
 
-    OrderMvpPresenter<OrderMvpView> presenter;
+    ReportMvpPresenter<ReportMvpView> presenter;
 
     AdapterSavedVisits adapter;
     Context context;
@@ -59,7 +58,7 @@ public class SavedVisits extends BaseFragment implements OrderMvpView {
         context = view.getContext();
         BasketActivity.setUpdater((BasketActivity.IUpdateSavedVisits) context);
         merchantRecyler = view.findViewById(R.id.saved_visits_r_v);
-        presenter = new OrderPresenter<>(getContext());
+        presenter = new ReportPresenter<>(getContext());
         presenter.onAttach(this);
 
         adapter = new AdapterSavedVisits();

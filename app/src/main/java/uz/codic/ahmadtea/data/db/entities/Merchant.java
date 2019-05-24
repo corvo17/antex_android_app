@@ -5,8 +5,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 import java.io.Serializable;
 
+import ir.mirrajabi.searchdialog.core.Searchable;
+
 @Entity
-public class Merchant implements Serializable {
+public class Merchant implements Serializable, Searchable {
 
     @PrimaryKey(autoGenerate = true)
     int pid;
@@ -130,5 +132,10 @@ public class Merchant implements Serializable {
                 ", status_id=" + status_id +
                 ", contact_person='" + contact_person + '\'' +
                 '}';
+    }
+
+    @Override
+    public String getTitle() {
+        return label;
     }
 }

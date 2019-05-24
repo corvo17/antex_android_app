@@ -29,7 +29,7 @@ import uz.codic.ahmadtea.data.db.entities.ProductAndProductPrice;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 import uz.codic.ahmadtea.ui.synchronisation.setOrder.adapter.CalbackSetOrder;
 import uz.codic.ahmadtea.ui.synchronisation.setOrder.adapter.SetOrderAdapter;
 import uz.codic.ahmadtea.ui.synchronisation.setOrder.dialog.SetOrderCalcDialog;

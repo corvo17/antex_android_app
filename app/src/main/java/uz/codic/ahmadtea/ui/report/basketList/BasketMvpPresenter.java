@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList;
+package uz.codic.ahmadtea.ui.report.basketList;
 
 import java.util.List;
 

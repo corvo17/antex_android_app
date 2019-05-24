@@ -104,7 +104,7 @@ public class ShippingDateFragment extends Fragment {
         listener.getCompleteApi().getOrderObject().setId_filial(listener.getCompleteObject().getWorkspace().getFilial_id());
 
         listener.getCompleteApi().getOrderObject().setId_workspace(listener.getCompleteObject().getWorkspace().getId());
-        listener.getCompleteApi().getOrderObject().setId_warehouse(listener.getCompleteObject().getWorkspace().getWarehouse_id());
+//        listener.getCompleteApi().getOrderObject().setId_warehouse(listener.getCompleteObject().getWorkspace().getWarehouse_id());
         listener.getCompleteApi().getOrderObject().setOrderComplete(true);
     }
 

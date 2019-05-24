@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.basketList.item_fragments;
+package uz.codic.ahmadtea.ui.report.basketList.item_fragments;
 
 
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,10 +18,9 @@ import java.util.List;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Order;
-import uz.codic.ahmadtea.data.db.entities.Visit;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.CommentsAdapter;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.NotesAdapter;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.BasketProduct;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.CommentsAdapter;
+import uz.codic.ahmadtea.ui.report.basketList.adapter.NotesAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

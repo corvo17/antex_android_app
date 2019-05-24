@@ -11,12 +11,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
-import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.basketList.BasketActivity;
 import uz.codic.ahmadtea.utils.Consts;
 
 public class AdapterSavedVisits extends RecyclerView.Adapter<AdapterSavedVisits.ViewHolder>{

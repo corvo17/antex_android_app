@@ -1,4 +1,4 @@
-package uz.codic.ahmadtea.ui.orders.adapter;
+package uz.codic.ahmadtea.ui.report.adapter;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -11,9 +11,8 @@ import android.widget.TextView;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
-import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
+import uz.codic.ahmadtea.ui.report.basketList.BasketActivity;
 import uz.codic.ahmadtea.utils.CommonUtils;
-import uz.codic.ahmadtea.utils.Consts;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 

@@ -32,12 +32,9 @@ import java.util.List;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.VisitPhoto;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.PhotosAdapter;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
-import uz.codic.ahmadtea.ui.visit.zakaz.camera.imageAdapter.CameraAdapter;
 import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
 
-import static uz.codic.ahmadtea.utils.Consts.paymentTag;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
 
 @SuppressLint("ValidFragment")

@@ -33,6 +33,8 @@ import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
 import uz.codic.ahmadtea.utils.CommonUtils;
 
 import static uz.codic.ahmadtea.utils.Consts.informationTag;
+import static uz.codic.ahmadtea.utils.Consts.statusPending;
+import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 import static uz.codic.ahmadtea.utils.Consts.statusSendAsDraft;
 import static uz.codic.ahmadtea.utils.Consts.statusSent;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
@@ -159,18 +161,13 @@ public class MerchantPageFragment extends Fragment {
                     @Override
                     public void onSuccess(List<Order> orders) {
                         Log.d("baxtiyor", "onSuccess: " + orders);
-
-                        for (int i = 0; i < orders.size(); i++) {
-                            if (orders.get(i).getStatus().equals(statusSent) && !orders.get(i).getDate().equals(CommonUtils.getToday())){
-                                orders.remove(i);
-                                i--;
-                            }
-                            if (orders.get(i).getStatus().equals(statusSendAsDraft) && !orders.get(i).getDate().equals(CommonUtils.getToday())){
-                                orders.remove(i);
-                                i--;
+                        List<Order> filterOrders = new ArrayList<>();
+                        for (Order order :orders) {
+                            if (order.getDate().equals(CommonUtils.getToday()) || order.getStatus().equals(statusPending) || order.getStatus().equals(statusSaveAsDraft)){
+                                filterOrders.add(order);
                             }
                         }
-                        adapter.setOrders(orders);
+                        adapter.setOrders(filterOrders);
                     }
 
                     @Override

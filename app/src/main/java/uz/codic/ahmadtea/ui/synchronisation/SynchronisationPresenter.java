@@ -2,14 +2,8 @@ package uz.codic.ahmadtea.ui.synchronisation;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.JsonReader;
 import android.util.Log;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonParser;
-
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -49,7 +43,7 @@ import uz.codic.ahmadtea.data.network.model.Synchronisation;
 import uz.codic.ahmadtea.data.network.model.api_objects.ApiObeject;
 import uz.codic.ahmadtea.errors.ErrorClass;
 import uz.codic.ahmadtea.ui.base.BasePresenter;
-import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
+import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
 import uz.codic.ahmadtea.utils.Consts;
 
 public class SynchronisationPresenter<V extends SynchronisationMvpView> extends BasePresenter<V> implements SynchronisationMvpPresenter<V> {
@@ -523,6 +517,7 @@ public class SynchronisationPresenter<V extends SynchronisationMvpView> extends 
         apiOrder.setPrice_id(order.getId_price());
         apiOrder.setWorkspace_id(order.getId_workspace());
         apiOrder.setDelivery_date(order.getDelivery_date());
+        apiOrder.setWarehouse_id(order.getId_warehouse());
 
 
         apiVisit.setId(visit.getId());

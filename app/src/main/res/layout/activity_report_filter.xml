@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    tools:context=".ui.report.report_activities.ReportFilterActivity">
+
+    <Button
+        android:id="@+id/select_merchant"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_add_bt"
+        android:text="выберите контрагент"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/start_period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:paddingLeft="8dp"
+        android:text="Период начало"
+        app:layout_constraintTop_toBottomOf="@+id/select_merchant" />
+
+    <EditText
+        android:id="@+id/et_start_period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/start_period"/>
+
+    <TextView
+        android:id="@+id/end_period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:paddingLeft="8dp"
+        android:text="Период конец"
+        app:layout_constraintTop_toBottomOf="@+id/et_start_period" />
+
+    <EditText
+        android:id="@+id/et_end_period"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:inputType="text"
+        app:layout_constraintTop_toBottomOf="@+id/end_period"/>
+
+    <Button
+        android:id="@+id/select_warehouse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_add_bt"
+        android:text="выберите Склад"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/et_end_period"
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/select_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_add_bt"
+        android:text="выберите цена"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/select_warehouse"
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/select_payment_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_add_bt"
+        android:text="выберите тип оплата"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/select_price"
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/select_agent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_add_bt"
+        android:text="выберите агент"
+        android:textColor="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/select_payment_type"
+        tools:layout_editor_absoluteX="16dp"
+        tools:ignore="MissingConstraints" />
+
+</android.support.constraint.ConstraintLayout>

@@ -6,7 +6,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 28
         versionCode 3
-        versionName "3.0.21"
+        versionName "3.0.22"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         useLibrary 'org.apache.http.legacy'
 
@@ -70,7 +70,7 @@ dependencies {
 
     //support libraries
     implementation 'com.android.support:recyclerview-v7:28.0.0'
-     "com.android.support:recyclerview-v7:$project.supportLibraryVersion"
+    "com.android.support:recyclerview-v7:$project.supportLibraryVersion"
     implementation "com.android.support:cardview-v7:$project.supportLibraryVersion"
     implementation "com.android.support:design:$project.supportLibraryVersion"
 
@@ -128,6 +128,9 @@ dependencies {
 
     implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.2'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+
+    //Add library
+    implementation 'com.github.mirrajabi:search-dialog:1.1'
 
 }
 apply plugin: 'com.google.gms.google-services'

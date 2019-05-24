@@ -3,11 +3,69 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.orders.OrderFragment">
+    tools:context=".ui.report.ReportFragment">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/orders_merchant_recyler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Общая сумма по контрагентам"
+            android:textColor="@color/white"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_add_bt" />
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Общая сумма по продуктам"
+            android:textColor="@color/white"
+            android:layout_margin="16dp"
+            android:layout_below="@id/button1"
+            android:background="@drawable/bg_add_bt" />
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Фактуры по контрагентам"
+            android:textColor="@color/white"
+            android:layout_below="@id/button2"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_add_bt" />
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Мои Фактуры по Дате"
+            android:textColor="@color/white"
+            android:layout_below="@id/button3"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_add_bt" />
+
+        <Button
+            android:id="@+id/button5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Акт сверки"
+            android:textColor="@color/white"
+            android:layout_below="@id/button4"
+            android:layout_margin="16dp"
+            android:background="@drawable/bg_add_bt" />
+
+
+    </RelativeLayout>
+
 
 </FrameLayout>

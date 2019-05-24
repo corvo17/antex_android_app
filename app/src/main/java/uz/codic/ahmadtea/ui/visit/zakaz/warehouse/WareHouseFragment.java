@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,11 @@ import uz.codic.ahmadtea.ui.base.BaseFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
 import uz.codic.ahmadtea.ui.visit.zakaz.paymentTypes.adapter.Callback;
 import uz.codic.ahmadtea.ui.visit.zakaz.prices.PriceAdapter;
+import uz.codic.ahmadtea.ui.visit.zakaz.prices.PricesFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.product.ProductFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.visitFragment.VisitFragment;
 
+import static uz.codic.ahmadtea.utils.Consts.pricesTag;
 import static uz.codic.ahmadtea.utils.Consts.productTag;
 import static uz.codic.ahmadtea.utils.Consts.visitTag;
 
@@ -31,15 +34,18 @@ import static uz.codic.ahmadtea.utils.Consts.visitTag;
  */
 public class WareHouseFragment extends BaseFragment implements Callback {
 
-    RecyclerView pricesRecycler;
+    RecyclerView recyclerView;
 
-    PriceAdapter adapter;
+    AdapterWarehouse adapter;
 
     OnFragmentInteractionListener listener;
 
     @Override
     public void onItemClick(int id) {
-
+        Log.d("baxtiyor", "onItemClick: " + id);
+        listener.getCompleteApi().getOrderObject().setId_warehouse(id);
+        Log.d("baxtiyor", "onItemClick: order " + listener.getCompleteApi().getOrderObject().getId_warehouse());
+        listener.transactionFragments(PricesFragment.newInstance(), pricesTag);
     }
 
 
@@ -61,6 +67,13 @@ public class WareHouseFragment extends BaseFragment implements Callback {
                 }
             });
         }
+
+        recyclerView = view.findViewById(R.id.warehouse_recyler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new AdapterWarehouse();
+        adapter.setCallback(this);
+        adapter.updateList(listener.getPhysicalWareHouse());
+        recyclerView.setAdapter(adapter);
 
 
     }
