@@ -30,6 +30,7 @@ import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.OrderBasket;
+import uz.codic.ahmadtea.data.db.entities.PhysicalWareHouse;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.data.network.model.Merchant;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
@@ -320,6 +321,11 @@ public class BasketActivity extends BaseActivity implements BasketMvpView,
 
     @Override
     public LinearLayout getLinearButtons() {
+        return null;
+    }
+
+    @Override
+    public List<PhysicalWareHouse> getPhysicalWareHouse() {
         return null;
     }
 
