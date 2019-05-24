@@ -12,6 +12,7 @@ public class ApiOrder {
 //    Integer filial_id;
     Integer price_id;
     String workspace_id;
+    Integer warehouse_id;
     String delivery_date;
     String visit_id;
     Integer status_id;
@@ -123,5 +124,32 @@ public class ApiOrder {
 
     public void setVisit_id(String visit_id) {
         this.visit_id = visit_id;
+    }
+
+    public Integer getWarehouse_id() {
+        return warehouse_id;
+    }
+
+    public void setWarehouse_id(Integer warehouse_id) {
+        this.warehouse_id = warehouse_id;
+    }
+
+    @Override
+    public String toString() {
+        return "ApiOrder{" +
+                "id='" + id + '\'' +
+                ", payment_type_id=" + payment_type_id +
+                ", mmd_id=" + mmd_id +
+                ", merchant_id='" + merchant_id + '\'' +
+                ", total_cost=" + total_cost +
+                ", total_cost_with_mmd=" + total_cost_with_mmd +
+                ", note='" + note + '\'' +
+                ", price_id=" + price_id +
+                ", workspace_id='" + workspace_id + '\'' +
+                ", warehouse_id=" + warehouse_id +
+                ", delivery_date='" + delivery_date + '\'' +
+                ", visit_id='" + visit_id + '\'' +
+                ", status_id=" + status_id +
+                '}';
     }
 }

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,9 @@ public class WareHouseFragment extends BaseFragment implements Callback {
 
     @Override
     public void onItemClick(int id) {
+        Log.d("baxtiyor", "onItemClick: " + id);
         listener.getCompleteApi().getOrderObject().setId_warehouse(id);
+        Log.d("baxtiyor", "onItemClick: order " + listener.getCompleteApi().getOrderObject().getId_warehouse());
         listener.transactionFragments(PricesFragment.newInstance(), pricesTag);
     }
 

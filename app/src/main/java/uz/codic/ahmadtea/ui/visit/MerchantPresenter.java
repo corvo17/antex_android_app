@@ -142,6 +142,9 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
         apiOrder.setPrice_id(order.getId_price());
         apiOrder.setWorkspace_id(order.getId_workspace());
         apiOrder.setDelivery_date(order.getDelivery_date());
+        Log.d("baxtiyor", "collectApiObjects: " + order.getId_warehouse());
+        apiOrder.setWarehouse_id(order.getId_warehouse());
+        Log.d("baxtiyor", "collectApiObjects: send order " + apiOrder.getWarehouse_id());
 
 
         apiVisit.setId(visit.getId());
