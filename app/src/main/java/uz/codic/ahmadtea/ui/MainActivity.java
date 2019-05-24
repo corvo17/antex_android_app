@@ -55,13 +55,18 @@ import uz.codic.ahmadtea.ui.mainpage.leftusers.LeftUsersAdapter;
 import uz.codic.ahmadtea.ui.merchants.MerchantsFragment;
 import uz.codic.ahmadtea.ui.new_merchants.NewMerchantsFragment;
 import uz.codic.ahmadtea.ui.orders.OrderFragment;
+import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
 import uz.codic.ahmadtea.ui.saved_visits.SavedVisits;
 import uz.codic.ahmadtea.ui.sittings.VersionInfoActivity;
 import uz.codic.ahmadtea.ui.synchronisation.SynchronisationFragment;
 import uz.codic.ahmadtea.utils.Consts;
 
+
 public class MainActivity extends BaseActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainActivityView, FragmentsListener, DashboardFragment.IUpdateDashboard {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        MainActivityView, FragmentsListener,
+        DashboardFragment.IUpdateDashboard,
+        BasketActivity.IUpdateSavedVisits{
 
     //region Old Staffs
     String id_employee;
@@ -674,5 +679,33 @@ public class MainActivity extends BaseActivity
 
         FragmentManager fm = getSupportFragmentManager();
         fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+    }
+
+    @Override
+    public void updateNow() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Consts.isSaved){
+            search_item.setVisible(true);
+            closeSearchField();
+            closeFilter();
+            closeMapItem();
+            closeCalendarItem();
+            fragmentClass = SavedVisits.class;
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+            FragmentManager fm = getSupportFragmentManager();
+            fm.beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            Consts.isSaved = false;
+        }
     }
 }

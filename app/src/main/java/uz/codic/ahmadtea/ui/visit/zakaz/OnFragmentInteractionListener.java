@@ -22,7 +22,7 @@ public interface OnFragmentInteractionListener {
 
     CompleteObject getCompleteObject();
 
-    public void openGallery(File file);
+    void openGallery(File file);
 
     void getLocation();
 

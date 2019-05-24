@@ -1,6 +1,8 @@
 package uz.codic.ahmadtea.data.network.model;
 
-public class Merchant {
+import java.io.Serializable;
+
+public class Merchant implements Serializable {
 
     String id;
     String label;

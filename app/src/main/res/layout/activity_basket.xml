@@ -32,21 +32,39 @@
                 android:background="@color/colorPrimary"
                 android:clickable="true"
                 android:focusable="true"
-                android:padding="12dp"
-                android:src="@drawable/ic_arrow_back_white" />
+                android:paddingBottom="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="12dp"
+                android:layout_weight="0.6"
+                android:src="@drawable/ic_arrow_back_white"
+                android:paddingRight="12dp" />
 
             <TextView
                 android:id="@+id/merchant_tb_title"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="6dp"
+                android:layout_weight="8.3"
                 android:fontFamily="@font/roboto_regular"
                 android:background="@color/colorPrimary"
                 android:text="Basket List"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
+            <ImageView
+                android:id="@+id/btn_edit"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/colorPrimary"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="12dp"
+                android:paddingTop="12dp"
+                android:paddingBottom="12dp"
+                android:layout_weight="0.6"
+                android:src="@drawable/ic_edit"
+                android:paddingLeft="12dp" />
 
         </LinearLayout>
 

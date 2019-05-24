@@ -58,10 +58,10 @@ public class ProductsFragment extends Fragment {
         recycler_all_products.setAdapter(adapter);
 
         int allCount = 0;
-        double allSum = 0;
+        int allSum = 0;
         for (BasketProduct product :basketProducts) {
             allCount = allCount + product.getOrderBasket().getTotal_count();
-            allSum = allSum + product.getProductPrice().getValue();
+            allSum = allSum + product.getProductPrice().getValue() * product.getOrderBasket().getTotal_count();
         }
         totalCount = view.findViewById(R.id.count);
         totalSum = view.findViewById(R.id.total);

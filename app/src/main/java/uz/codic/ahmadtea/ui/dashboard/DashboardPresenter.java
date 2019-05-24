@@ -16,6 +16,8 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.ResponseBody;
 import retrofit2.HttpException;
+import uz.codic.ahmadtea.data.db.entities.Order;
+import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.network.model.DailyBody;
 import uz.codic.ahmadtea.data.network.model.DailyMerchants;
@@ -79,6 +81,30 @@ public class DashboardPresenter<V extends DashboardMvpView> extends BasePresente
                             ee.printStackTrace();
                         }
                         //-
+                    }
+                });
+    }
+
+
+    @Override
+    public void getAllOrders() {
+        getDataManager().getAllOrders()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Order>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(List<Order> orders) {
+                        getMvpView().onOrdersReady(orders);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
                     }
                 });
     }

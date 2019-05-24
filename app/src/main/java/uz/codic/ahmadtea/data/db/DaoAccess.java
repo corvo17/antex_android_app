@@ -328,11 +328,13 @@ public interface DaoAccess {
 
     @Insert
     void insertOrderBasket(List<OrderBasket> orderBaskets);
+    @Update
+    void updateOrderBasket(List<OrderBasket> orderBaskets);
 
     @Insert
     void insertVisit(Visit visitObject);
 
-    @Query("select `Order`.*, m.label as m_label  from `Order` INNER JOIN Merchant as m on id_merchant = m.id")
+    @Query("select `Order`.*, m.label as m_label, m.pid as m_pid, m.id as m_id  from `Order` INNER JOIN Merchant as m on id_merchant = m.id")
     Single<List<OrderedList>> getOrderedList();
 
 
@@ -440,6 +442,8 @@ public interface DaoAccess {
 
     @Query("SELECT  `order`.* FROM `Order`  where `Order`.id_merchant=:merchant_id and `Order`.id_workspace=:workspace_id")
     Single<List<Order>> getVisitInfoObjects(String merchant_id, String workspace_id);
+    @Query("SELECT  * FROM `Order` ")
+    Single<List<Order>> getAllOrders();
 
     @Query("select * from InfoAction where save_pending =:save and save =:pedding")
     Single<List<InfoAction>> getInfoActionByPerdingAndSave(boolean save, boolean pedding);

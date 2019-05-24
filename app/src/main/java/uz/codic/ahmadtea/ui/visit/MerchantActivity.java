@@ -28,12 +28,15 @@ import com.kofigyan.stateprogressbar.components.StateItem;
 import com.kofigyan.stateprogressbar.listeners.OnStateItemClickListener;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.InfoAction;
 import uz.codic.ahmadtea.data.db.entities.Order;
+import uz.codic.ahmadtea.data.db.entities.PaymentType;
+import uz.codic.ahmadtea.data.db.entities.Price;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.ui.MainActivity;
 import uz.codic.ahmadtea.ui.base.BaseActivity;
@@ -135,13 +138,16 @@ public class MerchantActivity extends BaseActivity
         merchant_name = getIntent().getStringExtra("name");
         id_workspace = getIntent().getStringExtra("id_workspace");
 
-
-        completeApi = new CompleteApi();
-        completeApi.setOrderObject(new Order());
-        completeApi.getOrderObject().setDate(CommonUtils.getToday());
-        completeApi.setVisitObject(new Visit());
-        completeApi.getVisitObject().setDate(CommonUtils.getToday());
-        completeApi.setOrderBasketList(new ArrayList<>());
+        if ( getIntent().getSerializableExtra("completeApi") != null){
+            completeApi = (CompleteApi) getIntent().getSerializableExtra("completeApi");
+        }else {
+            completeApi = new CompleteApi();
+            completeApi.setOrderObject(new Order());
+            completeApi.getOrderObject().setDate(CommonUtils.getToday());
+            completeApi.setVisitObject(new Visit());
+            completeApi.getVisitObject().setDate(CommonUtils.getToday());
+            completeApi.setOrderBasketList(new ArrayList<>());
+        }
 
         //Presenter
         presenter = new MerchantPresenter<>(this);
@@ -229,12 +235,26 @@ public class MerchantActivity extends BaseActivity
     @Override
     public void onCompleteObjectReady(CompleteObject completeObject) {
         this.completeObject = completeObject;
+       if (completeApi.getOrderBasketList().size() >=1){
+           for (Price price : completeObject.getPriceList()) {
+               if (completeApi.getOrderObject().getId_price() == price.getId())
+                   price.setChecked(true);
+           }
+       }
+       if (completeApi.getOrderObject().getId_payment_type() != null){
+           for (PaymentType paymentType :completeObject.getPaymentTypeList()) {
+               if (paymentType.getId() == completeApi.getOrderObject().getId_payment_type())
+                   paymentType.setChecked(true);
+           }
+       }
         infoAction = presenter.getInfoAction(completeObject.getWorkspace().getId(), completeObject.getMerchant().getId());
         startVisit();
-        if (infoAction.isAction()){
+        if (stringClick.equals("edit")){
+            transactionFragments(VisitFragment.newInstance(), visitTag);
+        } else if (infoAction.isAction()){
             transactionFragments(MerchantPageFragment.newInstance(), "Visit Info");
             lnrButtons.setVisibility(View.GONE);
-        }else if (stringClick.equals("longClick")) {
+        }else if (stringClick.equals("longClick" )) {
             lnrButtons.setVisibility(View.GONE);
             findViewById(R.id.btn_save_as_pending).setVisibility(View.GONE);
             transactionFragments(InformationFragment.newInstance(), informationTag);

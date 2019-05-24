@@ -34,5 +34,6 @@ public class Consts {
     public static final String statusSaveAsDraft = "save";
     public static final String statusError = "error";
     public static final String [] colors = new String[]{"#F48FB1", "#9FA8DA", "#80DEEA", "#C5E1A5", "#FFE082", "#BCAAA4"};
+    public static  boolean isSaved = false;
 
 }

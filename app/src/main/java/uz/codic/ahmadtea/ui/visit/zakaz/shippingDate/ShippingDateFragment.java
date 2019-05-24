@@ -40,10 +40,10 @@ public class ShippingDateFragment extends Fragment {
     OnFragmentInteractionListener listener;
     TextView tvDate;
     ImageView calendarShipping;
-    private int mYear, mMonth, mDay;
     String date;
     EditText notesOrder;
     StateProgressBar progressBar;
+    private int mYear, mMonth, mDay;
 
     public ShippingDateFragment() {
         // Required empty public constructor
@@ -119,7 +119,9 @@ public class ShippingDateFragment extends Fragment {
             e.printStackTrace();
         }
 
-        date = getNaxtDay();
+        if (listener.getCompleteApi().getOrderObject().getDelivery_date() != null) {
+            date = listener.getCompleteApi().getOrderObject().getDelivery_date();
+        } else date = getNaxtDay();
         tvDate.setText(date);
         listener.getCompleteApi().getOrderObject().setDelivery_date(date);
 

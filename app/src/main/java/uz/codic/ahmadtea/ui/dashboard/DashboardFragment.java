@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.util.ArraySet;
 import android.support.v7.widget.CardView;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -16,11 +17,15 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import uz.codic.ahmadtea.R;
+import uz.codic.ahmadtea.data.db.entities.Order;
+import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
 import uz.codic.ahmadtea.data.network.model.DailyMerchants;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
+import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
 import uz.codic.ahmadtea.utils.CommonUtils;
 
 /**
@@ -33,6 +38,7 @@ public class DashboardFragment extends BaseFragment implements DashboardMvpView 
     private static IUpdateDashboard updateDashboard;
     private List<WorkspaceAndMerchant> dailyMerchants, outOfDailyMerchants, doneMerchants;
     private Context context;
+    private long totalSum1 = 0, totalSum12 = 0, totalSum13 = 0;
 
     public static void setUpdater(IUpdateDashboard updater){
         updateDashboard = updater;
@@ -105,6 +111,22 @@ public class DashboardFragment extends BaseFragment implements DashboardMvpView 
     public void onMerchantsListReady(List<WorkspaceAndMerchant> dailyMerchants, List<WorkspaceAndMerchant> outOfDailyMerchants1) {
         //outOfDailyMerchants.remove(dailyMerchants);
         this.dailyMerchants = dailyMerchants;
+
+        List<WorkspaceAndMerchant>allDailyMerchants = new ArrayList<>();
+        allDailyMerchants.addAll(outOfDailyMerchants1);
+
+        this.outOfDailyMerchants = outOfDailyMerchants1;
+        for (int i = 0; i < outOfDailyMerchants1.size(); i++) {
+            for (int j = 0; j < dailyMerchants.size(); j++) {
+                if (outOfDailyMerchants1.get(i).getMerchant().getId().equals(dailyMerchants.get(j).getMerchant().getId())){
+                    this.outOfDailyMerchants.remove(i); //7a303b56-114b-4db1-9a73-4c83855e889b
+                    break;
+                }
+
+            }
+        }
+
+
         doneMerchants = new ArrayList<>();
         for (WorkspaceAndMerchant it : dailyMerchants ) {
             if (it.getInfoAction() != null){
@@ -120,26 +142,202 @@ public class DashboardFragment extends BaseFragment implements DashboardMvpView 
 //                }
 //            }else outOfDailyMerchants1.remove(item);
 //        }
-        this.outOfDailyMerchants = outOfDailyMerchants1;
-        for (int i = 0; i < outOfDailyMerchants1.size(); i++) {
-            for (int j = 0; j < dailyMerchants.size(); j++) {
-                if (outOfDailyMerchants1.get(i).getMerchant().getId().equals(dailyMerchants.get(j).getMerchant().getId())){
-                    outOfDailyMerchants.remove(i); //7a303b56-114b-4db1-9a73-4c83855e889b
-                    break;
-                }
-
-            }
-        }
-        if (outOfDailyMerchants1.size() >= doneMerchants.size()){
-            outOfDailyMerchants1.remove(doneMerchants);
-        }
+//        this.outOfDailyMerchants = new ArrayList<>();
+//        outOfDailyMerchants.addAll(outOfDailyMerchants1);
+//        for (int i = 0; i < outOfDailyMerchants1.size(); i++) {
+//            for (int j = 0; j < dailyMerchants.size(); j++) {
+//                if (outOfDailyMerchants1.get(i).getMerchant().getId().equals(dailyMerchants.get(j).getMerchant().getId())){
+//                    this.outOfDailyMerchants.remove(i); //7a303b56-114b-4db1-9a73-4c83855e889b
+//                    break;
+//                }
+//
+//            }
+//        }
+//        if (outOfDailyMerchants1.size() >= doneMerchants.size()){
+//            outOfDailyMerchants1.remove(doneMerchants);
+//        }
 //        for (WorkspaceAndMerchant item : outOfDailyMerchants) {
 //            if (item.getInfoAction().isSend_draft() && item.getInfoAction().isSend()){
 //                this.outOfDailyMerchants.add(item);
 //            }
 //        }
+        android.support.v4.util.ArraySet<WorkspaceAndMerchant> set = new ArraySet<>();
+        set.addAll(outOfDailyMerchants1);
         tv_count.setText(this.dailyMerchants.size()+ "/" + doneMerchants.size());
         tv_count1.setText(this.outOfDailyMerchants.size()+"");
         tv_count2.setText(doneMerchants.size()+this.outOfDailyMerchants.size()+"");
+
+        presenter.getAllOrders();
     }
+
+    @Override
+    public void onOrdersReady(List<Order> orders) {
+        for (Order it : orders) {
+            for (int i = 0; i < doneMerchants.size(); i++) {
+                if (it.getId_merchant().equals(doneMerchants.get(i).getInfoAction().getId_merchant()))
+                    totalSum1 = totalSum1 + it.getTotal_cost();
+            }
+
+            for (int i = 0; i < outOfDailyMerchants.size(); i++) {
+                if (it.getId_merchant().equals(outOfDailyMerchants.get(i).getInfoAction().getId_merchant()))
+                    totalSum12 = totalSum12 + it.getTotal_cost();
+            }
+        }
+            totalSum1 = totalSum1/100;
+            totalSum12 = totalSum12/100;
+            totalSum13 = totalSum1 + totalSum12;
+            String str1, str2, str3;
+            str1 = totalSum1+"";
+            str2 = totalSum12+"";
+            str3 = totalSum13+"";
+
+            str1 = "" + totalSum1;
+            str2 = "" + totalSum12;
+            str3 = "" + totalSum13;
+            String newStr = new String();
+            if (str1.toCharArray().length%3 == 0 && str1.toCharArray().length > 3 ){
+                if (str1.toCharArray().length == 6){
+                    for (int i = 0; i < str1.length(); i ++){
+                        newStr += str1.charAt(i);
+                        if (i==2)newStr = newStr + " ";
+                    }
+                }
+                if (str1.toCharArray().length == 9){
+                    for (int i = 0; i < str1.length(); i ++){
+                        newStr += str1.charAt(i);
+                        if (i==2 || i == 5)newStr = newStr + " ";
+                    }
+                }
+                str1 = newStr;
+            }else if (str1.toCharArray().length%3 == 1 && str1.toCharArray().length > 3){
+                if (str1.toCharArray().length == 4){
+                    for (int i = 0; i < str1.length(); i ++){
+                        newStr += str1.charAt(i);
+                        if (i==0)newStr = newStr + " ";
+                    }
+                }
+                if (str1.toCharArray().length == 7 ){
+                    for (int i = 0; i < str1.length(); i ++){
+                        newStr += str1.charAt(i);
+                        if (i==0 || i == 3)newStr = newStr + " ";
+                    }
+                }
+                str1 = newStr;
+            }else if (str1.toCharArray().length%3 == 2 && str1.toCharArray().length > 3){
+                if (str1.toCharArray().length == 5){
+                    for (int i = 0; i < str1.length(); i ++){
+                        newStr += str1.charAt(i);
+                        if (i==1)newStr = newStr + " ";
+                    }
+                }
+                if (str1.toCharArray().length == 8){
+                    for (int i = 0; i < str1.length(); i ++){
+                        newStr += str1.charAt(i);
+                        if (i==1 || i == 4)newStr = newStr + " ";
+                    }
+                }
+                str1 = newStr;
+            }
+
+            newStr = "";
+            if (str2.toCharArray().length%3 == 0 && str2.toCharArray().length > 3 ){
+                if (str2.toCharArray().length == 6){
+                    for (int i = 0; i < str2.length(); i ++){
+                        newStr += str2.charAt(i);
+                        if (i==2)newStr = newStr + " ";
+                    }
+                }
+                if (str2.toCharArray().length == 9){
+                    for (int i = 0; i < str2.length(); i ++){
+                        newStr += str2.charAt(i);
+                        if (i==2 || i == 5)newStr = newStr + " ";
+                    }
+                }
+                str2 = newStr;
+            }else if (str2.toCharArray().length%3 == 1 && str2.toCharArray().length > 3){
+                if (str2.toCharArray().length == 4){
+                    for (int i = 0; i < str2.length(); i ++){
+                        newStr += str2.charAt(i);
+                        if (i==0)newStr = newStr + " ";
+                    }
+                }
+                if (str2.toCharArray().length == 7 ){
+                    for (int i = 0; i < str2.length(); i ++){
+                        newStr += str2.charAt(i);
+                        if (i==0 || i == 3)newStr = newStr + " ";
+                    }
+                }
+                str2 = newStr;
+            }else if (str2.toCharArray().length%3 == 2 && str2.toCharArray().length > 3){
+                if (str2.toCharArray().length == 5){
+                    for (int i = 0; i < str2.length(); i ++){
+                        newStr += str2.charAt(i);
+                        if (i==1)newStr = newStr + " ";
+                    }
+                }
+                if (str2.toCharArray().length == 8){
+                    for (int i = 0; i < str2.length(); i ++){
+                        newStr += str2.charAt(i);
+                        if (i==1 || i == 4)newStr = newStr + " ";
+                    }
+                }
+                str2 = newStr;
+            }
+
+            newStr = "";
+            if (str3.toCharArray().length%3 == 0 && str3.toCharArray().length > 3 ){
+                if (str3.toCharArray().length == 6){
+                    for (int i = 0; i < str3.length(); i ++){
+                        newStr += str3.charAt(i);
+                        if (i==2)newStr = newStr + " ";
+                    }
+                }
+                if (str3.toCharArray().length == 9){
+                    for (int i = 0; i < str3.length(); i ++){
+                        newStr += str3.charAt(i);
+                        if (i==2 || i == 5)newStr = newStr + " ";
+                    }
+                }
+                str3 = newStr;
+            }else if (str3.toCharArray().length%3 == 1 && str3.toCharArray().length > 3){
+                if (str3.toCharArray().length == 4){
+                    for (int i = 0; i < str3.length(); i ++){
+                        newStr += str3.charAt(i);
+                        if (i==0)newStr = newStr + " ";
+                    }
+                }
+                if (str3.toCharArray().length == 7 ){
+                    for (int i = 0; i < str3.length(); i ++){
+                        newStr += str3.charAt(i);
+                        if (i==0 || i == 3)newStr = newStr + " ";
+                    }
+                }
+                str3 = newStr;
+            }else if (str3.toCharArray().length%3 == 2 && str3.toCharArray().length > 3){
+                if (str3.toCharArray().length == 5){
+                    for (int i = 0; i < str3.length(); i ++){
+                        newStr += str3.charAt(i);
+                        if (i==1)newStr = newStr + " ";
+                    }
+                }
+                if (str3.toCharArray().length == 8){
+                    for (int i = 0; i < str3.length(); i ++){
+                        newStr += str3.charAt(i);
+                        if (i==1 || i == 4)newStr = newStr + " ";
+                    }
+                }
+                str3 = newStr;
+            }
+
+
+
+
+            String totalCost1 = "Sum : " + str1;
+            String totalCost2 = "Sum : " + str2;
+            String totalCost3 = "Sum : "  + str3;
+            tv_sum.setText(totalCost1);
+            tv_sum1.setText(totalCost2);
+            tv_sum2.setText(totalCost3);
+    }
+
 }

@@ -1,5 +1,6 @@
 package uz.codic.ahmadtea.ui.saved_visits;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +17,11 @@ import java.util.List;
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.ui.orders.adapter.OrderedList;
 import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
+import uz.codic.ahmadtea.utils.Consts;
+
 public class AdapterSavedVisits extends RecyclerView.Adapter<AdapterSavedVisits.ViewHolder>{
 
     private List<OrderedList> items;
-
     public AdapterSavedVisits() {
     }
 
@@ -47,6 +50,7 @@ public class AdapterSavedVisits extends RecyclerView.Adapter<AdapterSavedVisits.
             orderedActivity.putExtra("orderId", item.getOrder().getId());
             orderedActivity.putExtra("priceId", item.getOrder().getId_price());
             orderedActivity.putExtra("order", items.get(position).getOrder());
+            orderedActivity.putExtra("merchant", items.get(position).getMerchant());
             holder.itemView.getContext().startActivity(orderedActivity);
         });
     }

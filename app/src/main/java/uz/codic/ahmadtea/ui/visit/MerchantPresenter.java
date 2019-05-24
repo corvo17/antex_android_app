@@ -40,6 +40,7 @@ import uz.codic.ahmadtea.ui.visit.zakaz.modelUi.CompleteObject;
 import uz.codic.ahmadtea.utils.CommonUtils;
 import uz.codic.ahmadtea.utils.Consts;
 
+import static uz.codic.ahmadtea.ui.MainActivity.TAG;
 import static uz.codic.ahmadtea.utils.Consts.statusPending;
 import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 import static uz.codic.ahmadtea.utils.Consts.statusSent;
@@ -71,8 +72,8 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
                         if (apiObeject.getMeta().getStatus() == 200){
                             Log.d("baxtiyor", "sent ordet: ");
                         saveObjectsAsSent(completeApi.getOrderBasketList(),completeApi.getVisitObject(), completeApi.getOrderObject());
-                        getMvpView().getInfoAction().setSend(true);
-                        getDataManager().updateInfoAction(getMvpView().getInfoAction());
+                        if (getMvpView().getInfoAction() != null)getMvpView().getInfoAction().setSend(true);
+                            getDataManager().updateInfoAction(getMvpView().getInfoAction());
                         getMvpView().goBack();
                         }else {
                             ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
@@ -313,9 +314,11 @@ public class MerchantPresenter<V extends MerchantMvpView> extends BasePresenter<
             order.setIdEmployee(getDataManager().getId_employee());
             visit.setStatus(statusSent);
             visit.setId_employee(getDataManager().getId_employee());
-            getDataManager().insertOrder(order);
-            getDataManager().insertVisit(visit);
-            getDataManager().insertOrderBasket(orderBaskets);
+
+               getDataManager().insertOrder(order);
+               getDataManager().insertVisit(visit);
+               getDataManager().insertOrderBasket(orderBaskets);
+
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {

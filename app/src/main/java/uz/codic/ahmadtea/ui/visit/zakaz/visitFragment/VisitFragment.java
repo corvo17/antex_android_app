@@ -1,5 +1,6 @@
 package uz.codic.ahmadtea.ui.visit.zakaz.visitFragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -91,6 +92,7 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
         return inflater.inflate(R.layout.fragment_visit, container, false);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);

@@ -51,7 +51,7 @@ public static InfoFragment getInstance(List<BasketProduct> basketProducts, Order
         tv_price = view.findViewById(R.id.tv_price);
         tv_type = view.findViewById(R.id.tv_payment_type);
         tv_date = view.findViewById(R.id.tv_date);
-        tv_price.setText(order.getTotal_cost() + "");
+        tv_price.setText(order.getTotal_cost()/100 + "");
         tv_type.setText(basketProducts.get(0).getPaymentType().getLabel());
         tv_date.setText(order.getDelivery_date());
     }

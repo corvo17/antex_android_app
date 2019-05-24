@@ -16,6 +16,7 @@ public class WorkspaceAndMerchant implements Serializable {
     InfoAction infoAction;
 
 
+
     public WorkspaceAndMerchant() {
     }
 

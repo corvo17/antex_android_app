@@ -424,6 +424,11 @@ public class AppDataManager implements DataManager {
     }
 
     @Override
+    public void updateOrderBasket(List<OrderBasket> orderBaskets) {
+        dbHelper.daoAccess().updateOrderBasket(orderBaskets);
+    }
+
+    @Override
     public void insertVisit(Visit visitObject) {
         dbHelper.daoAccess().insertVisit(visitObject);
     }
@@ -656,6 +661,11 @@ public class AppDataManager implements DataManager {
     }
     public Single<List<Order>> getVisitInfoObjects(String merchant_id, String workspace_id) {
         return dbHelper.daoAccess().getVisitInfoObjects(merchant_id, workspace_id);
+    }
+
+    @Override
+    public Single<List<Order>> getAllOrders() {
+        return dbHelper.daoAccess().getAllOrders();
     }
 
     @Override

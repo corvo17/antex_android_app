@@ -1,12 +1,15 @@
 package uz.codic.ahmadtea.ui.visit.zakaz.modelUi;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
 import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.OrderBasket;
 import uz.codic.ahmadtea.data.db.entities.Visit;
 
-public class CompleteApi {
+public class CompleteApi implements Serializable {
     Visit visitObject;
     Order orderObject;
     List<OrderBasket> orderBasketList;

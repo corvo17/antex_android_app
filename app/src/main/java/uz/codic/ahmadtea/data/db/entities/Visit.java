@@ -3,8 +3,10 @@ package uz.codic.ahmadtea.data.db.entities;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.io.Serializable;
+
 @Entity
-public class Visit {
+public class Visit implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     int pid;
