@@ -4,9 +4,7 @@ import java.util.List;
 
 import uz.codic.ahmadtea.data.db.entities.Order;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
-import uz.codic.ahmadtea.data.network.model.DailyMerchants;
 import uz.codic.ahmadtea.ui.base.MvpView;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
 
 public interface DashboardMvpView extends MvpView {
 

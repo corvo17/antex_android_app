@@ -52,14 +52,11 @@ import uz.codic.ahmadtea.ui.mainpage.leftusers.LeftUsersAdapter;
 import uz.codic.ahmadtea.ui.merchants.MerchantsFragment;
 import uz.codic.ahmadtea.ui.new_merchants.NewMerchantsFragment;
 import uz.codic.ahmadtea.ui.report.ReportFragment;
-import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
+import uz.codic.ahmadtea.ui.report.basketList.BasketActivity;
 import uz.codic.ahmadtea.ui.saved_visits.SavedVisits;
 import uz.codic.ahmadtea.ui.sittings.VersionInfoActivity;
 import uz.codic.ahmadtea.ui.synchronisation.SynchronisationFragment;
-import uz.codic.ahmadtea.utils.CommonUtils;
 import uz.codic.ahmadtea.utils.Consts;
-
-import static uz.codic.ahmadtea.utils.Consts.statusSaveAsDraft;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener,

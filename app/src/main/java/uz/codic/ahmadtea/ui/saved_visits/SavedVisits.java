@@ -2,7 +2,6 @@ package uz.codic.ahmadtea.ui.saved_visits;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -12,19 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import uz.codic.ahmadtea.R;
-import uz.codic.ahmadtea.ui.base.BaseActivity;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
 import uz.codic.ahmadtea.ui.report.ReportMvpPresenter;
 import uz.codic.ahmadtea.ui.report.ReportMvpView;
 import uz.codic.ahmadtea.ui.report.ReportPresenter;
 import uz.codic.ahmadtea.ui.report.adapter.OrderedList;
-import uz.codic.ahmadtea.ui.orders.basketList.BasketActivity;
+import uz.codic.ahmadtea.ui.report.basketList.BasketActivity;
 import uz.codic.ahmadtea.utils.Consts;
 
 /**

@@ -7,25 +7,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.util.ArraySet;
-import android.support.v7.widget.CardView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import uz.codic.ahmadtea.R;
 import uz.codic.ahmadtea.data.db.entities.Order;
-import uz.codic.ahmadtea.data.db.entities.Visit;
 import uz.codic.ahmadtea.data.db.entities.WorkspaceAndMerchant;
-import uz.codic.ahmadtea.data.network.model.DailyMerchants;
 import uz.codic.ahmadtea.ui.base.BaseFragment;
-import uz.codic.ahmadtea.ui.orders.basketList.adapter.BasketProduct;
 import uz.codic.ahmadtea.utils.CommonUtils;
 
 /**

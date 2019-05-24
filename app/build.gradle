@@ -132,5 +132,6 @@ dependencies {
     //Add library
     implementation 'com.github.mirrajabi:search-dialog:1.1'
 
+
 }
 apply plugin: 'com.google.gms.google-services'
