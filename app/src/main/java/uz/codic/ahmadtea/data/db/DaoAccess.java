@@ -10,6 +10,7 @@ import android.arch.persistence.room.Update;
 import java.util.List;
 
 import io.reactivex.Single;
+import uz.codic.ahmadtea.data.db.entities.ActiveStock;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
 import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
@@ -314,8 +315,8 @@ public interface DaoAccess {
 //    Single<List<String>> getAttachedWorkspaces(String id);
 
 
-    @Query("SELECT Product.*, ProductPrice.value as pp_value, Stocks.total_count as s_total_count FROM Product INNER JOIN productprice ON Product.id = ProductPrice.product_id INNER JOIN stocks  on Stocks.product_id = Product.id AND Stocks.workspace_id=:workspace_id  where ProductPrice.price_id = :priceId order by Product.default_serial_id")
-    Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, String workspace_id);
+    @Query("SELECT Product.*, ProductPrice.value as pp_value, Stocks.total_count as s_total_count, ActiveStock.id as as_id, ActiveStock.workspace_id as as_workspace_id, ActiveStock.warehouse_id as as_warehouse_id, ActiveStock.product_id as as_product_id, ActiveStock.total_active_count as as_total_active_count FROM Product INNER JOIN productprice ON Product.id = ProductPrice.product_id INNER JOIN stocks  on Stocks.product_id = Product.id AND Stocks.workspace_id=:workspace_id  inner join ActiveStock on ActiveStock.workspace_id =:workspace_id  and ActiveStock.product_id=Product.id and ActiveStock.warehouse_id=:warehouse_id where ProductPrice.price_id = :priceId order by Product.default_serial_id")
+    Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, String workspace_id, int warehouse_id);
 
     @Query("select * from product")
     Single<List<Product>> getAllProducts();
@@ -484,5 +485,10 @@ public interface DaoAccess {
 
     @Query("select * from physicalwarehouse")
     List<PhysicalWareHouse> getPhysicalWareHouses();
+
+    @Insert
+    void insertActiveStocks(List<ActiveStock> activeStocks);
+
+
 
 }

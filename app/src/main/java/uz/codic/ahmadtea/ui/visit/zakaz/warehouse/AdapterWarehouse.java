@@ -48,9 +48,9 @@ public class AdapterWarehouse extends RecyclerView.Adapter<AdapterWarehouse.View
         int position = viewHolder.getAdapterPosition();
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                if(lastCheckedPos >= 0){
+                if(lastCheckedPos != position && lastCheckedPos >= 0){
                     wareHouses.get(lastCheckedPos).setChecked(false);
-                    notifyDataSetChanged();
+                    notifyItemChanged(lastCheckedPos);
                 }
                 wareHouses.get(position).setChecked(true);
                 lastCheckedPos = position;
@@ -58,11 +58,11 @@ public class AdapterWarehouse extends RecyclerView.Adapter<AdapterWarehouse.View
             }
         });
 
-//        if (wareHouses.size()==1){
-//            wareHouses.get(position).setChecked(true);
-//            lastCheckedPos = position;
-//            callback.onItemClick(wareHouses.get(position).getId());
-//        }
+        if (wareHouses.size()==1){
+            wareHouses.get(position).setChecked(true);
+            lastCheckedPos = position;
+            callback.onItemClick(wareHouses.get(position).getId());
+        }
 
     }
 

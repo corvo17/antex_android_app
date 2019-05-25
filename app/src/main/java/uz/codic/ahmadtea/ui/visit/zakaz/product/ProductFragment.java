@@ -99,7 +99,7 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
         ProductCalcDialog productCalcDialog = new ProductCalcDialog().newInstance(
                 products.getProduct().getId(),
                 products.getProduct().getLabel(),
-                products.getStocks().getTotal_count(),
+                products.getActiveStock().getTotal_active_count(),
                 price,
                 products.getProduct().getCount_in_box(),
                 products.getCount_boxes(),
@@ -203,18 +203,19 @@ public class ProductFragment extends BaseFragment implements ProductMvpView, Cal
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             recyclerView.setAdapter(adapter);
 
-            if (listener.getCompleteApi().getOrderObject().getId_price() != null && !isNewPrice) {
-                if (listener.getCompleteObject().getProductList() == null || (listener.getCompleteApi().getOrderObject().getId_price() != oldPriceId)) {
-//                    listener.getCompleteApi().getOrderObject().setTotal_cost(null);
-//                    listener.getCompleteApi().getOrderBasketList().clear();
-                    presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId());
-                } else {
-                    adapter.updateList(listener.getCompleteObject().getProductList());
-                }
-            } else {
-                presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId());
-            }
+//            if (listener.getCompleteApi().getOrderObject().getId_price() != null && !isNewPrice) {
+//                if (listener.getCompleteObject().getProductList() == null || (listener.getCompleteApi().getOrderObject().getId_price() != oldPriceId)) {
+////                    listener.getCompleteApi().getOrderObject().setTotal_cost(null);
+////                    listener.getCompleteApi().getOrderBasketList().clear();
+//                    presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId(), listener.getCompleteApi().getOrderObject().getId_warehouse());
+//                } else {
+//                    adapter.updateList(listener.getCompleteObject().getProductList());
+//                }
+//            } else {
+//                presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId(), listener.getCompleteApi().getOrderObject().getId_warehouse());
+//            }
 
+            presenter.reqeustProductList(listener.getCompleteApi().getOrderObject().getId_price(), listener.getCompleteObject().getWorkspace().getId(), listener.getCompleteApi().getOrderObject().getId_warehouse());
             oldPriceId = listener.getCompleteApi().getOrderObject().getId_price();
 
 //     listener.getCompleteApi().getOrderObject().setId_price(getArguments().getInt("priceId"));

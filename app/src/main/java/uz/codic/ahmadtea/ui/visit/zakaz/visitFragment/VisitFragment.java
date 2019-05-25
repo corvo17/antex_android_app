@@ -42,8 +42,10 @@ import uz.codic.ahmadtea.ui.visit.zakaz.OnFragmentInteractionListener;
 import uz.codic.ahmadtea.ui.visit.zakaz.camera.CameraFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.prices.PricesFragment;
 import uz.codic.ahmadtea.ui.visit.zakaz.visit_photo.PhotoFragment;
+import uz.codic.ahmadtea.ui.visit.zakaz.warehouse.WareHouseFragment;
 
 import static uz.codic.ahmadtea.utils.Consts.pricesTag;
+import static uz.codic.ahmadtea.utils.Consts.warehouseTag;
 
 public class VisitFragment extends BaseFragment implements VisitFragmentView {
 
@@ -170,7 +172,7 @@ public class VisitFragment extends BaseFragment implements VisitFragmentView {
             getActivity().findViewById(R.id.lnr_buttons).setVisibility(View.GONE);
             getActivity().findViewById(R.id.progress_state).setVisibility(View.VISIBLE);
             getActivity().findViewById(R.id.btn_forward).setVisibility(View.VISIBLE);
-            mListener.transactionFragments(PricesFragment.newInstance(), pricesTag);
+            mListener.transactionFragments(WareHouseFragment.newInstance(), warehouseTag);
         });
 
         presenter.getFileReportTypes();

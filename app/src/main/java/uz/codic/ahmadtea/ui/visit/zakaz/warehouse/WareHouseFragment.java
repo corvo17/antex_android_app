@@ -42,10 +42,12 @@ public class WareHouseFragment extends BaseFragment implements Callback {
 
     @Override
     public void onItemClick(int id) {
-        Log.d("baxtiyor", "onItemClick: " + id);
-        listener.getCompleteApi().getOrderObject().setId_warehouse(id);
-        Log.d("baxtiyor", "onItemClick: order " + listener.getCompleteApi().getOrderObject().getId_warehouse());
-        listener.transactionFragments(PricesFragment.newInstance(), pricesTag);
+        if (listener.getCompleteApi().getOrderObject().getId_warehouse() != null) {
+            listener.getCompleteApi().getOrderObject().setId_warehouse(id);
+        } else {
+            listener.getCompleteApi().getOrderObject().setId_warehouse(id);
+            listener.transactionFragments(PricesFragment.newInstance(), pricesTag);
+        }
     }
 
 

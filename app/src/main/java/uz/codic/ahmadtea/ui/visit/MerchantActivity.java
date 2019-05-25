@@ -86,6 +86,7 @@ public class MerchantActivity extends BaseActivity
     //Send Objects
     CompleteObject completeObject;
     CompleteApi completeApi;
+    List<PhysicalWareHouse> wareHouses;
 
     Button btnSaveAsDraft;
     CardView save_locally;
@@ -457,6 +458,12 @@ public class MerchantActivity extends BaseActivity
 
     @Override
     public List<PhysicalWareHouse> getPhysicalWareHouse() {
-        return presenter.getDataManager().getPhysicalWareHousesByWorkspaceId(completeObject.getWorkspace().getId());
+        if (wareHouses != null)
+            return wareHouses;
+        else {
+
+            return wareHouses=presenter.getDataManager().getPhysicalWareHousesByWorkspaceId(completeObject.getWorkspace().getId());
+        }
+
     }
 }

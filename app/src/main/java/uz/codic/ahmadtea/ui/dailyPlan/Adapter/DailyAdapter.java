@@ -28,7 +28,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         this.context = context;
     }
 
-    public void updateList(List<WorkspaceAndMerchant> merchants){
+    public void updateList(List<WorkspaceAndMerchant> merchants) {
         this.items = merchants;
         notifyDataSetChanged();
     }
@@ -46,25 +46,31 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
     }
 
     @Override
-    public void onBindViewHolder( ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, int position) {
         final Merchant item = items.get(holder.getAdapterPosition()).getMerchant();
         holder.address.setText(item.getAddress());
         holder.name.setText(item.getLabel());
 
        // holder.tvSum.setText("sum");
-//        if (item.getCurrent_balance() > 0) {
-//            holder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
-//            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
-//            holder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
-//        } else if (item.getCurrent_balance() < 0) {
-//            holder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
-//            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
-//            holder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
-//        } else {
-//            holder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
-//            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
-//            holder.tvSum.setTextColor(Color.parseColor("#737373"));
-//        }
+        if (item.getCurrent_balance() != null) {
+            if (item.getCurrent_balance() > 0) {
+                holder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
+                holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
+                holder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
+            } else if (item.getCurrent_balance() < 0) {
+                holder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
+                holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
+                holder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
+            } else {
+                holder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
+                holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
+                holder.tvSum.setTextColor(Color.parseColor("#737373"));
+            }
+        } else {
+            holder.tvMerchantCurrentBalance.setText(String.valueOf(0));
+            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
+            holder.tvSum.setTextColor(Color.parseColor("#737373"));
+        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +84,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
             }
         });
 
-        if (items.get(holder.getAdapterPosition()).getInfoAction() != null){
+        if (items.get(holder.getAdapterPosition()).getInfoAction() != null) {
             boolean error = false;
             boolean send = false;
             boolean send_draft = false;
@@ -86,13 +92,12 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
             boolean save_pending = false;
 
 
-
             InfoAction action = items.get(holder.getAdapterPosition()).getInfoAction();
-                if (action.isError())error = true;
-                if (action.isSave()) save = true;
-                if (action.isSave_pending()) save_pending = true;
-                if (action.isSend()) send = true;
-                if (action.isSend_draft()) send_draft = true;
+            if (action.isError()) error = true;
+            if (action.isSave()) save = true;
+            if (action.isSave_pending()) save_pending = true;
+            if (action.isSend()) send = true;
+            if (action.isSend_draft()) send_draft = true;
 
             if (error) holder.info_error.setVisibility(View.VISIBLE);
             else holder.info_error.setVisibility(View.GONE);
@@ -109,7 +114,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
             if (save_pending) holder.info_save_pending.setVisibility(View.VISIBLE);
             else holder.info_save_pending.setVisibility(View.GONE);
 
-        }else{
+        } else {
             holder.info_send.setVisibility(View.GONE);
             holder.info_send_draft.setVisibility(View.GONE);
             holder.info_save_pending.setVisibility(View.GONE);
@@ -136,6 +141,7 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         TextView info_send, info_send_draft, info_save, info_save_pending, info_error;
 
         TextView address;
+
         public ViewHolder(View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.daily_planning_name);

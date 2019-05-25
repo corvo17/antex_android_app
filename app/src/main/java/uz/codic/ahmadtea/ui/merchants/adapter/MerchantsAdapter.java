@@ -42,19 +42,25 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         viewHolder.tvMerchantName.setText(item.getLabel());
         viewHolder.tvMerchantAddress.setText(item.getAddress());
         //viewHolder.tvSum.setText("sum");
-//        if (item.getCurrent_balance() > 0) {
-//            viewHolder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
-//            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
-//            viewHolder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
-//        } else if (item.getCurrent_balance() < 0) {
-//            viewHolder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
-//            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
-//            viewHolder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
-//        } else {
-//            viewHolder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
-//            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
-//            viewHolder.tvSum.setTextColor(Color.parseColor("#737373"));
-//        }
+        if (item.getCurrent_balance() != null) {
+            if (item.getCurrent_balance() > 0) {
+                viewHolder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
+                viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
+                viewHolder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
+            } else if (item.getCurrent_balance() < 0) {
+                viewHolder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
+                viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
+                viewHolder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
+            } else {
+                viewHolder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
+                viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
+                viewHolder.tvSum.setTextColor(Color.parseColor("#737373"));
+            }
+        }else {
+            viewHolder.tvMerchantCurrentBalance.setText(String.valueOf(0));
+            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
+            viewHolder.tvSum.setTextColor(Color.parseColor("#737373"));
+        }
 
         if (merchants.get(viewHolder.getAdapterPosition()).getSizeWorkspaces() == 1) {
             viewHolder.tvSizeWorkspaces.setText("");
@@ -104,7 +110,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
             }
         });
 
-        if (!merchants.get(viewHolder.getAdapterPosition()).getInfos().isEmpty()){
+        if (!merchants.get(viewHolder.getAdapterPosition()).getInfos().isEmpty()) {
             boolean error = false;
             boolean send = false;
             boolean send_draft = false;
@@ -112,9 +118,8 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
             boolean save_pending = false;
 
 
-
-            for (InfoAction action :merchants.get(viewHolder.getAdapterPosition()).getInfos()) {
-                if (action.isError())error = true;
+            for (InfoAction action : merchants.get(viewHolder.getAdapterPosition()).getInfos()) {
+                if (action.isError()) error = true;
                 if (action.isSave()) save = true;
                 if (action.isSave_pending()) save_pending = true;
                 if (action.isSend()) send = true;
@@ -136,7 +141,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
             if (save_pending) viewHolder.info_save_pending.setVisibility(View.VISIBLE);
             else viewHolder.info_save_pending.setVisibility(View.GONE);
 
-        }else{
+        } else {
             viewHolder.info_send.setVisibility(View.GONE);
             viewHolder.info_send_draft.setVisibility(View.GONE);
             viewHolder.info_save_pending.setVisibility(View.GONE);

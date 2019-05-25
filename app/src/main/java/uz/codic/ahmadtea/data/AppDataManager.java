@@ -12,6 +12,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import uz.codic.ahmadtea.data.db.DbHelper;
+import uz.codic.ahmadtea.data.db.entities.ActiveStock;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
 import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
@@ -294,6 +295,11 @@ public class AppDataManager implements DataManager {
         return apiCentral.getMobileCurrentVersion();
     }
 
+    @Override
+    public Single<ApiObeject<ActiveStock>> requestGetActiveStocks(String token) {
+        return apiService.requestGetActiveStocks(token);
+    }
+
     /**
      * Database calls
      */
@@ -395,8 +401,8 @@ public class AppDataManager implements DataManager {
 
 
     @Override
-    public Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, String workspace_id) {
-        return dbHelper.daoAccess().getProductsWithValue(priceId, workspace_id);
+    public Single<List<ProductAndProductPrice>> getProductsWithValue(int priceId, String workspace_id, int warehouse_id) {
+        return dbHelper.daoAccess().getProductsWithValue(priceId, workspace_id, warehouse_id);
     }
 
     @Override
@@ -718,6 +724,11 @@ public class AppDataManager implements DataManager {
     @Override
     public List<PhysicalWareHouse> getPhysicalWareHouses() {
         return dbHelper.daoAccess().getPhysicalWareHouses();
+    }
+
+    @Override
+    public void insertActiveStocks(List<ActiveStock> activeStocks) {
+        dbHelper.daoAccess().insertActiveStocks(activeStocks);
     }
 
     // query error ^
