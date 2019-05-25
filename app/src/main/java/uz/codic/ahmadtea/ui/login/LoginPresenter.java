@@ -11,6 +11,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableSingleObserver;
 import io.reactivex.schedulers.Schedulers;
+import uz.codic.ahmadtea.data.db.entities.ActiveStock;
 import uz.codic.ahmadtea.data.db.entities.ErrorInfo;
 import uz.codic.ahmadtea.data.db.entities.MyWorkspace;
 import uz.codic.ahmadtea.data.db.entities.User;
@@ -290,9 +291,8 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                                     getDataManager().insertWorkspaceMerchant(apiObeject.getPayload().get(0).getWorkspaces_merchants());
                                     getDataManager().insertWorkspacePaymentType(apiObeject.getPayload().get(0).getWorkspaces_payment_types());
                                     //getMvpView().hideLoading();
-                                    getMvpView().changeProgressStatus("Please wait... Writing date to database", 100);
-                                    getMvpView().hideProgress();
-                                    getMvpView().dontStay();
+                                    getActiveStocks();
+
                                 } else {
                                     ErrorClass.log(apiObeject.getMeta().getMessage(), new Exception());
                                     getMvpView().showMessage(apiObeject.getMeta().getMessage());
@@ -313,6 +313,39 @@ public class LoginPresenter<V extends LoginMvpView> extends BasePresenter<V>
                             }
                         })
         );
+    }
+
+
+    private void getActiveStocks() {
+        getDataManager().requestGetActiveStocks(getDataManager().getToken())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<ApiObeject<ActiveStock>>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(ApiObeject<ActiveStock> apiObeject) {
+                        if (apiObeject.getMeta().getStatus() == 200 && apiObeject.getMeta().getPayload_count() > 0) {
+                            getDataManager().insertActiveStocks(apiObeject.getPayload());
+                            getMvpView().changeProgressStatus("Please wait... Writing date to database", 100);
+                            getMvpView().hideProgress();
+                            getMvpView().dontStay();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        ErrorClass.log(e.getMessage(), (Exception) e);
+                        e.printStackTrace();
+                        Log.d("baxtiyor", "onError: " + e.getMessage());
+                        getMvpView().showMessage(e.getMessage());
+                        getMvpView().hideLoading();
+                        getMvpView().showMessage(e.getMessage());
+                    }
+                });
     }
 
     @Override

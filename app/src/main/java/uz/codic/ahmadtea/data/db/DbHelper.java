@@ -6,6 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
 import uz.codic.ahmadtea.data.db.entities.ActiveActivity;
+import uz.codic.ahmadtea.data.db.entities.ActiveStock;
 import uz.codic.ahmadtea.data.db.entities.ActivityError;
 import uz.codic.ahmadtea.data.db.entities.Comment;
 import uz.codic.ahmadtea.data.db.entities.Currencies;
@@ -80,7 +81,8 @@ import uz.codic.ahmadtea.data.db.entities.WorkspacePrice;
                 ErrorInfo.class,
                 VisitPhoto.class,
                 PhysicalWareHouse.class,
-                WorkspacePhysicalWareHouse.class
+                WorkspacePhysicalWareHouse.class,
+                ActiveStock.class
 
 
 

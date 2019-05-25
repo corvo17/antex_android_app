@@ -9,7 +9,7 @@ import uz.codic.ahmadtea.ui.base.MvpPresenter;
 
 public interface ProductMvpPresenter<V extends ProductMvpView> extends MvpPresenter<V> {
 
-    void reqeustProductList(int priceId, String workspace_id);
+    void reqeustProductList(int priceId, String workspace_id, int warehouse_id);
 
 
 

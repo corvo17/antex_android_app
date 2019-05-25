@@ -61,6 +61,8 @@ public class ApiEndPoint {
 
     public static final String ERROR_SEND = "/log";
 
+    public static final String REQUEST_GET_ACTIVE_STOCKS = "/workspace_product_stock/all_warehouse";
+
     public static final String ENDPOINT_REQUEST_CENTRAL_CERVER = "/open/register/info";
 
 

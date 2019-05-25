@@ -16,6 +16,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
+import uz.codic.ahmadtea.data.db.entities.ActiveStock;
 import uz.codic.ahmadtea.data.db.entities.Merchant;
 import uz.codic.ahmadtea.data.db.entities.MyWorkspace;
 import uz.codic.ahmadtea.data.db.entities.NewMerchant;
@@ -115,6 +116,9 @@ public interface ApiService {
 
     @POST(ApiEndPoint.ERROR_SEND)
     Single<ApiObeject<ErrorObject>> sendError(@Header("X-Authorization")String token, @Body ErrorObject errorObject);
+
+    @GET(ApiEndPoint.REQUEST_GET_ACTIVE_STOCKS)
+    Single<ApiObeject<ActiveStock>> requestGetActiveStocks(@Header("X-Authorization")String token);
 
 
 

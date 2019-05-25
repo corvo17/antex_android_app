@@ -14,6 +14,9 @@ public class ProductAndProductPrice {
     @Embedded(prefix = "s_")
     Stocks stocks;
 
+    @Embedded(prefix = "as_")
+    ActiveStock activeStock;
+
     @Ignore
     int quantity;
 
@@ -73,5 +76,13 @@ public class ProductAndProductPrice {
 
     public void setCount(int count) {
         this.count = count;
+    }
+
+    public ActiveStock getActiveStock() {
+        return activeStock;
+    }
+
+    public void setActiveStock(ActiveStock activeStock) {
+        this.activeStock = activeStock;
     }
 }

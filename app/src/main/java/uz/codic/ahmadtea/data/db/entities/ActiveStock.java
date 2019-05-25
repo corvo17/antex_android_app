@@ -6,7 +6,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class ActiveStock {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     int id;
 
     String workspace_id;

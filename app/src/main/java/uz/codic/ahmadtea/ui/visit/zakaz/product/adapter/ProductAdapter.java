@@ -55,14 +55,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
             viewHolder.name.setText(item.getProduct().getLabel());
 
-            viewHolder.remaining.setText(CommonUtils.getFormattedNumber(item.getStocks().getTotal_count()));
+            viewHolder.remaining.setText(CommonUtils.getFormattedNumber(item.getActiveStock().getTotal_active_count()));
 //        viewHolder.remaining.setText(CommonUtils.getFormattedNumber(callback.getRemaing_amount(item.getProduct().getId(), item.getProduct().getCount_in_box())));
 
             viewHolder.pulus_box.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //try {
-                        if (item.getStocks().getTotal_count() >= (item.getCount_boxes() + 1) * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + item.getCount()) {
+                        if (item.getActiveStock().getTotal_active_count() >= (item.getCount_boxes() + 1) * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + item.getCount()) {
                             callback.changedBoxOrCount(1, viewHolder.getAdapterPosition(), item.getProduct().getId());
                             viewHolder.order_amount.setText(String.valueOf(item.getCount_boxes()+ 1));
 
@@ -85,7 +85,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
             viewHolder.pulus_count.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (item.getStocks().getTotal_count() >= (item.getCount_boxes() * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + item.getCount() + 1)) {
+                    if (item.getActiveStock().getTotal_active_count() >= (item.getCount_boxes() * products.get(viewHolder.getAdapterPosition()).getProduct().getCount_in_box() + item.getCount() + 1)) {
                         callback.changedBoxOrCount(2, viewHolder.getAdapterPosition(), item.getProduct().getId());
                         viewHolder.order_amount_count.setText(String.valueOf(item.getCount() + 1));
                     }

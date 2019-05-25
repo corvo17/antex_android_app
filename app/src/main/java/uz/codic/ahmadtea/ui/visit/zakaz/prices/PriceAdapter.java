@@ -51,9 +51,9 @@ public class PriceAdapter extends RecyclerView.Adapter<PriceAdapter.ViewHolder> 
         int position = viewHolder.getAdapterPosition();
         viewHolder.checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                if(lastCheckedPos >= 0){
+                if(lastCheckedPos >= 0 && lastCheckedPos != position){
                     priceList.get(lastCheckedPos).setChecked(false);
-                    notifyDataSetChanged();
+                    notifyItemChanged(lastCheckedPos);
                 }
                 priceList.get(position).setChecked(true);
                 lastCheckedPos = position;
