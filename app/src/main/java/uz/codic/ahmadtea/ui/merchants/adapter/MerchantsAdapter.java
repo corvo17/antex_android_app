@@ -41,20 +41,20 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.View
         Merchant item = merchants.get(viewHolder.getAdapterPosition()).getMerchant();
         viewHolder.tvMerchantName.setText(item.getLabel());
         viewHolder.tvMerchantAddress.setText(item.getAddress());
-        viewHolder.tvSum.setText("sum");
-        if (item.getCurrent_balance() > 0) {
-            viewHolder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
-            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
-            viewHolder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
-        } else if (item.getCurrent_balance() < 0) {
-            viewHolder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
-            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
-            viewHolder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
-        } else {
-            viewHolder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
-            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
-            viewHolder.tvSum.setTextColor(Color.parseColor("#737373"));
-        }
+        //viewHolder.tvSum.setText("sum");
+//        if (item.getCurrent_balance() > 0) {
+//            viewHolder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
+//            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
+//            viewHolder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
+//        } else if (item.getCurrent_balance() < 0) {
+//            viewHolder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
+//            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
+//            viewHolder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
+//        } else {
+//            viewHolder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
+//            viewHolder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
+//            viewHolder.tvSum.setTextColor(Color.parseColor("#737373"));
+//        }
 
         if (merchants.get(viewHolder.getAdapterPosition()).getSizeWorkspaces() == 1) {
             viewHolder.tvSizeWorkspaces.setText("");

@@ -51,20 +51,20 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
         holder.address.setText(item.getAddress());
         holder.name.setText(item.getLabel());
 
-        holder.tvSum.setText("sum");
-        if (item.getCurrent_balance() > 0) {
-            holder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
-            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
-            holder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
-        } else if (item.getCurrent_balance() < 0) {
-            holder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
-            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
-            holder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
-        } else {
-            holder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
-            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
-            holder.tvSum.setTextColor(Color.parseColor("#737373"));
-        }
+       // holder.tvSum.setText("sum");
+//        if (item.getCurrent_balance() > 0) {
+//            holder.tvMerchantCurrentBalance.setText(CommonUtils.getFormattedNumber(item.getCurrent_balance()));
+//            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#A5D6A7"));
+//            holder.tvSum.setTextColor(Color.parseColor("#A5D6A7"));
+//        } else if (item.getCurrent_balance() < 0) {
+//            holder.tvMerchantCurrentBalance.setText("-" + CommonUtils.getFormattedNumber(item.getCurrent_balance() * (-1)));
+//            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#EF9A9A"));
+//            holder.tvSum.setTextColor(Color.parseColor("#EF9A9A"));
+//        } else {
+//            holder.tvMerchantCurrentBalance.setText(String.valueOf(item.getCurrent_balance()));
+//            holder.tvMerchantCurrentBalance.setTextColor(Color.parseColor("#737373"));
+//            holder.tvSum.setTextColor(Color.parseColor("#737373"));
+//        }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
